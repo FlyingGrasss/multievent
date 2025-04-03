@@ -18,10 +18,10 @@ export default async function Home() {
     <HomeLayout>
       <div>
       <div className="mt-16 ml-8 max-sm:mt-12 max-sm:ml-4">
-          <h1 className="text-5xl max-sm:text-[36px] max-sm:leading-12 font-extralight">We provide</h1>
-          <h1 className="text-6xl max-sm:text-[40px] max-sm:leading-12 italic text-accent font-bold">Live Music</h1>
-          <h1 className="text-5xl max-sm:text-[32px] max-sm:leading-10 font-extralight">with our</h1>
-          <h1 className="text-5xl max-sm:text-[36px] max-sm:leading-12 italic text-accent font-bold">outstanding team</h1>
+          <h2 className="text-5xl max-sm:text-[36px] max-sm:leading-12 font-extralight">We provide</h2>
+          <h2 className="text-6xl max-sm:text-[40px] max-sm:leading-12 italic text-accent font-bold">Live Music</h2>
+          <h2 className="text-5xl max-sm:text-[32px] max-sm:leading-10 font-extralight">with our</h2>
+          <h2 className="text-5xl max-sm:text-[36px] max-sm:leading-12 italic text-accent font-bold">outstanding team</h2>
         </div>
         
         <div className="my-12 ml-8 max-sm:my-8 max-sm:ml-4">
@@ -46,21 +46,21 @@ export default async function Home() {
 
         <div className="my-12 ml-8 max-sm:ml-4 max-sm:my-8 flex justify-evenly max-sm:gap-12 items-start">
           <div>
-            <h1 className="text-white font-bold max-sm:text-3xl text-5xl">50+</h1>
+            <h2 className="text-white font-bold max-sm:text-3xl text-5xl">50+</h2>
             <h2 className="text-text-secondary max-sm:text-base text-2xl">Musicians</h2>
           </div>
           <div>
-            <h1 className="text-white font-bold max-sm:text-3xl text-5xl">250+</h1>
+            <h2 className="text-white font-bold max-sm:text-3xl text-5xl">250+</h2>
             <h2 className="text-text-secondary max-sm:text-base text-2xl">Events</h2>
           </div>
           <div>
-            <h1 className="text-white font-bold max-sm:text-3xl text-5xl">10+</h1>
+            <h2 className="text-white font-bold max-sm:text-3xl text-5xl">10+</h2>
             <h2 className="text-text-secondary max-sm:text-base text-2xl">Years of <br /> Experience</h2>
           </div>
         </div>
 
         <div className="mx-auto">
-          <h1 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Meet Our Team</h1>
+          <h2 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Meet Our Team</h2>
 
           {/* Desktop: 3 artists */}
           <div className="hidden sm:grid mx-auto grid-cols-3 gap-16 mt-16 ">

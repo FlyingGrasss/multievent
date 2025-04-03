@@ -4,6 +4,7 @@ import HomeLayout from "@/app/HomeLayout";
 import Image from "next/image";
 import { useRef, useState, FormEvent } from 'react';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
+import Script from 'next/script';
 
 
 
@@ -162,6 +163,40 @@ export default function Contact() {
           </form>
         </div>
       </div>
+
+
+
+      <Script id="local-business-schema" type="application/ld+json">
+        {JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Multi Event",
+          "image": "https://yourdomain.com/logo.jpg",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Yokuşbaşı Mah. Kıbrıs Şehitleri Cad.No:1/C",
+            "addressLocality": "Bodrum",
+            "addressRegion": "MUĞLA",
+            "postalCode": "48400",
+            "addressCountry": "TR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "37.0344",
+            "longitude": "27.4305"
+          },
+          "url": "https://yourdomain.com",
+          "telephone": "+905309576977",
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "09:00",
+            "closes": "18:00"
+          },
+          "priceRange": "$$" // Add if applicable
+        })}
+      </Script>
+      
     </HomeLayout>
   );
 }

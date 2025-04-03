@@ -3,7 +3,8 @@ import "@/app/globals.css";
 
 
 
-export const metadata = {
+
+export const metadata : Metadata = {
   title: "Multi Event | Premium Event Services in Bodrum",
   description: "Professional event planning, equipment rental, and production services in Bodrum. Contact us at +90 530 957 69 77",
   keywords: ["event planning", "Bodrum events", "party rental", "AV equipment"],
@@ -29,6 +30,7 @@ export const metadata = {
     images: ["https://multievent.org/logo.svg"],
   },
 };
+
 
 export default function RootLayout({
   children,

@@ -35,7 +35,7 @@ export default function Contact() {
       process.env.NEXT_PUBLIC_EMAILJS_USER_ID || 'CpZZc9RR-eMN08txf'
     )
     .then((result: EmailJSResponseStatus) => {
-      console.log('Email successfully sent:', result.text);
+      console.log('Email successfully  sent:', result.text);
       setMessage({ text: 'Message sent successfully!', type: 'success' });
       if (formRef.current) {
         formRef.current.reset();

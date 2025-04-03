@@ -15,7 +15,7 @@ export const metadata : Metadata = {
     siteName: "Multi Event",
     images: [
       {
-        url: "https://multievent.org/logo.svg",
+        url: "https://multievent.org/logo.jpg",
         width: 630,
         height: 630,
       },
@@ -27,7 +27,7 @@ export const metadata : Metadata = {
     card: "summary_large_image",
     title: "Multi Event | Premium Event Services in Bodrum",
     description: "Professional event services in Bodrum",
-    images: ["https://multievent.org/logo.svg"],
+    images: ["https://multievent.org/logo.jpg"],
   },
 };
 

@@ -1,103 +1,103 @@
 import Image from "next/image";
+import Link from "next/link";
+import HomeLayout from "@/app/HomeLayout"
+import Card from "@/components/Card";
+import { ARTISTS_QUERY } from "@/sanity/lib/queries";
+import { client } from "@/sanity/lib/client";
+import { ArtistType } from "@/types";
 
-export default function Home() {
+export default async function Home() {
+  const allArtists = await client.fetch(ARTISTS_QUERY);
+  
+  // Shuffle array and pick first 3 (desktop) or 4 (mobile)
+  const shuffledArtists = [...allArtists].sort(() => 0.5 - Math.random());
+  const desktopArtists = shuffledArtists.slice(0, 3);
+  const mobileArtists = shuffledArtists.slice(0, 4);
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <HomeLayout>
+      <div>
+      <div className="mt-16 ml-8 max-sm:mt-12 max-sm:ml-4">
+          <h1 className="text-5xl max-sm:text-[36px] max-sm:leading-12 font-extralight">We provide</h1>
+          <h1 className="text-6xl max-sm:text-[40px] max-sm:leading-12 italic text-accent font-bold">Live Music</h1>
+          <h1 className="text-5xl max-sm:text-[32px] max-sm:leading-10 font-extralight">with our</h1>
+          <h1 className="text-5xl max-sm:text-[36px] max-sm:leading-12 italic text-accent font-bold">outstanding team</h1>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+        
+        <div className="my-12 ml-8 max-sm:my-8 max-sm:ml-4">
+          <p className="text-text-secondary max-sm:text-base font-bold italic text-2xl">
+            Experience unforgettable <br />
+            events crafted by industry leaders.
+          </p>
+        </div>
+
+        <Link href="/contact">
+          <button className="group ml-8 max-sm:ml-4 max-sm:text-base hover:text-accent text-xl cursor-pointer items-center transition-colors justify-center gap-4 max-sm:gap-2 inline-flex bg-[#0C0C0C] rounded-full px-8 max-sm:px-6 py-4">
+            Contact us 
+            <Image 
+              src="/arrow.svg" 
+              width={20} 
+              height={16} 
+              alt=""
+              className="transition-transform duration-400 max-sm:w-[15px] h-auto group-hover:translate-x-2"
+            />
+          </button>
+        </Link>
+
+        <div className="my-12 ml-8 max-sm:ml-4 max-sm:my-8 flex justify-evenly max-sm:gap-12 items-start">
+          <div>
+            <h1 className="text-white font-bold max-sm:text-3xl text-5xl">50+</h1>
+            <h2 className="text-text-secondary max-sm:text-base text-2xl">Musicians</h2>
+          </div>
+          <div>
+            <h1 className="text-white font-bold max-sm:text-3xl text-5xl">250+</h1>
+            <h2 className="text-text-secondary max-sm:text-base text-2xl">Events</h2>
+          </div>
+          <div>
+            <h1 className="text-white font-bold max-sm:text-3xl text-5xl">10+</h1>
+            <h2 className="text-text-secondary max-sm:text-base text-2xl">Years of <br /> Experience</h2>
+          </div>
+        </div>
+
+        <div className="mx-auto">
+          <h1 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Meet Our Team</h1>
+
+          {/* Desktop: 3 artists */}
+          <div className="hidden sm:grid mx-auto grid-cols-3 gap-16 mt-16 ">
+            {desktopArtists.map((artist: ArtistType) => (
+              <Card 
+                key={artist.name}
+                imageUrl={artist.imageUrl}
+                artistName={artist.name}
+              />
+            ))}
+          </div>
+
+          {/* Mobile: 4 artists */}
+          <div className="sm:hidden grid mx-auto grid-cols-2 gap-6 px-4 mt-12 max-sm:mt-6">
+            {mobileArtists.map((artist: ArtistType) => (
+              <Card 
+                key={artist.name}
+                imageUrl={artist.imageUrl}
+                artistName={artist.name}
+              />
+            ))}
+          </div>
+
+          <Link href="/team">
+          <button className="group ml-8 my-16 max-sm:my-12 max-sm:ml-4 max-sm:text-base hover:text-accent text-xl cursor-pointer items-center transition-colors justify-center gap-4 max-sm:gap-2 inline-flex bg-[#0C0C0C] rounded-full px-8 max-sm:px-6 py-4">
+            See all
+            <Image 
+              src="/arrow.svg" 
+              width={20} 
+              height={16} 
+              alt=""
+              className="transition-transform duration-400 max-sm:w-[15px] h-auto group-hover:translate-x-2"
+            />
+          </button>
+        </Link>
+        </div>
+      </div>
+    </HomeLayout>
   );
 }

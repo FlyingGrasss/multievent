@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
+import AOSProvider from "@/components/AOSProvider";
 
 
 
@@ -75,8 +76,9 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en">
+    <html className="overflow-x-hidden" lang="en">
       <body>
+        <AOSProvider />
         {children}
       </body>
     </html>

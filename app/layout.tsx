@@ -76,8 +76,8 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html className="overflow-x-hidden" lang="en">
-      <body>
+    <html className="overflow-x-hidden max-w-screen" lang="en">
+      <body className="overflow-x-hidden max-w-screen">
         <AOSProvider />
         {children}
       </body>

@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const Card = ({ imageUrl, artistName }: { imageUrl: string, artistName: string }) => {
   return (
-    <div className="relative group w-[170px] mx-8 max-sm:mx-4 transition duration-300 sm:w-[340px] rounded-3xl aspect-square overflow-hidden">
+    <div className="relative group w-[170px] transition duration-300 sm:w-[340px] rounded-3xl aspect-square overflow-hidden">
       {/* Image with optimized loading */}
       <Image 
         src={`${imageUrl}?auto=format`} // Sanity image optimization

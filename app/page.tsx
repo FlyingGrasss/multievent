@@ -134,11 +134,13 @@ export default async function Home() {
             <div className="block mx-auto max-sm:gap-6 max-sm:mt-6 gap-16 mt-16 ">
               <Marquee speed={50}>
                 {allArtists.map((artist: ArtistType) => (
-                  <Card
-                    key={artist.name}
-                    imageUrl={artist.imageUrl}
-                    artistName={artist.name}
-                  />
+                  <div className="mx-8 max-sm:mx-4" key={artist.name}>
+                    <Card
+                      key={artist.name}
+                      imageUrl={artist.imageUrl}
+                      artistName={artist.name}
+                    />
+                  </div>
                 ))}
               </Marquee>
             </div>
@@ -168,11 +170,13 @@ export default async function Home() {
             <div className="block mx-auto max-sm:gap-6 max-sm:mt-6 gap-16 mt-16 ">
               <Marquee speed={50}>
                 {allArtists.map((artist: ArtistType) => (
-                  <Card
-                    key={artist.name}
-                    imageUrl={artist.imageUrl}
-                    artistName={artist.name}
-                  />
+                  <div className="mx-8 max-sm:mx-4" key={artist.name}>
+                    <Card
+                      key={artist.name}
+                      imageUrl={artist.imageUrl}
+                      artistName={artist.name}
+                    />
+                  </div>
                 ))}
               </Marquee>
             </div>

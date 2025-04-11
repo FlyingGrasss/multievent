@@ -19,6 +19,12 @@ export const artist = defineType({
         hotspot: true // Still enable smart cropping
       },
       validation: (Rule) => Rule.required()
-    })
+    }),
+    defineField({
+      name: 'link',
+      type: 'url',
+      title: 'Link',
+      validation: (Rule) => Rule.required()
+    }),
   ]
 })

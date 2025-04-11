@@ -4,7 +4,7 @@ import Link from "next/link";
 const Footer = () => {
   const currentYear = new Date().getFullYear();
   const socialLinks = [
-    { name: "Instagram", icon: "/instagram.svg", url: "#" },
+    { name: "Instagram", icon: "/instagram.svg", url: "https://www.instagram.com/multieventorg?utm_source=qr&igsh=MTlsc2o0bHhmdHRucg==" },
     { name: "Facebook", icon: "/facebook.svg", url: "#" }
   ];
 
@@ -20,11 +20,13 @@ const Footer = () => {
             </h2>
             <div className="flex gap-6 max-sm:gap-4">
               {socialLinks.map((social) => (
-                <Link 
+                <a 
                   key={social.name}
                   href={social.url}
                   aria-label={`${social.name} link`}
                   className="hover:opacity-80 transition-opacity"
+                  target="_blank"
+                  rel="noopener noreferrer"
                 >
                   <Image 
                     src={social.icon}
@@ -33,7 +35,7 @@ const Footer = () => {
                     alt=""
                     className="w-10 h-10 max-sm:w-8 max-sm:h-8"
                   />
-                </Link>
+                </a>
               ))}
             </div>
           </div>

@@ -67,9 +67,9 @@ const Navbar = () => {
             href="/team" 
             className="text-2xl py-4 border-b border-[#2A2A2A] hover:text-accent transition-colors"
             onClick={() => setIsOpen(false)}
-            aria-label="Our Team"
+            aria-label="Sanatçılarımız"
           >
-            Our Team
+            Sanatçılarımız
           </Link>
           <Link 
             href="/services" 

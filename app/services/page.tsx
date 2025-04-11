@@ -7,25 +7,25 @@ export default function Team() {
         <h1 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Our Services</h1>
 
         <ul className="mt-12 max-w-2xl mx-auto space-y-4 text-xl max-sm:text-lg">
-          <li className="p-4 bg-[#121212] rounded-lg border border-accent">
+          <li className="p-4 bg-[#121212] rounded-lg max-sm:max-w-[80%] border border-accent">
             🎤 Wedding Organizations
           </li>
-          <li className="p-4 bg-[#121212] rounded-lg border border-accent">
+          <li className="p-4 bg-[#121212] rounded-lg max-sm:max-w-[80%] border border-accent">
             🎶 Live Music Performances
           </li>
-          <li className="p-4 bg-[#121212] rounded-lg border border-accent">
+          <li className="p-4 bg-[#121212] rounded-lg max-sm:max-w-[80%] border border-accent">
             🎭 Corporate Event Planning
           </li>
-          <li className="p-4 bg-[#121212] rounded-lg border border-accent">
+          <li className="p-4 bg-[#121212] rounded-lg max-sm:max-w-[80%] border border-accent">
             🎧 Sound System Rentals
           </li>
-          <li className="p-4 bg-[#121212] rounded-lg border border-accent">
+          <li className="p-4 bg-[#121212] rounded-lg max-sm:max-w-[80%] border border-accent">
             💡 Lighting & Stage Design
           </li>
-          <li className="p-4 bg-[#121212] rounded-lg border border-accent">
+          <li className="p-4 bg-[#121212] rounded-lg max-sm:max-w-[80%] border border-accent">
             🎨 Event Branding & Marketing
           </li>
-          <li className="p-4 bg-[#121212] rounded-lg border border-accent">
+          <li className="p-4 bg-[#121212] rounded-lg max-sm:max-w-[80%] border border-accent">
             🍾 VIP Hospitality Services
           </li>
         </ul>

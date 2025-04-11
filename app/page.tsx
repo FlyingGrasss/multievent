@@ -1,3 +1,5 @@
+export const revalidate = 300; 
+
 import Image from "next/image";
 import Link from "next/link";
 import HomeLayout from "@/app/HomeLayout"
@@ -128,15 +130,15 @@ export default async function Home() {
 
         <div className="mx-auto sm:hidden">
           <AOSWrapper animation="fade-up" delay={1900}>
-            <h2 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Meet Our Team</h2>
+            <h2 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Sanatçılarımız</h2>
           </AOSWrapper>
           <AOSWrapper animation="fade-up" delay={2100}>
             <div className="block mx-auto max-sm:gap-6 max-sm:mt-6 gap-16 mt-16 ">
-              <Marquee speed={50}>
-                {allArtists.map((artist: ArtistType) => (
-                  <div className="mx-8 max-sm:mx-4" key={artist.name}>
+              <Marquee speed={50} key={"idk"}>
+                {allArtists.map((artist: ArtistType, index: number) => (
+                  <div className="mx-8 max-sm:mx-4" key={index}>
                     <Card
-                      key={artist.name}
+                      key={index}
                       imageUrl={artist.imageUrl}
                       artistName={artist.name}
                     />
@@ -164,15 +166,15 @@ export default async function Home() {
 
         <div className="mx-auto max-sm:hidden">
           <AOSWrapper animation="fade-up" offset={100}>
-            <h2 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Meet Our Team</h2>
+            <h2 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Sanatçılarımız</h2>
           </AOSWrapper>
           <AOSWrapper animation="fade-up" offset={300}>
             <div className="block mx-auto max-sm:gap-6 max-sm:mt-6 gap-16 mt-16 ">
-              <Marquee speed={50}>
-                {allArtists.map((artist: ArtistType) => (
-                  <div className="mx-8 max-sm:mx-4" key={artist.name}>
+              <Marquee speed={50} key={"idfk"}>
+                {allArtists.map((artist: ArtistType, index: number) => (
+                  <div className="mx-8 max-sm:mx-4" key={index}>
                     <Card
-                      key={artist.name}
+                      key={index}
                       imageUrl={artist.imageUrl}
                       artistName={artist.name}
                     />

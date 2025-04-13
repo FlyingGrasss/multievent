@@ -11,7 +11,7 @@ const Mont = Montserrat({
 
 
 export const metadata: Metadata = {
-  title: "Multi Event | Home",
+  title: "Multi Event",
   description: "We provide Live Music with our outstanding team",
 };
 

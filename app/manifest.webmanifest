@@ -1,0 +1,14 @@
+{
+
+  "name": "Multi Event | Premium Event Services in Bodrum",
+  "short_name": "Multi Event",
+  "description": "Professional event services in Bodrum - Equipment rental, production, and planning",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/apple-icon.png",
+      "sizes": "180x177",
+      "type": "image/png"
+    }
+  ]
+}

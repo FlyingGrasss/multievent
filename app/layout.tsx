@@ -70,7 +70,7 @@ export const metadata: Metadata = {
       noimageindex: false,
     },
   },
-  manifest: "/site.webmanifest" // Create this file
+  manifest: "/manifest.webmanifest" // Create this file
 };
 
 export default function RootLayout({
@@ -79,9 +79,9 @@ export default function RootLayout({
   return (
     <html className="overflow-x-hidden max-w-screen" lang="en">
       <head>
-        <link rel="icon" href="/favicon.ico?v=2" sizes="any" /> 
-        <link rel="icon" href="/favicon-32x32.png?v=2" type="image/png" sizes="32x32" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+        <link rel="icon" href="/favicon.ico" sizes="any" /> 
+        <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
+        <link rel="apple-touch-icon" href="/apple-icon.png" />
         <meta name="theme-color" content="#0C0C0C" /> 
       </head>
       <body className="overflow-x-hidden max-w-screen">

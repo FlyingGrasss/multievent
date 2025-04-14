@@ -1,9 +1,8 @@
 export type ArtistType = {
+  id: number;
   name: string;
   imageUrl: string;
   link: string;
-  // Optional fields you might add later:
-  id?: string;
   lqip?: string; // For blur placeholders
   dimensions?: {
     width: number;

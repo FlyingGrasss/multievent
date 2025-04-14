@@ -2,7 +2,7 @@ import Image from "next/image"
 
 const Card = ({ imageUrl, artistName }: { imageUrl: string, artistName: string }) => {
   return (
-    <div className="relative group w-[170px] transition duration-300 sm:w-[340px] rounded-3xl aspect-square overflow-hidden">
+    <div className="relative group w-[170px] border-2 border-accent transition duration-300 sm:w-[340px] rounded-3xl aspect-square overflow-hidden">
       {/* Image with optimized loading */}
       <Image 
         src={`${imageUrl}?auto=format`} // Sanity image optimization
@@ -10,7 +10,7 @@ const Card = ({ imageUrl, artistName }: { imageUrl: string, artistName: string }
         width={340}  // Desktop size (2x for retina)
         height={340} // Desktop size
         sizes="(max-width: 639px) 170px, 340px" // Exact pixel control
-        className="object-cover rounded-3xl border-2 border-accent transition-transform duration-500 "
+        className="object-cover rounded-3xl transition-transform duration-500 "
       />
       
       {/* Artist name overlay */}

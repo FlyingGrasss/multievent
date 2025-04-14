@@ -6,6 +6,12 @@ export const artist = defineType({
   type: 'document',
   fields: [
     defineField({
+      name: 'id',
+      type: 'number',
+      title: 'Artist ID (order)',
+      validation: (Rule) => Rule.required()
+    }),
+    defineField({
       name: 'name',
       type: 'string',
       title: 'Artist Name',

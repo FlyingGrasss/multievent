@@ -1,6 +1,6 @@
 import HomeLayout from "@/app/HomeLayout";
 
-export default function Team() {
+export default function Services() {
   return (
     <HomeLayout>    
       <div className="mx-auto pb-20 max-sm:pb-12">

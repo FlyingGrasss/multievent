@@ -8,7 +8,7 @@ import { ArtistType } from "@/types";
 
 export default async function Team() {
   const allArtists = await client.fetch(ARTISTS_QUERY);
-  
+
   return (
     <HomeLayout>    
       <div className="mx-auto pb-20 max-sm:pb-12">

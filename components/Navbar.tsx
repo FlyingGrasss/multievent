@@ -2,10 +2,18 @@
 
 import Image from "next/image"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { useState } from "react"
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false)
+
+  const pathname = usePathname()
+
+  // Don't show navbar on studio routes
+  if (pathname?.startsWith('/studio')) {
+    return null;
+  }
 
   return (
     <div className="bg-[#121212] text-white w-full h-20 flex items-center justify-between px-4 relative">
@@ -20,10 +28,10 @@ const Navbar = () => {
         />
       </Link>
 
-      <h1 className="max-sm:text-[24px] text-3xl leading-[25px] mt-2 max-sm:leading-[20px] font-medium text-center">
+      <h1 className="max-sm:text-[24px] text-3xl leading-[25px] mt-2 max-sm:leading-5 font-medium text-center">
         MULTİ <span className="pl-2">EVENT </span>
         <br /> 
-        <span className="max-sm:text-[14px] text-xl font-extralight max-sm:leading-[20px] tracking-widest italic">
+        <span className="max-sm:text-[14px] text-xl font-extralight max-sm:leading-5 tracking-widest italic">
           ORGANİZASYON
         </span>
       </h1>

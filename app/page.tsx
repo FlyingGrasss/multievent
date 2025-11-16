@@ -2,7 +2,6 @@ export const revalidate = 300;
 
 import Image from "next/image";
 import Link from "next/link";
-import HomeLayout from "@/app/HomeLayout"
 import Card from "@/components/Card";
 import { ARTISTS_QUERY } from "@/sanity/lib/queries";
 import { client } from "@/sanity/lib/client";
@@ -15,7 +14,7 @@ export default async function Home() {
   const allArtists = await client.fetch(ARTISTS_QUERY);
   
   return (
-    <HomeLayout>
+    <>
       <div>
       <div className="mt-16 ml-8 max-sm:mt-12 max-sm:ml-4">
           <AOSWrapper animation="fade-left" delay={100}>
@@ -201,6 +200,6 @@ export default async function Home() {
         </div>
         
       </div>
-    </HomeLayout>
+    </>
   );
 }

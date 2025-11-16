@@ -1,7 +1,18 @@
+"use client"
+
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 const Footer = () => {
+
+  const pathname = usePathname()
+  
+  // Don't show footer on studio routes
+  if (pathname?.startsWith('/studio')) {
+    return null;
+  }
+
   const currentYear = new Date().getFullYear();
   const socialLinks = [
     { name: "Instagram", icon: "/instagram.svg", url: "https://www.instagram.com/multieventorg?utm_source=qr&igsh=MTlsc2o0bHhmdHRucg==" },

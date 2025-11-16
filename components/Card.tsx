@@ -14,7 +14,7 @@ const Card = ({ imageUrl, artistName }: { imageUrl: string, artistName: string }
       />
       
       {/* Artist name overlay */}
-      <div className="absolute inset-0 flex bg-gradient-to-t from-black/80 to-transparent items-end p-4">
+      <div className="absolute inset-0 flex bg-linear-to-t from-black/80 to-transparent items-end p-4">
         <h1 className="text-white text-2xl max-sm:text-base font-medium w-full text-center">
           {artistName}
         </h1>

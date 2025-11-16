@@ -1,6 +1,5 @@
 'use client'; // Mark as client component
 
-import HomeLayout from "@/app/HomeLayout";
 import Image from "next/image";
 import { useRef, useState, FormEvent } from 'react';
 import emailjs, { EmailJSResponseStatus } from 'emailjs-com';
@@ -50,7 +49,7 @@ export default function Contact() {
   };
 
   return (
-    <HomeLayout>
+    <>
       <div className="mx-auto pb-12 sm:pb-20 px-4 max-w-4xl">
         <h1 className="text-4xl sm:text-6xl mt-12 sm:mt-16 text-center font-bold">Contact Us</h1>
 
@@ -197,6 +196,6 @@ export default function Contact() {
         })}
       </Script>
       
-    </HomeLayout>
+    </>
   );
 }

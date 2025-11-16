@@ -1,7 +1,15 @@
 import type { Metadata } from "next";
 import "@/app/globals.css";
 import AOSProvider from "@/components/AOSProvider";
+import { Montserrat } from "next/font/google";
+import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 
+const Mont = Montserrat({
+  variable: "--font-montserrat",
+  subsets: ["latin"],
+});
 
 
 
@@ -84,9 +92,13 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/apple-icon.png" />
         <meta name="theme-color" content="#0C0C0C" /> 
       </head>
-      <body className="overflow-x-hidden max-w-screen">
+      <body className={`overflow-x-hidden max-w-screen ${Mont.variable} from-[#0C0C0C] to-[#1A1A2E] antialiased`}>
         <AOSProvider />
-        {children}
+        <div className="min-h-screen">
+          <Navbar />
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   );

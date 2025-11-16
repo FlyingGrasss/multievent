@@ -1,8 +1,7 @@
-import HomeLayout from "@/app/HomeLayout";
 
 export default function Services() {
   return (
-    <HomeLayout>    
+    <>    
       <div className="mx-auto pb-20 max-sm:pb-12">
         <h1 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Our Services</h1>
 
@@ -31,6 +30,6 @@ export default function Services() {
         </ul>
         
       </div>
-    </HomeLayout>
+    </>
   );
 }

@@ -87,8 +87,7 @@ export default function Contact() {
             </div>
             <h3 className="text-base sm:text-xl font-medium mb-1 sm:mb-2">Location</h3>
             <address className="not-italic text-sm sm:text-base">
-              Yokuşbaşı Mah. Kıbrıs Şehitleri<br />
-              Cad.No:1/C Bodrum
+              Konacık Mahallesi Atatürk Bulvarı Pamir İş Merkezi No: 114-C Daire No: 8 Bodrum/Muğla
             </address>
           </div>
         </div>
@@ -170,10 +169,10 @@ export default function Contact() {
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
           "name": "Multi Event",
-          "image": "https://yourdomain.com/logo.jpg",
+          "image": "https://yourdomain.com/logo.jpeg",
           "address": {
             "@type": "PostalAddress",
-            "streetAddress": "Yokuşbaşı Mah. Kıbrıs Şehitleri Cad.No:1/C",
+            "streetAddress": "Konacık Mahallesi Atatürk Bulvarı Pamir İş Merkezi No: 114-C Daire No: 8 Bodrum/Muğla",
             "addressLocality": "Bodrum",
             "addressRegion": "MUĞLA",
             "postalCode": "48400",

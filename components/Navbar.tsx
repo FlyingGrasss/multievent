@@ -16,10 +16,10 @@ const Navbar = () => {
   }
 
   return (
-    <div className="bg-[#121212] text-white w-full h-20 flex items-center justify-between px-4 relative">
+    <div className="bg-linear-to-b from-[#2e2d2c] to-[#121315] text-white w-full h-20 flex items-center justify-between px-4 relative">
       <Link href="/" className="w-fit" aria-label="Home">
         <Image 
-          src="/logo.svg"
+          src="/logo.jpeg"
           width={60}
           height={59} 
           alt="Multi Event Logo"
@@ -29,7 +29,7 @@ const Navbar = () => {
       </Link>
 
       <h1 className="max-sm:text-[24px] text-3xl leading-[25px] mt-2 max-sm:leading-5 font-medium text-center">
-        MULTİ <span className="pl-2">EVENT </span>
+        MULTI <span className="pl-2">EVENT </span>
         <br /> 
         <span className="max-sm:text-[14px] text-xl font-extralight max-sm:leading-5 tracking-widest italic">
           ORGANİZASYON

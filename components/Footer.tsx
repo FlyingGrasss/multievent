@@ -112,7 +112,7 @@ const Footer = () => {
               className="max-sm:w-6 max-sm:h-6"
             />
             <address className="not-italic sm:text-base max-sm:text-start max-sm:text-xs">
-              Yokuşbaşı Mah. Kıbrıs Şehitleri Cad.No:1/C Bodrum
+              Konacık Mahallesi Atatürk Bulvarı Pamir İş Merkezi <br className="sm:hidden" /> No: 114-C Daire No: 8 Bodrum/Muğla
             </address>
           </div>
           <p className="text-xl font-bold max-sm:text-base">Multi Event © {currentYear}</p>

@@ -41,7 +41,7 @@ export const metadata: Metadata = {
     siteName: "Multi Event",
     images: [
       {
-        url: "https://multievent.org/logo.jpg", // Recommended: JPG format
+        url: "https://multievent.org/logo.jpeg", // Recommended: JPG format
         width: 1200, // Ideal width
         height: 630, // Ideal ratio (1.91:1)
         alt: "Multi Event - Professional event services in Bodrum",
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Multi Event | Premium Event Services in Bodrum",
     description: "Professional event services in Bodrum - Equipment rental, production, and planning",
-    images: ["https://multievent.org/logo.jpg"], // Same as OG image
+    images: ["https://multievent.org/logo.jpeg"], // Same as OG image
     creator: "@multievent", // Your Twitter handle (if available)
   },
 

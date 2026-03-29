@@ -1,4 +1,4 @@
-export const revalidate = 300; 
+export const revalidate = 3000; 
 
 import Image from "next/image";
 import Link from "next/link";
@@ -14,8 +14,7 @@ export default async function Home() {
   const allArtists = await client.fetch(ARTISTS_QUERY);
   
   return (
-    <>
-      <div>
+    <main>
       <div className="mt-16 ml-8 max-sm:mt-12 max-sm:ml-4">
           <AOSWrapper animation="fade-left" delay={100}>
             <h2 className="text-5xl max-sm:text-[36px] max-sm:leading-12 font-extralight">We provide</h2>
@@ -199,7 +198,6 @@ export default async function Home() {
 
         </div>
         
-      </div>
-    </>
+    </main>
   );
 }

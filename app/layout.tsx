@@ -1,16 +1,16 @@
 import type { Metadata } from "next";
-import "@/app/globals.css";
 import AOSProvider from "@/components/AOSProvider";
 import { Montserrat } from "next/font/google";
-import "./globals.css";
+import "./globals.css?inline";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const Mont = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
+  display: 'swap', // Add this
+  preload: true,
 });
-
 
 
 

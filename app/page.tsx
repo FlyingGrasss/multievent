@@ -10,9 +10,14 @@ import { getArtists } from "@/lib/content";
 export const revalidate = 300;
 
 export const metadata: Metadata = {
-  title: "Bodrum Etkinlik Organizasyon | Multi Event",
+  title: "Bodrum Etkinlik Organizasyon",
   description: "Bodrum etkinlik organizasyon, düğün ve canlı müzik hizmetleri. Multi Event ile etkinliğinizi planlayın.",
   alternates: { canonical: "/" },
+  openGraph: {
+    title: "Bodrum Etkinlik Organizasyon | Multi Event",
+    description: "Bodrum'da düğün, canlı müzik ve kurumsal etkinlik organizasyonu.",
+    url: "/",
+  },
 };
 
 export default async function Home() {

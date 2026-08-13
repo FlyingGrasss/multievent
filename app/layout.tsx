@@ -13,7 +13,7 @@ const montserrat = Montserrat({
   preload: true,
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://multievent.org";
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.multievent.org";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -25,10 +25,7 @@ export const metadata: Metadata = {
   keywords: ["Bodrum etkinlik organizasyon", "Bodrum düğün organizasyonu", "Bodrum canlı müzik", "etkinlik prodüksiyon", "ses ışık kiralama"],
   authors: [{ name: "Multi Event" }],
   creator: "Multi Event",
-  alternates: {
-    canonical: "/",
-    languages: { tr: "/", en: "/?lang=en" },
-  },
+  alternates: { canonical: "/" },
   openGraph: {
     type: "website",
     locale: "tr_TR",
@@ -37,7 +34,7 @@ export const metadata: Metadata = {
     siteName: "Multi Event",
     title: "Multi Event | Bodrum Etkinlik Organizasyon",
     description: "Bodrum'da düğün, canlı müzik ve kurumsal etkinlik organizasyonu.",
-    images: [{ url: "/logo.jpeg", width: 1200, height: 630, alt: "Multi Event Bodrum etkinlik organizasyon" }],
+    images: [{ url: "/logo.jpeg", width: 1024, height: 1024, alt: "Multi Event Bodrum etkinlik organizasyon" }],
   },
   twitter: {
     card: "summary_large_image",

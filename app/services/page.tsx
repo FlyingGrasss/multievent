@@ -4,9 +4,14 @@ import { Localized } from "@/components/Localized";
 
 export const revalidate = 300;
 export const metadata: Metadata = {
-  title: "Hizmetlerimiz | Bodrum Etkinlik Organizasyon",
+  title: "Bodrum Etkinlik Organizasyon Hizmetleri",
   description: "Bodrum düğün organizasyonu, canlı müzik, ses, ışık, sahne ve kurumsal etkinlik hizmetleri.",
   alternates: { canonical: "/services" },
+  openGraph: {
+    title: "Bodrum Etkinlik Organizasyon Hizmetleri | Multi Event",
+    description: "Bodrum düğün organizasyonu, canlı müzik, ses, ışık, sahne ve kurumsal etkinlik hizmetleri.",
+    url: "/services",
+  },
 };
 
 export default async function Services() {

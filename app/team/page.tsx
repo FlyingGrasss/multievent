@@ -5,9 +5,14 @@ import { getArtists } from "@/lib/content";
 
 export const revalidate = 300;
 export const metadata: Metadata = {
-  title: "Sanatçılarımız | Bodrum Canlı Müzik",
+  title: "Bodrum Canlı Müzik Sanatçıları",
   description: "Multi Event sanatçılarıyla Bodrum etkinlikleriniz için canlı müzik ve sahne performansları.",
   alternates: { canonical: "/team" },
+  openGraph: {
+    title: "Bodrum Canlı Müzik Sanatçıları | Multi Event",
+    description: "Multi Event sanatçılarıyla Bodrum etkinlikleriniz için canlı müzik ve sahne performansları.",
+    url: "/team",
+  },
 };
 
 export default async function Team() {

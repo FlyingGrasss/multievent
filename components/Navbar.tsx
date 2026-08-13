@@ -1,104 +1,61 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { useState } from "react"
+import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useState } from "react";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { Localized } from "@/components/Localized";
 
-const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false)
+export default function Navbar() {
+  const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
 
-  const pathname = usePathname()
+  if (pathname?.startsWith("/admin") || pathname?.startsWith("/api")) return null;
 
-  // Don't show navbar on studio routes
-  if (pathname?.startsWith('/studio')) {
-    return null;
-  }
+  const links = [
+    { href: "/", tr: "Ana sayfa", en: "Home" },
+    { href: "/team", tr: "Sanatçılarımız", en: "Our artists" },
+    { href: "/services", tr: "Hizmetlerimiz", en: "Services" },
+    { href: "/contact", tr: "İletişim", en: "Contact" },
+  ];
 
   return (
-    <div className="bg-linear-to-b from-[#2e2d2c] to-[#121315] text-white w-full h-20 flex items-center justify-between px-4 relative">
-      <Link href="/" className="w-fit" aria-label="Home">
-        <Image 
-          src="/logo.jpeg"
-          width={60}
-          height={59} 
-          alt="Multi Event Logo"
-          className="rounded"
-          priority
-        />
+    <header className="relative z-30 grid h-20 w-full grid-cols-3 items-center bg-linear-to-b from-[#2e2d2c] to-[#121315] px-4 text-white">
+      <Link href="/" className="w-fit justify-self-start" aria-label="Multi Event">
+        <Image src="/logo.jpeg" width={60} height={59} alt="Multi Event logo" className="rounded" priority />
       </Link>
 
-      <h1 className="max-sm:text-[24px] text-3xl leading-[25px] mt-2 max-sm:leading-5 font-medium text-center">
-        MULTI <span className="pl-2">EVENT </span>
-        <br /> 
-        <span className="max-sm:text-[14px] text-xl font-extralight max-sm:leading-5 tracking-widest italic">
-          ORGANİZASYON
-        </span>
-      </h1>
+      <Link href="/" className="justify-self-center text-center" aria-label="Multi Event Organization">
+        <h1 className="mt-2 text-3xl font-medium leading-[25px] max-sm:text-[24px] max-sm:leading-5">
+          MULTI <span className="pl-2">EVENT</span><br />
+          <span className="text-xl font-extralight italic tracking-widest max-sm:text-[14px] max-sm:leading-5">ORGANİZASYON</span>
+        </h1>
+      </Link>
 
-      <button 
-        onClick={() => setIsOpen(!isOpen)}
-        className="z-50 cursor-pointer focus:outline-none"
-        aria-label="Toggle menu"
-        aria-expanded={isOpen}
-      >
-        <Image 
-          src="/hamburger.svg"
-          width={36}
-          height={36} 
-          alt="Menu"
-          priority
-        />
-      </button>
-
-      {/* Mobile Menu Overlay */}
-      {isOpen && (
-        <div 
-          className="fixed inset-0 bg-black opacity-40 z-40" 
-          onClick={() => setIsOpen(false)}
-          aria-hidden="true"
-        />
-      )}
-
-      {/* Mobile Menu Sidebar */}
-      <div className={`fixed top-0 right-0 h-full w-64 bg-[#121212] z-50 transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
-        <div className="flex flex-col h-full pt-20 px-6">
-          <Link 
-            href="/" 
-            className="text-2xl py-4 border-b border-[#2A2A2A] hover:text-accent transition-colors"
-            onClick={() => setIsOpen(false)}
-            aria-label="Home"
-          >
-            Home
-          </Link>
-          <Link 
-            href="/team" 
-            className="text-2xl py-4 border-b border-[#2A2A2A] hover:text-accent transition-colors"
-            onClick={() => setIsOpen(false)}
-            aria-label="Sanatçılarımız"
-          >
-            Sanatçılarımız
-          </Link>
-          <Link 
-            href="/services" 
-            className="text-2xl py-4 border-b border-[#2A2A2A] hover:text-accent transition-colors"
-            onClick={() => setIsOpen(false)}
-            aria-label="Services"
-          >
-            Services
-          </Link>
-          <Link 
-            href="/contact" 
-            className="text-2xl py-4 border-b border-[#2A2A2A] hover:text-accent transition-colors"
-            onClick={() => setIsOpen(false)}
-            aria-label="Contact Us"
-          >
-            Contact Us
-          </Link>
-        </div>
+      <div className="flex items-center gap-3 justify-self-end">
+        <LanguageSwitcher />
+        <button
+          type="button"
+          onClick={() => setIsOpen((open) => !open)}
+          className="z-50 cursor-pointer focus:outline-none"
+          aria-label="Toggle menu"
+          aria-expanded={isOpen}
+        >
+          <Image src="/hamburger.svg" width={36} height={36} alt="Menu" priority />
+        </button>
       </div>
-    </div>
-  )
-}
 
-export default Navbar
+      {isOpen && <button type="button" className="fixed inset-0 z-40 bg-black/60" onClick={() => setIsOpen(false)} aria-label="Close menu" />}
+      <nav className={`fixed right-0 top-0 z-50 h-full w-72 bg-[#121212] transition-transform duration-300 ${isOpen ? "translate-x-0" : "translate-x-full"}`} aria-label="Main navigation">
+        <div className="flex h-full flex-col gap-1 px-6 pt-24">
+          {links.map((link) => (
+            <Link key={link.href} href={link.href} onClick={() => setIsOpen(false)} className="border-b border-[#2A2A2A] py-4 text-2xl transition-colors hover:text-accent">
+              <Localized tr={link.tr} en={link.en} />
+            </Link>
+          ))}
+        </div>
+      </nav>
+    </header>
+  );
+}

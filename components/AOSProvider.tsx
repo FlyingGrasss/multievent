@@ -10,6 +10,7 @@ export default function AOSProvider() {
     AOS.init({
       duration: 800,
       easing: 'ease-in-out',
+      offset: 120,
       once: true, // Animations only happen once
       mirror: false, // Don't mirror on scroll up
     });

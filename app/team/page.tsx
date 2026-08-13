@@ -1,38 +1,26 @@
-export const revalidate = 60;
-
+import type { Metadata } from "next";
 import Card from "@/components/Card";
-import { ARTISTS_QUERY } from "@/sanity/lib/queries";
-import { client } from "@/sanity/lib/client";
-import { ArtistType } from "@/types";
+import { Localized } from "@/components/Localized";
+import { getArtists } from "@/lib/content";
+
+export const revalidate = 300;
+export const metadata: Metadata = {
+  title: "Sanatçılarımız | Bodrum Canlı Müzik",
+  description: "Multi Event sanatçılarıyla Bodrum etkinlikleriniz için canlı müzik ve sahne performansları.",
+  alternates: { canonical: "/team" },
+};
 
 export default async function Team() {
-  const allArtists = await client.fetch(ARTISTS_QUERY);
-
-  // Sort artists by their ID in ascending order
-  const sortedArtists = [...allArtists].sort((a, b) => (a.id || Infinity) - (b.id || Infinity));
+  const artists = await getArtists();
   return (
-    <>    
-      <div className="mx-auto pb-20 max-sm:pb-12">
-        <h1 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Sanatçılarımız</h1>
-
-        {/* Combined responsive grid */}
-        <div className="grid place-items-center w-full grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-16 px-4 sm:px-0 mt-12 sm:mt-16">
-          {sortedArtists.map((artist: ArtistType, index) => (
-            <a 
-              className="w-fit hover:scale-105 transition-transform duration-300" 
-              href={`${artist.link || "/"}`} 
-              target="_blank" 
-              rel="noopener noreferrer" 
-              key={index} // Better to use artist.id instead of index
-            >
-              <Card 
-                imageUrl={artist.imageUrl}
-                artistName={artist.name}
-              />
-            </a>
-          ))}
-        </div>
+    <main className="mx-auto pb-20 max-sm:pb-12">
+      <h1 className="mt-16 text-center text-6xl font-bold max-sm:mt-8 max-sm:text-3xl"><Localized tr="Sanatçılarımız" en="Our artists" /></h1>
+      <div className="mt-12 grid w-full grid-cols-2 place-items-center gap-6 px-4 sm:mt-16 sm:grid-cols-3 sm:gap-16 sm:px-0">
+        {artists.map((artist) => {
+          const card = <Card imageUrl={artist.imageUrl} nameTr={artist.nameTr} nameEn={artist.nameEn} />;
+          return artist.link ? <a className="w-fit transition-transform hover:scale-105" href={artist.link} target="_blank" rel="noopener noreferrer" key={artist.id}>{card}</a> : <div key={artist.id}>{card}</div>;
+        })}
       </div>
-    </>
+    </main>
   );
 }

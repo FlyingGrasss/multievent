@@ -1,106 +1,103 @@
 import type { Metadata } from "next";
-import AOSProvider from "@/components/AOSProvider";
 import { Montserrat } from "next/font/google";
-import "./globals.css?inline";
+import AOSProvider from "@/components/AOSProvider";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { LanguageProvider } from "@/components/LanguageProvider";
+import "./globals.css";
 
-const Mont = Montserrat({
+const montserrat = Montserrat({
   variable: "--font-montserrat",
   subsets: ["latin"],
-  display: 'swap', // Add this
+  display: "swap",
   preload: true,
 });
 
-
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://multievent.org";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: {
-    default: "Multi Event | Premium Event Services in Bodrum",
-    template: "%s | Multi Event" // Dynamic title for child pages
+    default: "Multi Event | Bodrum Etkinlik Organizasyon",
+    template: "%s | Multi Event",
   },
-  description: "Professional event planning, equipment rental, and production services in Bodrum. Contact us at +90 530 957 69 77",
-  keywords: ["event planning", "Bodrum events", "party rental", "AV equipment", "event production", "Bodrum wedding planning"],
-  
-  // Favicons (2-file minimal approach)
-  icons: {
-    icon: [
-      { url: '/favicon.ico', type: 'image/x-icon' }, // Legacy support
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' }, // Google Search
-    ],
-    apple: [
-      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' } // iOS
-    ],
+  description: "Bodrum etkinlik organizasyon, düğün, canlı müzik, sahne, ses ve ışık prodüksiyonu. Multi Event ile unutulmaz etkinlikler planlayın.",
+  keywords: ["Bodrum etkinlik organizasyon", "Bodrum düğün organizasyonu", "Bodrum canlı müzik", "etkinlik prodüksiyon", "ses ışık kiralama"],
+  authors: [{ name: "Multi Event" }],
+  creator: "Multi Event",
+  alternates: {
+    canonical: "/",
+    languages: { tr: "/", en: "/?lang=en" },
   },
-
-  // OpenGraph (Facebook, LinkedIn, WhatsApp, etc.)
   openGraph: {
-    title: "Multi Event | Premium Event Services in Bodrum",
-    description: "Professional event services in Bodrum - Equipment rental, production, and planning",
-    url: "https://multievent.org",
-    siteName: "Multi Event",
-    images: [
-      {
-        url: "https://multievent.org/logo.jpeg", // Recommended: JPG format
-        width: 1200, // Ideal width
-        height: 630, // Ideal ratio (1.91:1)
-        alt: "Multi Event - Professional event services in Bodrum",
-      },
-    ],
-    locale: "en_US",
     type: "website",
-    // For local business (optional but recommended)
-    emails: ["sonertirgil@multievent.org"],
-    phoneNumbers: ["+905309576977"],
+    locale: "tr_TR",
+    alternateLocale: "en_US",
+    url: siteUrl,
+    siteName: "Multi Event",
+    title: "Multi Event | Bodrum Etkinlik Organizasyon",
+    description: "Bodrum'da düğün, canlı müzik ve kurumsal etkinlik organizasyonu.",
+    images: [{ url: "/logo.jpeg", width: 1200, height: 630, alt: "Multi Event Bodrum etkinlik organizasyon" }],
   },
-
-  // Twitter Card
   twitter: {
     card: "summary_large_image",
-    title: "Multi Event | Premium Event Services in Bodrum",
-    description: "Professional event services in Bodrum - Equipment rental, production, and planning",
-    images: ["https://multievent.org/logo.jpeg"], // Same as OG image
-    creator: "@multievent", // Your Twitter handle (if available)
+    title: "Multi Event | Bodrum Etkinlik Organizasyon",
+    description: "Bodrum'da profesyonel etkinlik organizasyonu ve prodüksiyon.",
+    images: ["/logo.jpeg"],
   },
-
-  // Additional optimizations
-  metadataBase: new URL("https://multievent.org"), // Base URL for all metadata
-  alternates: {
-    canonical: "/", // Helps prevent duplicate content
+  icons: {
+    icon: [{ url: "/favicon.ico", type: "image/x-icon" }, { url: "/favicon-32x32.png", type: "image/png", sizes: "32x32" }],
+    apple: [{ url: "/apple-icon.png", sizes: "180x180", type: "image/png" }],
   },
-  robots: {
-    index: true,
-    follow: true,
-    nocache: false,
-    googleBot: {
-      index: true,
-      follow: true,
-      noimageindex: false,
-    },
-  },
-  manifest: "/manifest.webmanifest" // Create this file
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, "max-image-preview": "large" } },
+  manifest: "/manifest.webmanifest",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+function JsonLd() {
+  const data = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "@id": `${siteUrl}/#business`,
+    name: "Multi Event",
+    description: "Bodrum etkinlik organizasyon, düğün, canlı müzik ve etkinlik prodüksiyon hizmetleri.",
+    url: siteUrl,
+    image: `${siteUrl}/logo.jpeg`,
+    telephone: "+905309576977",
+    email: "sonertirgil@multievent.org",
+    priceRange: "$$",
+    address: {
+      "@type": "PostalAddress",
+      streetAddress: "Konacık Mahallesi Atatürk Bulvarı Pamir İş Merkezi No: 114-C Daire No: 8",
+      addressLocality: "Bodrum",
+      addressRegion: "Muğla",
+      postalCode: "48400",
+      addressCountry: "TR",
+    },
+    areaServed: ["Bodrum", "Muğla", "İzmir"],
+    sameAs: ["https://www.instagram.com/multieventorg/"],
+    serviceType: ["Event planning", "Wedding planning", "Live music", "Event production"],
+  };
+  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />;
+}
+
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html className="overflow-x-hidden max-w-screen" lang="en">
+    <html lang="en" data-locale="en" className="overflow-x-hidden" suppressHydrationWarning>
       <head>
-        <link rel="icon" href="/favicon.ico" sizes="any" /> 
-        <link rel="icon" href="/favicon-32x32.png" type="image/png" sizes="32x32" />
-        <link rel="apple-touch-icon" href="/apple-icon.png" />
-        <meta name="theme-color" content="#0C0C0C" /> 
+        <meta name="theme-color" content="#0C0C0C" />
+        <script dangerouslySetInnerHTML={{ __html: `try { const stored = localStorage.getItem('multievent-locale'); const l = stored === 'tr' || stored === 'en' ? stored : ((navigator.language || '').toLowerCase().startsWith('tr') ? 'tr' : 'en'); document.documentElement.lang = l; document.documentElement.dataset.locale = l; } catch (_) {}` }} />
       </head>
-      <body className={`overflow-x-hidden max-w-screen ${Mont.variable} from-[#0C0C0C] to-[#1A1A2E] antialiased`}>
-        <AOSProvider />
-        <div className="min-h-screen">
-          <Navbar />
-          {children}
-        </div>
-        <Footer />
+      <body className={`${montserrat.variable} overflow-x-hidden antialiased`}>
+        <LanguageProvider>
+          <AOSProvider />
+          <div className="min-h-screen">
+            <Navbar />
+            {children}
+          </div>
+          <Footer />
+        </LanguageProvider>
+        <JsonLd />
       </body>
     </html>
   );
 }
-

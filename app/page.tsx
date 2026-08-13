@@ -1,203 +1,66 @@
-export const revalidate = 3000; 
-
+import type { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import Card from "@/components/Card";
-import { ARTISTS_QUERY } from "@/sanity/lib/queries";
-import { client } from "@/sanity/lib/client";
-import { ArtistType } from "@/types";
-import AOSWrapper from '@/components/AOSWrapper';
 import Marquee from "react-fast-marquee";
+import Card from "@/components/Card";
+import AOSWrapper from "@/components/AOSWrapper";
+import { Localized } from "@/components/Localized";
+import { getArtists } from "@/lib/content";
 
+export const revalidate = 300;
+
+export const metadata: Metadata = {
+  title: "Bodrum Etkinlik Organizasyon | Multi Event",
+  description: "Bodrum etkinlik organizasyon, düğün ve canlı müzik hizmetleri. Multi Event ile etkinliğinizi planlayın.",
+  alternates: { canonical: "/" },
+};
 
 export default async function Home() {
-  const allArtists = await client.fetch(ARTISTS_QUERY);
-  
+  const artists = await getArtists();
   return (
     <main>
-      <div className="mt-16 ml-8 max-sm:mt-12 max-sm:ml-4">
-          <AOSWrapper animation="fade-left" delay={100}>
-            <h2 className="text-5xl max-sm:text-[36px] max-sm:leading-12 font-extralight">We provide</h2>
-          </AOSWrapper>
-          <AOSWrapper animation="fade-left" delay={300}>
-            <h2 className="text-6xl max-sm:text-[40px] max-sm:leading-12 italic text-accent font-bold">Live Music</h2>
-          </AOSWrapper>
-          <AOSWrapper animation="fade-left" delay={500}>
-            <h2 className="text-5xl max-sm:text-[32px] max-sm:leading-10 font-extralight">with our</h2>
-          </AOSWrapper>
-          <AOSWrapper animation="fade-left" delay={700}>
-            <h2 className="text-5xl max-sm:text-[36px] max-sm:leading-12 italic text-accent font-bold">outstanding team</h2>
-          </AOSWrapper>
+      <section className="px-8 pt-16 max-sm:px-4 max-sm:pt-12" aria-labelledby="hero-title">
+        <h1 id="hero-title" className="sr-only">Bodrum etkinlik organizasyon ve canlı müzik</h1>
+        <div className="hero-locale lang-en" lang="en">
+          <AOSWrapper animation="fade-left" delay={100}><p className="text-5xl font-extralight max-sm:text-[36px]">We provide</p></AOSWrapper>
+          <AOSWrapper animation="fade-left" delay={300}><p className="text-6xl font-bold italic text-accent max-sm:text-[40px]">Live Music</p></AOSWrapper>
+          <AOSWrapper animation="fade-left" delay={500}><p className="text-5xl font-extralight max-sm:text-[32px]">with our</p></AOSWrapper>
+          <AOSWrapper animation="fade-left" delay={700}><p className="text-5xl font-bold italic text-accent max-sm:text-[36px]">outstanding team</p></AOSWrapper>
         </div>
-        
-        <div className="my-12 ml-8 max-sm:my-8 max-sm:ml-4">
-          <AOSWrapper animation="fade-up" delay={900}>
-            <p className="text-text-secondary max-sm:text-base font-bold italic text-2xl">
-              Experience unforgettable <br />
-              events crafted by industry leaders.
+        <div className="hero-locale lang-tr space-y-2" lang="tr">
+          <AOSWrapper animation="fade-left" delay={100}>
+            <p className="text-5xl font-bold italic leading-[1.08] text-accent max-sm:text-[36px] max-sm:leading-[1.08]">
+              Olağanüstü<span className="hidden sm:inline"> </span><br className="sm:hidden" />ekibimizle
             </p>
           </AOSWrapper>
+          <AOSWrapper animation="fade-left" delay={400}>
+            <p className="text-6xl font-bold italic leading-[1.05] text-accent max-sm:text-[36px] max-sm:leading-[1.08]">Canlı Müzik</p>
+          </AOSWrapper>
+          <AOSWrapper animation="fade-left" delay={700}>
+            <p className="text-5xl font-extralight leading-[1.1] max-sm:text-[34px] max-sm:leading-[1.1]">sunuyoruz</p>
+          </AOSWrapper>
         </div>
-        <AOSWrapper animation="fade-up" delay={1100}>
-          <Link href="/contact" className="w-fit">
-              <button className="group ml-8 max-sm:ml-4 max-sm:text-base hover:text-accent text-xl cursor-pointer items-center transition-colors justify-center gap-4 max-sm:gap-2 inline-flex bg-[#0C0C0C] rounded-full px-8 max-sm:px-6 py-4">
-                Contact us 
-                <Image 
-                  src="/arrow.svg" 
-                  width={20} 
-                  height={16} 
-                  alt=""
-                  className="transition-transform duration-400 max-sm:w-[15px] h-auto group-hover:translate-x-2"
-                />
-              </button>
-          </Link>
+        <AOSWrapper animation="fade-up" delay={900}><p className="mt-12 text-2xl font-bold italic text-text-secondary max-sm:mt-8 max-sm:text-base"><Localized tr={<>Sektörün liderleriyle hazırlanan<br />unutulmaz etkinlikleri deneyimleyin.</>} en={<>Experience unforgettable<br />events crafted by industry leaders.</>} /></p></AOSWrapper>
+        <AOSWrapper animation="fade-up" delay={1100}><Link href="/contact" className="group mt-12 inline-flex items-center gap-4 rounded-full bg-[#0C0C0C] px-8 py-4 text-xl transition-colors hover:text-accent max-sm:mt-10 max-sm:px-6 max-sm:text-base"><Localized tr="Bize ulaşın" en="Contact us" /><Image src="/arrow.svg" width={20} height={16} alt="" className="transition-transform duration-400 group-hover:translate-x-2 max-sm:w-[15px]" /></Link></AOSWrapper>
+      </section>
+
+      <section className="my-12 ml-8 flex items-start justify-evenly max-sm:my-8 max-sm:ml-4 max-sm:gap-12" aria-label="Multi Event statistics">
+        {[{ number: "50+", tr: "Müzisyen", en: "Musicians" }, { number: "250+", tr: "Etkinlik", en: "Events" }, { number: "10+", tr: "Yıllık deneyim", en: <>Years of<br />Experience</> }].map((stat, index) => (
+          <AOSWrapper key={stat.number} animation="fade-up" delay={index * 150} offset={0}><div><p className="text-5xl font-bold max-sm:text-3xl">{stat.number}</p><p className="text-2xl text-text-secondary max-sm:text-base"><Localized tr={stat.tr} en={stat.en} /></p></div></AOSWrapper>
+        ))}
+      </section>
+
+      <section className="mx-auto pb-16" aria-labelledby="artists-title">
+        <AOSWrapper animation="fade-up" offset={220}><h2 id="artists-title" className="mt-16 text-center text-6xl font-bold max-sm:mt-8 max-sm:text-3xl"><Localized tr="Sanatçılarımız" en="Our artists" /></h2></AOSWrapper>
+        <AOSWrapper animation="fade-up" offset={300}>
+          <div className="mt-12 block sm:mt-16">
+            <Marquee className="artists-marquee" speed={50} pauseOnHover gradient={false}>
+              {artists.map((artist) => <div className="mx-8 max-sm:mx-4" key={artist.id}><Card imageUrl={artist.imageUrl} nameTr={artist.nameTr} nameEn={artist.nameEn} /></div>)}
+            </Marquee>
+          </div>
         </AOSWrapper>
-
-
-
-
-        <div className="max-sm:hidden">
-          <div className="my-12 ml-8 max-sm:ml-4 max-sm:my-8 flex justify-evenly max-sm:gap-12 items-start">          
-            <AOSWrapper 
-              animation="fade-up" 
-              delay={0}
-            >
-              <div>
-                <h2 className="text-white font-bold max-sm:text-3xl text-5xl">50+</h2>
-                <h2 className="text-text-secondary max-sm:text-base text-2xl">Musicians</h2>
-              </div>
-            </AOSWrapper>
-
-            <AOSWrapper 
-              animation="fade-up" 
-              delay={150}
-            >
-              <div>
-                <h2 className="text-white font-bold max-sm:text-3xl text-5xl">250+</h2>
-                <h2 className="text-text-secondary max-sm:text-base text-2xl">Events</h2>
-              </div>
-            </AOSWrapper>
-
-            <AOSWrapper 
-              animation="fade-up" 
-              delay={300}
-            >
-              <div>
-                <h2 className="text-white font-bold max-sm:text-3xl text-5xl">10+</h2>
-                <h2 className="text-text-secondary max-sm:text-base text-2xl">Years of <br /> Experience</h2>
-              </div>
-            </AOSWrapper>          
-          </div>
-        </div>
-
-        <div className="sm:hidden">
-          <div className="my-12 ml-8 max-sm:ml-4 max-sm:my-8 flex justify-evenly max-sm:gap-12 items-start">          
-            <AOSWrapper 
-              animation="fade-up" 
-              delay={1300}
-            >
-              <div>
-                <h2 className="text-white font-bold max-sm:text-3xl text-5xl">50+</h2>
-                <h2 className="text-text-secondary max-sm:text-base text-2xl">Musicians</h2>
-              </div>
-            </AOSWrapper>
-
-            <AOSWrapper 
-              animation="fade-up" 
-              delay={1500}
-            >
-              <div>
-                <h2 className="text-white font-bold max-sm:text-3xl text-5xl">250+</h2>
-                <h2 className="text-text-secondary max-sm:text-base text-2xl">Events</h2>
-              </div>
-            </AOSWrapper>
-
-            <AOSWrapper 
-              animation="fade-up" 
-              delay={1700}
-            >
-              <div>
-                <h2 className="text-white font-bold max-sm:text-3xl text-5xl">10+</h2>
-                <h2 className="text-text-secondary max-sm:text-base text-2xl">Years of <br /> Experience</h2>
-              </div>
-            </AOSWrapper>          
-          </div>
-        </div>
-
-
-
-        <div className="mx-auto sm:hidden">
-          <AOSWrapper animation="fade-up" delay={1900}>
-            <h2 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Sanatçılarımız</h2>
-          </AOSWrapper>
-          <AOSWrapper animation="fade-up" delay={2100}>
-            <div className="block mx-auto max-sm:gap-6 max-sm:mt-6 gap-16 mt-16 ">
-              <Marquee speed={50} key={"idk"}>
-                {allArtists.map((artist: ArtistType, index: number) => (
-                  <div className="mx-8 max-sm:mx-4" key={index}>
-                    <Card
-                      key={index}
-                      imageUrl={artist.imageUrl}
-                      artistName={artist.name}
-                    />
-                  </div>
-                ))}
-              </Marquee>
-            </div>
-          </AOSWrapper>
-          <AOSWrapper animation="fade-up" delay={0}>      
-            <Link href="/team">
-              <button className="group ml-8 my-16 max-sm:my-12 max-sm:ml-4 max-sm:text-base hover:text-accent text-xl cursor-pointer items-center transition-colors justify-center gap-4 max-sm:gap-2 inline-flex bg-[#0C0C0C] rounded-full px-8 max-sm:px-6 py-4">
-                See all
-                <Image 
-                  src="/arrow.svg" 
-                  width={20} 
-                  height={16} 
-                  alt=""
-                  className="transition-transform duration-400 max-sm:w-[15px] h-auto group-hover:translate-x-2"
-                />
-              </button>
-            </Link>
-          </AOSWrapper>
-
-        </div>
-
-        <div className="mx-auto max-sm:hidden">
-          <AOSWrapper animation="fade-up" offset={100}>
-            <h2 className="text-6xl max-sm:text-3xl mt-16 max-sm:mt-8 text-center font-bold">Sanatçılarımız</h2>
-          </AOSWrapper>
-          <AOSWrapper animation="fade-up" offset={300}>
-            <div className="block mx-auto max-sm:gap-6 max-sm:mt-6 gap-16 mt-16 ">
-              <Marquee speed={50} key={"idfk"}>
-                {allArtists.map((artist: ArtistType, index: number) => (
-                  <div className="mx-8 max-sm:mx-4" key={index}>
-                    <Card
-                      key={index}
-                      imageUrl={artist.imageUrl}
-                      artistName={artist.name}
-                    />
-                  </div>
-                ))}
-              </Marquee>
-            </div>
-          </AOSWrapper>
-          <AOSWrapper animation="fade-up" offset={400}>      
-            <Link href="/team">
-              <button className="group ml-8 my-16 max-sm:my-12 max-sm:ml-4 max-sm:text-base hover:text-accent text-xl cursor-pointer items-center transition-colors justify-center gap-4 max-sm:gap-2 inline-flex bg-[#0C0C0C] rounded-full px-8 max-sm:px-6 py-4">
-                See all
-                <Image 
-                  src="/arrow.svg" 
-                  width={20} 
-                  height={16} 
-                  alt=""
-                  className="transition-transform duration-400 max-sm:w-[15px] h-auto group-hover:translate-x-2"
-                />
-              </button>
-            </Link>
-          </AOSWrapper>
-
-        </div>
-        
+        <AOSWrapper animation="fade-up" offset={260}><Link href="/team" className="group ml-8 mt-16 inline-flex items-center gap-4 rounded-full bg-[#0C0C0C] px-8 py-4 text-xl transition-colors hover:text-accent max-sm:ml-4 max-sm:mt-12 max-sm:px-6 max-sm:text-base"><Localized tr="Tümünü gör" en="See all" /><Image src="/arrow.svg" width={20} height={16} alt="" className="transition-transform duration-400 group-hover:translate-x-2 max-sm:w-[15px]" /></Link></AOSWrapper>
+      </section>
     </main>
   );
 }

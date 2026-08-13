@@ -37,3 +37,41 @@ body {
   font-family: var(--font-sans);
   min-height: 100vh;
 }
+
+html[data-locale="tr"] .lang-en,
+html[data-locale="en"] .lang-tr {
+  display: none;
+}
+
+html[data-locale="tr"] .lang-tr,
+html[data-locale="en"] .lang-en {
+  display: inline;
+}
+
+.hero-locale.lang-en {
+  display: block;
+}
+
+.hero-locale.lang-tr {
+  display: none;
+}
+
+html[data-locale="tr"] .hero-locale.lang-en {
+  display: none;
+}
+
+html[data-locale="tr"] .hero-locale.lang-tr {
+  display: block;
+}
+
+html[data-locale="en"] .hero-locale.lang-en {
+  display: block;
+}
+
+.artists-marquee:hover .rfm-marquee {
+  animation-play-state: paused !important;
+}
+
+button:disabled {
+  cursor: default;
+}

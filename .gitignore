@@ -16,6 +16,8 @@
 # next.js
 /.next/
 /out/
+/generated/
+/sanity-export/
 
 # production
 /build

@@ -1,18 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  poweredByHeader: false,
+  compress: true,
   images: {
-    remotePatterns: [{
-      protocol: 'https',
-      hostname: 'cdn.sanity.io',
-      pathname: '/images/**'
-    }]
-  },
-  turbopack: {
-    resolveAlias: {
-      '../build/polyfills/polyfill-module': './lib/modern-polyfill.js',
-      'next/dist/build/polyfills/polyfill-module': './lib/modern-polyfill.js',
-    },
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "**.public.blob.vercel-storage.com",
+        pathname: "/**",
+      },
+    ],
   },
 };
 

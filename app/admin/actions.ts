@@ -238,3 +238,43 @@ export async function reorderEvents(ids: string[]) {
   revalidatePath("/en/events");
   revalidatePath("/admin");
 }
+
+const TODO_PRIORITIES = ["P1", "P2", "P3", "P4"] as const;
+
+function todoDate(value: FormDataEntryValue | null) {
+  const text = String(value || "").trim();
+  if (!text) return new Date();
+  const date = new Date(`${text}T12:00:00.000Z`);
+  if (Number.isNaN(date.getTime())) throw new Error("Invalid todo date.");
+  return date;
+}
+
+export async function saveTodo(formData: FormData) {
+  await requireAdmin();
+  const id = String(formData.get("id") || "").trim();
+  const priority = String(formData.get("priority") || "P3").trim();
+  if (!TODO_PRIORITIES.includes(priority as typeof TODO_PRIORITIES[number])) throw new Error("Invalid todo priority.");
+  const title = required(formData.get("title"), "Todo title");
+  const notes = String(formData.get("notes") || "").trim() || null;
+  const dueDate = todoDate(formData.get("dueDate"));
+
+  if (id) {
+    await prisma.todo.update({ where: { id }, data: { title, notes, priority, dueDate } });
+  } else {
+    await prisma.todo.create({ data: { title, notes, priority, dueDate } });
+  }
+  revalidatePath("/admin");
+}
+
+export async function toggleTodo(id: string, completed: boolean) {
+  await requireAdmin();
+  if (typeof id !== "string" || typeof completed !== "boolean") throw new Error("Invalid todo update.");
+  await prisma.todo.update({ where: { id }, data: { completed, completedAt: completed ? new Date() : null } });
+  revalidatePath("/admin");
+}
+
+export async function deleteTodo(id: string) {
+  await requireAdmin();
+  await prisma.todo.delete({ where: { id } });
+  revalidatePath("/admin");
+}

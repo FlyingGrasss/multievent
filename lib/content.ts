@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/db";
-import type { ArtistType, EventMediaType, EventType, ServiceType } from "@/types";
+import type { ArtistType, EventMediaType, EventType, ServiceType, TodoPriority, TodoType } from "@/types";
 
 function normalizeEvent<T extends Omit<EventType, "media"> & { media: Array<Omit<EventMediaType, "type"> & { type: string }> }>(event: T): EventType {
   return {
@@ -109,4 +109,13 @@ export async function getAllEvents(): Promise<EventType[]> {
     orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
   });
   return events.map(normalizeEvent);
+}
+
+function normalizeTodo<T extends Omit<TodoType, "priority"> & { priority: string }>(todo: T): TodoType {
+  return { ...todo, priority: ["P1", "P2", "P3", "P4"].includes(todo.priority) ? todo.priority as TodoPriority : "P3" };
+}
+
+export async function getAllTodos(): Promise<TodoType[]> {
+  const todos = await prisma.todo.findMany({ orderBy: { createdAt: "desc" } });
+  return todos.map(normalizeTodo);
 }

@@ -44,3 +44,17 @@ export type EventType = {
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
+
+export type TodoPriority = "P1" | "P2" | "P3" | "P4";
+
+export type TodoType = {
+  id: string;
+  title: string;
+  notes?: string | null;
+  priority: TodoPriority;
+  dueDate: Date | string;
+  completed: boolean;
+  completedAt?: Date | string | null;
+  createdAt: Date | string;
+  updatedAt: Date | string;
+};

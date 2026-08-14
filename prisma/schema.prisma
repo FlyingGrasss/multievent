@@ -67,6 +67,21 @@ model EventMedia {
   @@index([eventId, sortOrder])
 }
 
+model Todo {
+  id          String   @id @default(cuid())
+  title       String
+  notes       String?
+  priority    String   @default("P3")
+  dueDate     DateTime @default(now())
+  completed   Boolean  @default(false)
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([createdAt])
+  @@index([priority, completed, dueDate])
+}
+
 model SiteSettings {
   id                  String   @id @default("default")
   heroEyebrowTr       String

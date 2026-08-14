@@ -30,7 +30,7 @@ export default async function HomePage() {
 
       <section className="my-12 ml-8 flex items-start justify-evenly max-sm:my-8 max-sm:ml-4 max-sm:gap-12" aria-label="Multi Event statistics">
         {[{ number: "50+", tr: "Müzisyen", en: "Musicians" }, { number: "250+", tr: "Etkinlik", en: "Events" }, { number: "10+", tr: <>Yıllık<br />Deneyim</>, en: <>Years of<br />Experience</> }].map((stat, index) => (
-          <AOSWrapper key={stat.number} animation="fade-up" delay={index * 150} offset={0}><div><p className="text-5xl font-bold max-sm:text-3xl">{stat.number}</p><p className="text-2xl text-text-secondary max-sm:text-base"><Localized tr={stat.tr} en={stat.en} /></p></div></AOSWrapper>
+          <AOSWrapper key={stat.number} animation="fade-up" delay={150 + index * 150} offset={0}><div><p className="text-5xl font-bold max-sm:text-3xl">{stat.number}</p><p className="text-2xl text-text-secondary max-sm:text-base"><Localized tr={stat.tr} en={stat.en} /></p></div></AOSWrapper>
         ))}
       </section>
 

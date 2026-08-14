@@ -1,10 +1,12 @@
 import type { Metadata, Viewport } from "next";
 import { siteUrl } from "@/lib/site";
 
+export const homeTitle = "Multi Event Organizasyon | Premium Event Services in Bodrum";
+
 export const siteMetadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Multi Event | Bodrum Etkinlik Organizasyon",
+    default: homeTitle,
     template: "%s | Multi Event",
   },
   description: "Bodrum etkinlik organizasyon, düğün, canlı müzik, sahne, ses ve ışık prodüksiyonu. Multi Event ile unutulmaz etkinlikler planlayın.",
@@ -21,13 +23,13 @@ export const siteMetadata: Metadata = {
     alternateLocale: "en_US",
     url: siteUrl,
     siteName: "Multi Event",
-    title: "Multi Event | Bodrum Etkinlik Organizasyon",
+    title: homeTitle,
     description: "Bodrum'da düğün, canlı müzik ve kurumsal etkinlik organizasyonu.",
     images: [{ url: "/logo.jpeg", width: 1024, height: 1024, alt: "Multi Event logo" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Multi Event | Bodrum Etkinlik Organizasyon",
+    title: homeTitle,
     description: "Bodrum'da profesyonel etkinlik organizasyonu ve prodüksiyon.",
     images: ["/logo.jpeg"],
   },

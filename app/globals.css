@@ -68,10 +68,6 @@ html[data-locale="en"] .hero-locale.lang-en {
   display: block;
 }
 
-.artists-marquee:hover .rfm-marquee {
-  animation-play-state: paused !important;
-}
-
 button:disabled {
   cursor: default;
 }

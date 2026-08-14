@@ -11,6 +11,7 @@ export const metadata: Metadata = {
     title: "Bodrum Etkinlik Organizasyon Hizmetleri | Multi Event",
     description: "Bodrum düğün organizasyonu, canlı müzik, ses, ışık, sahne ve kurumsal etkinlik hizmetleri.",
     url: "/services",
+    images: ["/logo.jpeg"],
   },
 };
 

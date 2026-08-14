@@ -1,5 +1,15 @@
 import { prisma } from "@/lib/db";
-import type { ArtistType, ServiceType } from "@/types";
+import type { ArtistType, EventMediaType, EventType, ServiceType } from "@/types";
+
+function normalizeEvent<T extends Omit<EventType, "media"> & { media: Array<Omit<EventMediaType, "type"> & { type: string }> }>(event: T): EventType {
+  return {
+    ...event,
+    media: event.media.map((item) => ({
+      ...item,
+      type: item.type === "video" ? "video" : "image",
+    })),
+  };
+}
 
 export const defaultArtists: ArtistType[] = [
   {
@@ -62,4 +72,41 @@ export async function getAllServices(): Promise<ServiceType[]> {
   return prisma.service.findMany({
     orderBy: [{ sortOrder: "asc" }, { createdAt: "asc" }],
   });
+}
+
+export async function getEvents(): Promise<EventType[]> {
+  if (!process.env.DATABASE_URL) return [];
+  try {
+    const events = await prisma.event.findMany({
+      where: { active: true },
+      include: { media: { orderBy: { sortOrder: "asc" } } },
+      orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+    });
+    return events.map(normalizeEvent);
+  } catch (error) {
+    console.error("Unable to load events", error);
+    return [];
+  }
+}
+
+export async function getEventBySlug(slug: string): Promise<EventType | null> {
+  if (!process.env.DATABASE_URL) return null;
+  try {
+    const event = await prisma.event.findFirst({
+      where: { slug, active: true },
+      include: { media: { orderBy: { sortOrder: "asc" } } },
+    });
+    return event ? normalizeEvent(event) : null;
+  } catch (error) {
+    console.error("Unable to load event", error);
+    return null;
+  }
+}
+
+export async function getAllEvents(): Promise<EventType[]> {
+  const events = await prisma.event.findMany({
+    include: { media: { orderBy: { sortOrder: "asc" } } },
+    orderBy: [{ sortOrder: "asc" }, { createdAt: "desc" }],
+  });
+  return events.map(normalizeEvent);
 }

@@ -5,28 +5,32 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import LanguageSwitcher from "@/components/LanguageSwitcher";
+import { useLanguage } from "@/components/LanguageProvider";
 import { Localized } from "@/components/Localized";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
+  const { locale } = useLanguage();
+  const localeRoot = `/${locale}`;
 
   if (pathname?.startsWith("/admin") || pathname?.startsWith("/api")) return null;
 
   const links = [
-    { href: "/", tr: "Ana sayfa", en: "Home" },
-    { href: "/team", tr: "Sanatçılarımız", en: "Our artists" },
-    { href: "/services", tr: "Hizmetlerimiz", en: "Services" },
-    { href: "/contact", tr: "İletişim", en: "Contact" },
+    { href: localeRoot, tr: "Ana sayfa", en: "Home" },
+    { href: `${localeRoot}/team`, tr: "Sanatçılarımız", en: "Our artists" },
+    { href: `${localeRoot}/services`, tr: "Hizmetlerimiz", en: "Services" },
+    { href: `${localeRoot}/events`, tr: "Etkinliklerimiz", en: "Our events" },
+    { href: `${localeRoot}/contact`, tr: "İletişim", en: "Contact" },
   ];
 
   return (
     <header className="relative z-30 grid h-20 w-full grid-cols-3 items-center bg-linear-to-b from-[#2e2d2c] to-[#121315] px-4 text-white">
-      <Link href="/" className="w-fit justify-self-start" aria-label="Multi Event">
+      <Link href={localeRoot} className="w-fit justify-self-start" aria-label="Multi Event">
         <Image src="/logo.jpeg" width={60} height={59} alt="Multi Event logo" className="rounded" priority />
       </Link>
 
-      <Link href="/" className="justify-self-center text-center" aria-label="Multi Event Organization">
+      <Link href={localeRoot} className="whitespace-nowrap justify-self-center text-center" aria-label="Multi Event Organization">
         <h1 className="mt-2 text-3xl font-medium leading-[25px] max-sm:text-[24px] max-sm:leading-5">
           MULTI <span className="pl-2">EVENT</span><br />
           <span className="text-xl font-extralight italic tracking-widest max-sm:text-[14px] max-sm:leading-5">ORGANİZASYON</span>

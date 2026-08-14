@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     title: "Bodrum Canlı Müzik Sanatçıları | Multi Event",
     description: "Multi Event sanatçılarıyla Bodrum etkinlikleriniz için canlı müzik ve sahne performansları.",
     url: "/team",
+    images: ["/logo.jpeg"],
   },
 };
 

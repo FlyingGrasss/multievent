@@ -20,3 +20,27 @@ export type ServiceType = {
   sortOrder: number;
   active: boolean;
 };
+
+export type EventMediaType = {
+  id?: string;
+  url: string;
+  type: "image" | "video";
+  sortOrder: number;
+};
+
+export type EventType = {
+  id: string;
+  slug: string;
+  titleTr: string;
+  titleEn: string;
+  descriptionTr: string;
+  descriptionEn: string;
+  venueTr?: string | null;
+  venueEn?: string | null;
+  eventDate?: Date | string | null;
+  sortOrder: number;
+  active: boolean;
+  media: EventMediaType[];
+  createdAt?: Date | string;
+  updatedAt?: Date | string;
+};

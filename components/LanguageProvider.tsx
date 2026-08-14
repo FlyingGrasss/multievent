@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { usePathname } from "next/navigation";
 import type { Locale } from "@/types";
 import { translations, type TranslationKey } from "@/lib/i18n";
 
@@ -14,14 +15,21 @@ type LanguageContextValue = {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [locale, setLocaleState] = useState<Locale>("en");
+  const pathname = usePathname();
+  const routeLocale = pathname?.match(/^\/(tr|en)(?:\/|$)/)?.[1] as Locale | undefined;
+  const [locale, setLocaleState] = useState<Locale>(routeLocale || "en");
 
   useEffect(() => {
+    if (routeLocale) {
+      setLocaleState(routeLocale);
+      window.localStorage.setItem("multievent-locale", routeLocale);
+      return;
+    }
     const stored = window.localStorage.getItem("multievent-locale");
     const systemLocale: Locale = navigator.language.toLowerCase().startsWith("tr") ? "tr" : "en";
     const nextLocale = stored === "tr" || stored === "en" ? stored : systemLocale;
     setLocaleState(nextLocale);
-  }, []);
+  }, [routeLocale]);
 
   useEffect(() => {
     document.documentElement.lang = locale;

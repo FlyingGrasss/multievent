@@ -4,9 +4,11 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Localized } from "@/components/Localized";
+import { useLanguage } from "@/components/LanguageProvider";
 
 export default function Footer() {
   const pathname = usePathname();
+  const { locale } = useLanguage();
   if (pathname?.startsWith("/admin") || pathname?.startsWith("/api")) return null;
   const currentYear = new Date().getFullYear();
 
@@ -30,7 +32,10 @@ export default function Footer() {
           </div>
           <div className="flex flex-col sm:items-center">
             <h2 className="mb-6 text-2xl font-bold text-accent max-sm:mb-4 max-sm:text-lg"><Localized tr="Hizmetlerimiz" en="Services" /></h2>
-            <Link href="/services" className="text-lg text-accent hover:underline"><Localized tr="Tüm hizmetleri gör" en="View all services" /></Link>
+            <div className="flex flex-col gap-3 sm:items-center">
+              <Link href={`/${locale}/services`} className="text-lg text-accent hover:underline"><Localized tr="Tüm hizmetleri gör" en="View all services" /></Link>
+              <Link href={`/${locale}/events`} className="text-lg text-accent hover:underline"><Localized tr="Etkinliklerimizi görün" en="View our events" /></Link>
+            </div>
           </div>
         </div>
         <div className="flex flex-col items-center justify-center border-t border-[#2A2A2A] pt-4 text-center">

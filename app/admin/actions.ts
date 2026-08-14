@@ -27,6 +27,44 @@ function imageUrl(value: FormDataEntryValue | null) {
   return url.toString();
 }
 
+type SubmittedEventMedia = { url: string; type: "image" | "video" };
+
+function eventMedia(value: FormDataEntryValue | null): SubmittedEventMedia[] {
+  const parsed = JSON.parse(String(value || "[]")) as unknown;
+  if (!Array.isArray(parsed) || parsed.length === 0) throw new Error("At least one event photo or video is required.");
+  return parsed.map((item) => {
+    if (!item || typeof item !== "object") throw new Error("Invalid event media.");
+    const candidate = item as { url?: unknown; type?: unknown };
+    if (candidate.type !== "image" && candidate.type !== "video") throw new Error("Invalid event media type.");
+    const url = new URL(String(candidate.url || ""));
+    if (url.protocol !== "https:" || !url.hostname.endsWith(".public.blob.vercel-storage.com")) throw new Error("Event media must use Vercel Blob.");
+    return { url: url.toString(), type: candidate.type };
+  });
+}
+
+function slugify(value: string) {
+  return value
+    .toLocaleLowerCase("tr-TR")
+    .replaceAll("ı", "i")
+    .replaceAll("ş", "s")
+    .replaceAll("ğ", "g")
+    .replaceAll("ü", "u")
+    .replaceAll("ö", "o")
+    .replaceAll("ç", "c")
+    .normalize("NFKD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || "etkinlik";
+}
+
+async function uniqueEventSlug(title: string) {
+  const base = slugify(title);
+  let slug = base;
+  let suffix = 2;
+  while (await prisma.event.findUnique({ where: { slug }, select: { id: true } })) slug = `${base}-${suffix++}`;
+  return slug;
+}
+
 async function removeBlobIfOwned(url: string | null | undefined) {
   if (!url || !process.env.BLOB_READ_WRITE_TOKEN) return;
   try {
@@ -47,7 +85,7 @@ export async function saveArtist(formData: FormData) {
     nameEn: required(formData.get("nameEn"), "English name"),
     imageUrl: imageUrl(formData.get("imageUrl")),
     link: optionalUrl(formData.get("link")),
-    active: formData.get("active") !== "false",
+    active: formData.get("active") === "true",
   };
   if (id) {
     const previous = await prisma.artist.findUnique({ where: { id }, select: { imageUrl: true } });
@@ -91,7 +129,7 @@ export async function saveService(formData: FormData) {
     descriptionTr: String(formData.get("descriptionTr") || "").trim() || null,
     descriptionEn: String(formData.get("descriptionEn") || "").trim() || null,
     icon: String(formData.get("icon") || "").trim() || null,
-    active: formData.get("active") !== "false",
+    active: formData.get("active") === "true",
   };
   if (id) await prisma.service.update({ where: { id }, data });
   else {
@@ -99,6 +137,10 @@ export async function saveService(formData: FormData) {
     await prisma.service.create({ data: { ...data, sortOrder: (last?.sortOrder ?? -1) + 1 } });
   }
   revalidatePath("/services");
+  revalidatePath("/tr");
+  revalidatePath("/en");
+  revalidatePath("/tr/services");
+  revalidatePath("/en/services");
   revalidatePath("/admin");
 }
 
@@ -106,6 +148,10 @@ export async function deleteService(id: string) {
   await requireAdmin();
   await prisma.service.delete({ where: { id } });
   revalidatePath("/services");
+  revalidatePath("/tr");
+  revalidatePath("/en");
+  revalidatePath("/tr/services");
+  revalidatePath("/en/services");
   revalidatePath("/admin");
 }
 
@@ -114,5 +160,81 @@ export async function reorderServices(ids: string[]) {
   if (!Array.isArray(ids) || ids.length === 0 || ids.some((id) => typeof id !== "string")) throw new Error("Invalid service order.");
   await prisma.$transaction(ids.map((id, index) => prisma.service.update({ where: { id }, data: { sortOrder: index } })));
   revalidatePath("/services");
+  revalidatePath("/tr");
+  revalidatePath("/en");
+  revalidatePath("/tr/services");
+  revalidatePath("/en/services");
+  revalidatePath("/admin");
+}
+
+export async function saveEvent(formData: FormData) {
+  await requireAdmin();
+  const id = String(formData.get("id") || "").trim();
+  const titleTr = required(formData.get("titleTr"), "Turkish title");
+  const media = eventMedia(formData.get("media"));
+  const dateValue = String(formData.get("eventDate") || "").trim();
+  const data = {
+    titleTr,
+    titleEn: required(formData.get("titleEn"), "English title"),
+    descriptionTr: required(formData.get("descriptionTr"), "Turkish description"),
+    descriptionEn: required(formData.get("descriptionEn"), "English description"),
+    venueTr: String(formData.get("venueTr") || "").trim() || null,
+    venueEn: String(formData.get("venueEn") || "").trim() || null,
+    eventDate: dateValue ? new Date(`${dateValue}T12:00:00.000Z`) : null,
+    active: formData.get("active") === "true",
+  };
+  if (data.eventDate && Number.isNaN(data.eventDate.getTime())) throw new Error("Invalid event date.");
+
+  let removedUrls: string[] = [];
+  if (id) {
+    const previous = await prisma.event.findUnique({ where: { id }, include: { media: true } });
+    if (!previous) throw new Error("Event not found.");
+    removedUrls = previous.media.filter((item) => !media.some((next) => next.url === item.url)).map((item) => item.url);
+    await prisma.event.update({
+      where: { id },
+      data: {
+        ...data,
+        media: { deleteMany: {}, create: media.map((item, index) => ({ ...item, sortOrder: index })) },
+      },
+    });
+  } else {
+    const last = await prisma.event.findFirst({ orderBy: { sortOrder: "desc" }, select: { sortOrder: true } });
+    await prisma.event.create({
+      data: {
+        ...data,
+        slug: await uniqueEventSlug(titleTr),
+        sortOrder: (last?.sortOrder ?? -1) + 1,
+        media: { create: media.map((item, index) => ({ ...item, sortOrder: index })) },
+      },
+    });
+  }
+  if (removedUrls.length > 0 && process.env.BLOB_READ_WRITE_TOKEN) await del(removedUrls).catch((error) => console.warn("Unable to remove event media", error));
+  revalidatePath("/events");
+  revalidatePath("/tr/events");
+  revalidatePath("/en/events");
+  revalidatePath("/sitemap.xml");
+  revalidatePath("/admin");
+}
+
+export async function deleteEvent(id: string) {
+  await requireAdmin();
+  const event = await prisma.event.findUnique({ where: { id }, include: { media: true } });
+  if (!event) return;
+  await prisma.event.delete({ where: { id } });
+  if (event.media.length > 0 && process.env.BLOB_READ_WRITE_TOKEN) await del(event.media.map((item) => item.url)).catch((error) => console.warn("Unable to remove event media", error));
+  revalidatePath("/events");
+  revalidatePath("/tr/events");
+  revalidatePath("/en/events");
+  revalidatePath("/sitemap.xml");
+  revalidatePath("/admin");
+}
+
+export async function reorderEvents(ids: string[]) {
+  await requireAdmin();
+  if (!Array.isArray(ids) || ids.length === 0 || ids.some((id) => typeof id !== "string")) throw new Error("Invalid event order.");
+  await prisma.$transaction(ids.map((id, index) => prisma.event.update({ where: { id }, data: { sortOrder: index } })));
+  revalidatePath("/events");
+  revalidatePath("/tr/events");
+  revalidatePath("/en/events");
   revalidatePath("/admin");
 }

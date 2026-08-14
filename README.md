@@ -14,9 +14,15 @@ Multi Event is a Next.js site for Bodrum event planning, live music, and product
 
 The admin panel uses one password from `ADMIN_PASSWORD`; there is no account creation or email login. A signed, HttpOnly session cookie lasts one year. Set a separate random `ADMIN_SESSION_SECRET` so changing the admin password does not reuse the signing key.
 
-Artist images are uploaded through the protected admin route to Vercel Blob and the resulting public URL is saved in Prisma. Images are limited to JPEG, PNG, WebP, and AVIF, with an 8 MB maximum.
+Artist images and event media are uploaded from the protected admin panel to Vercel Blob, while their content and ordering are stored in Prisma. Event entries support bilingual titles, descriptions and venues, an optional date, multiple photos/videos, draft publishing, drag-and-drop ordering, a public portfolio, and individual event pages.
 
 To migrate the recovered Sanity artists after adding `BLOB_READ_WRITE_TOKEN`, run `pnpm sanity:import-artists`. Use `pnpm sanity:import-artists -- --dry-run` to validate the local export without writing anything.
+
+## SEO and localization
+
+Turkish and English pages are available under `/tr` and `/en`. Each language has localized home, services, artists, events, contact, and focused service landing pages with canonical and hreflang metadata. Published event pages are added to the generated `/sitemap.xml` automatically. Open Graph and WhatsApp previews reuse the square `public/logo.jpeg` logo.
+
+Google Business Profile ownership, customer reviews, and external backlinks must be managed outside the repository.
 
 ## Verification
 

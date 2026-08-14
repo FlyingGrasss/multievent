@@ -10,7 +10,7 @@ function configuredPassword() {
 }
 
 function sessionSecret() {
-  return process.env.ADMIN_SESSION_SECRET || process.env.BETTER_AUTH_SECRET || configuredPassword();
+  return process.env.ADMIN_SESSION_SECRET || configuredPassword();
 }
 
 function sign(value: string) {

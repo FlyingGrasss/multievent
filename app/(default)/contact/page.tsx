@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     title: "İletişim – Bodrum Etkinlik Teklifi | Multi Event",
     description: "Bodrum etkinlik organizasyon ve canlı müzik teklifiniz için Multi Event ile iletişime geçin.",
     url: "/contact",
+    images: ["/logo.jpeg"],
   },
 };
 

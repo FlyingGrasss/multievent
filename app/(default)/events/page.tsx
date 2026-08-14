@@ -11,5 +11,5 @@ export const metadata: Metadata = {
 };
 
 export default async function EventsPage() {
-  return <EventPortfolio events={await getEvents()} locale="tr" basePath="/events" />;
+  return <EventPortfolio events={await getEvents()} basePath="/events" />;
 }

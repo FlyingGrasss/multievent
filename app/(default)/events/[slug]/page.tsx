@@ -17,5 +17,5 @@ export default async function EventPage({ params }: Props) {
   const event = await getEventBySlug((await params).slug);
   if (!event) notFound();
   const data = { "@context": "https://schema.org", "@type": "Article", headline: event.titleTr, description: event.descriptionTr, image: `${siteUrl}/logo.jpeg`, datePublished: event.createdAt, dateModified: event.updatedAt, author: { "@type": "Organization", name: "Multi Event", url: siteUrl } };
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} /><EventDetails event={event} locale="tr" listingPath="/events" /></>;
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} /><EventDetails event={event} listingPath="/events" /></>;
 }

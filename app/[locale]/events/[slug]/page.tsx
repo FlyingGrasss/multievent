@@ -26,5 +26,5 @@ export default async function LocaleEventPage({ params }: Props) {
   const title = locale === "tr" ? event.titleTr : event.titleEn;
   const description = locale === "tr" ? event.descriptionTr : event.descriptionEn;
   const data = { "@context": "https://schema.org", "@type": "Article", headline: title, description, image: `${siteUrl}/logo.jpeg`, datePublished: event.createdAt, dateModified: event.updatedAt, inLanguage: locale, author: { "@type": "Organization", name: "Multi Event", url: siteUrl } };
-  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} /><EventDetails event={event} locale={locale} listingPath={`/${locale}/events`} /></>;
+  return <><script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} /><EventDetails event={event} listingPath={`/${locale}/events`} /></>;
 }

@@ -19,5 +19,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function LocaleEventsPage({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  return <EventPortfolio events={await getEvents()} locale={locale} basePath={`/${locale}/events`} />;
+  return <EventPortfolio events={await getEvents()} basePath={`/${locale}/events`} />;
 }

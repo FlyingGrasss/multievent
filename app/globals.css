@@ -71,3 +71,9 @@ html[data-locale="en"] .hero-locale.lang-en {
 button:disabled {
   cursor: default;
 }
+
+@media (max-width: 639px) {
+  [data-aos][data-aos-mobile-delay].aos-animate {
+    transition-delay: var(--aos-mobile-delay) !important;
+  }
+}

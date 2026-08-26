@@ -42,10 +42,10 @@ function JsonLd() {
 
 export default function SiteDocument({ children, locale }: Readonly<{ children: React.ReactNode; locale: Locale }>) {
   return (
-    <html lang={locale} data-locale={locale} className="overflow-x-hidden" suppressHydrationWarning>
+    <html lang={locale} data-locale={locale} data-locale-pending className="overflow-x-hidden" suppressHydrationWarning>
+      <script dangerouslySetInnerHTML={{ __html: `try { const route = location.pathname.match(/^\\/(tr|en)(?:\\/|$)/)?.[1]; const stored = localStorage.getItem('multievent-locale'); const l = route || (stored === 'tr' || stored === 'en' ? stored : ((navigator.language || '').toLowerCase().startsWith('tr') ? 'tr' : 'en')); document.documentElement.lang = l; document.documentElement.dataset.locale = l; } catch (_) {}` }} />
       <body className={`${montserrat.variable} overflow-x-hidden antialiased`}>
-        <script dangerouslySetInnerHTML={{ __html: `try { const route = location.pathname.match(/^\\/(tr|en)(?:\\/|$)/)?.[1]; const stored = localStorage.getItem('multievent-locale'); const l = route || (stored === 'tr' || stored === 'en' ? stored : ((navigator.language || '').toLowerCase().startsWith('tr') ? 'tr' : 'en')); document.documentElement.lang = l; document.documentElement.dataset.locale = l; } catch (_) {}` }} />
-        <LanguageProvider>
+        <LanguageProvider initialLocale={locale}>
           <AOSProvider />
           <div className="min-h-screen">
             <Navbar />

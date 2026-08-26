@@ -38,6 +38,10 @@ body {
   min-height: 100vh;
 }
 
+html[data-locale-pending] body {
+  visibility: hidden;
+}
+
 html[data-locale="tr"] .lang-en,
 html[data-locale="en"] .lang-tr {
   display: none;

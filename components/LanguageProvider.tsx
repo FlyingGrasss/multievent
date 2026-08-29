@@ -14,33 +14,27 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
+function persistLocale(nextLocale: Locale) {
+  window.localStorage.setItem("multievent-locale", nextLocale);
+  document.cookie = `multievent-locale=${nextLocale}; Max-Age=31536000; Path=/; SameSite=Lax`;
+}
+
 export function LanguageProvider({ children, initialLocale }: { children: React.ReactNode; initialLocale: Locale }) {
   const pathname = usePathname();
   const routeLocale = pathname?.match(/^\/(tr|en)(?:\/|$)/)?.[1] as Locale | undefined;
   const [locale, setLocaleState] = useState<Locale>(routeLocale || initialLocale);
 
-  function persistLocale(nextLocale: Locale) {
-    window.localStorage.setItem("multievent-locale", nextLocale);
-    document.cookie = `multievent-locale=${nextLocale}; Max-Age=31536000; Path=/; SameSite=Lax`;
-  }
-
   useEffect(() => {
-    if (routeLocale) {
-      setLocaleState(routeLocale);
-      persistLocale(routeLocale);
-      document.documentElement.lang = routeLocale;
-      document.documentElement.dataset.locale = routeLocale;
+    const timeout = window.setTimeout(() => {
+      const stored = window.localStorage.getItem("multievent-locale");
+      const systemLocale: Locale = navigator.language.toLowerCase().startsWith("tr") ? "tr" : "en";
+      const nextLocale = routeLocale || (stored === "tr" || stored === "en" ? stored : systemLocale);
+      setLocaleState((currentLocale) => currentLocale === nextLocale ? currentLocale : nextLocale);
+      persistLocale(nextLocale);
       document.documentElement.removeAttribute("data-locale-pending");
-      return;
-    }
-    const stored = window.localStorage.getItem("multievent-locale");
-    const systemLocale: Locale = navigator.language.toLowerCase().startsWith("tr") ? "tr" : "en";
-    const nextLocale = stored === "tr" || stored === "en" ? stored : systemLocale;
-    setLocaleState(nextLocale);
-    persistLocale(nextLocale);
-    document.documentElement.lang = nextLocale;
-    document.documentElement.dataset.locale = nextLocale;
-    document.documentElement.removeAttribute("data-locale-pending");
+    }, 0);
+
+    return () => window.clearTimeout(timeout);
   }, [routeLocale]);
 
   useEffect(() => {

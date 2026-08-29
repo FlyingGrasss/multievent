@@ -175,7 +175,8 @@ export default function AdminDashboard({ userName, initialArtists, initialServic
 
   async function signOut() {
     await fetch("/api/admin/logout", { method: "POST" });
-    window.location.assign("/admin/sign-in");
+    router.replace("/admin/sign-in");
+    router.refresh();
   }
 
   return (

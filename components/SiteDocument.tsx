@@ -1,17 +1,9 @@
-import { Montserrat } from "next/font/google";
 import AOSProvider from "@/components/AOSProvider";
 import Footer from "@/components/Footer";
 import { LanguageProvider } from "@/components/LanguageProvider";
 import Navbar from "@/components/Navbar";
 import { siteUrl } from "@/lib/site";
 import type { Locale } from "@/types";
-
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
-  subsets: ["latin"],
-  display: "swap",
-  preload: true,
-});
 
 function JsonLd() {
   const data = {
@@ -42,19 +34,16 @@ function JsonLd() {
 
 export default function SiteDocument({ children, locale }: Readonly<{ children: React.ReactNode; locale: Locale }>) {
   return (
-    <html lang={locale} data-locale={locale} data-locale-pending className="overflow-x-hidden" suppressHydrationWarning>
-      <script dangerouslySetInnerHTML={{ __html: `try { const route = location.pathname.match(/^\\/(tr|en)(?:\\/|$)/)?.[1]; const stored = localStorage.getItem('multievent-locale'); const l = route || (stored === 'tr' || stored === 'en' ? stored : ((navigator.language || '').toLowerCase().startsWith('tr') ? 'tr' : 'en')); document.documentElement.lang = l; document.documentElement.dataset.locale = l; } catch (_) {}` }} />
-      <body className={`${montserrat.variable} overflow-x-hidden antialiased`}>
-        <LanguageProvider initialLocale={locale}>
-          <AOSProvider />
-          <div className="min-h-screen">
-            <Navbar />
-            {children}
-          </div>
-          <Footer />
-        </LanguageProvider>
-        <JsonLd />
-      </body>
-    </html>
+    <>
+      <LanguageProvider initialLocale={locale}>
+        <AOSProvider />
+        <div className="min-h-screen">
+          <Navbar />
+          {children}
+        </div>
+        <Footer />
+      </LanguageProvider>
+      <JsonLd />
+    </>
   );
 }

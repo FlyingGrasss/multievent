@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { Prisma } from "@/generated/prisma/client";
 import { prisma } from "@/lib/db";
 import {
@@ -146,7 +147,7 @@ export async function ensureApplicationForm(): Promise<ApplicationFormDefinition
   return mapForm(created);
 }
 
-export async function getPublicApplicationForm(): Promise<ApplicationFormDefinition | null> {
+export const getPublicApplicationForm = cache(async (): Promise<ApplicationFormDefinition | null> => {
   if (!process.env.DATABASE_URL) return createDefaultApplicationForm();
   try {
     const row = await findForm();
@@ -155,7 +156,7 @@ export async function getPublicApplicationForm(): Promise<ApplicationFormDefinit
     console.error("Unable to load public application form", error instanceof Error ? error.name : "unknown");
     return null;
   }
-}
+});
 
 export async function getAdminApplicationForm(): Promise<ApplicationFormDefinition> {
   return ensureApplicationForm();

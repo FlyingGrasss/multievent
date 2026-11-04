@@ -39,6 +39,12 @@ export default function Navbar() {
       </Link>
 
       <div className="flex items-center gap-3 justify-self-end">
+        <Link
+          href={`${localeRoot}/basvuru`}
+          className="hidden rounded-full border border-accent/70 px-3 py-1 text-sm font-semibold text-accent transition-colors hover:bg-accent hover:text-black sm:inline-block"
+        >
+          <Localized tr="Başvuru" en="Apply" />
+        </Link>
         <LanguageSwitcher />
         <button
           type="button"

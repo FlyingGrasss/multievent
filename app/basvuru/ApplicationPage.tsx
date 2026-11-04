@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { Localized } from "@/components/Localized";
 import { APPLICATION_MESSAGES, type LocalizedMessage } from "@/lib/application-form";
 import type { ApplicationFormDefinition } from "@/types";
@@ -43,6 +44,9 @@ export default function ApplicationPage({ form }: { form: ApplicationFormDefinit
             <Localized tr={form.descriptionTr} en={form.descriptionEn} />
           </p>
         ) : null}
+        <Link href="/genc-muzik-etkinligi" className="mt-4 inline-block text-sm font-medium text-accent hover:underline">
+          <Localized tr="Etkinlik hakkında bilgi" en="About the event" />
+        </Link>
       </div>
 
       {!form.isOpen ? (

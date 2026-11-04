@@ -5,8 +5,8 @@ import { getPublicApplicationForm } from "@/lib/application-form-data";
 
 export const dynamic = "force-dynamic";
 
-const fallbackTitle = "Bodrum Piyano Festivali 2026 Başvurusu";
-const fallbackDescription = "Bodrum Piyano Festivali 2026 başvuru formu. Bu form yalnızca piyano öğrencileri içindir. Başvurular ücretsizdir.";
+const fallbackTitle = "Bodrum Forte Müzik Festivali Başvurusu";
+const fallbackDescription = "Bodrum Forte Müzik Festivali başvuru formu. Tüm enstrümanlar ve vokal kategorileri başvurabilir. Başvurular ücretsizdir.";
 
 export async function generateMetadata(): Promise<Metadata> {
   const form = await getPublicApplicationForm();

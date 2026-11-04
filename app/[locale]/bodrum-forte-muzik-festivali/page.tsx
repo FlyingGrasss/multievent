@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import PianoFestivalPage from "@/components/PianoFestivalPage";
+import ForteFestivalPage from "@/components/ForteFestivalPage";
 import { getPublicApplicationForm } from "@/lib/application-form-data";
-import { pianoFestivalContent, pianoFestivalText } from "@/lib/piano-festival";
+import { forteFestivalContent, forteFestivalText } from "@/lib/forte-festival";
 import { isLocale } from "@/lib/seo-content";
 
 export const dynamic = "force-dynamic";
@@ -12,17 +12,17 @@ type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const title = pianoFestivalText(locale, pianoFestivalContent.meta.title);
-  const description = pianoFestivalText(locale, pianoFestivalContent.meta.description);
+  const title = forteFestivalText(locale, forteFestivalContent.meta.title);
+  const description = forteFestivalText(locale, forteFestivalContent.meta.description);
   return {
     title,
     description,
     alternates: {
-      canonical: `/${locale}/bodrum-piyano-festivali`,
+      canonical: `/${locale}/bodrum-forte-muzik-festivali`,
       languages: {
-        tr: "/tr/bodrum-piyano-festivali",
-        en: "/en/bodrum-piyano-festivali",
-        "x-default": "/bodrum-piyano-festivali",
+        tr: "/tr/bodrum-forte-muzik-festivali",
+        en: "/en/bodrum-forte-muzik-festivali",
+        "x-default": "/bodrum-forte-muzik-festivali",
       },
     },
     openGraph: {
@@ -30,7 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: "Multi Event",
       title: `${title} | Multi Event`,
       description,
-      url: `/${locale}/bodrum-piyano-festivali`,
+      url: `/${locale}/bodrum-forte-muzik-festivali`,
       locale: locale === "tr" ? "tr_TR" : "en_US",
       images: ["/logo.jpeg"],
     },
@@ -43,9 +43,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function LocaleBodrumPianoFestivalRoute({ params }: Props) {
+export default async function LocaleBodrumForteFestivalRoute({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const form = await getPublicApplicationForm();
-  return <PianoFestivalPage applicationOpen={form?.isOpen ?? null} />;
+  return <ForteFestivalPage applicationOpen={form?.isOpen ?? null} />;
 }

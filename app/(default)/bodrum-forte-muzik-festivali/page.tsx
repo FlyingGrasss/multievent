@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import PianoFestivalPage from "@/components/PianoFestivalPage";
+import ForteFestivalPage from "@/components/ForteFestivalPage";
 import { getPublicApplicationForm } from "@/lib/application-form-data";
-import { pianoFestivalContent, pianoFestivalText } from "@/lib/piano-festival";
+import { forteFestivalContent, forteFestivalText } from "@/lib/forte-festival";
 import type { Locale } from "@/types";
 
 export const dynamic = "force-dynamic";
@@ -14,17 +14,17 @@ async function currentLocale(): Promise<Locale> {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await currentLocale();
-  const title = pianoFestivalText(locale, pianoFestivalContent.meta.title);
-  const description = pianoFestivalText(locale, pianoFestivalContent.meta.description);
+  const title = forteFestivalText(locale, forteFestivalContent.meta.title);
+  const description = forteFestivalText(locale, forteFestivalContent.meta.description);
   return {
     title,
     description,
     alternates: {
-      canonical: "/bodrum-piyano-festivali",
+      canonical: "/bodrum-forte-muzik-festivali",
       languages: {
-        tr: "/tr/bodrum-piyano-festivali",
-        en: "/en/bodrum-piyano-festivali",
-        "x-default": "/bodrum-piyano-festivali",
+        tr: "/tr/bodrum-forte-muzik-festivali",
+        en: "/en/bodrum-forte-muzik-festivali",
+        "x-default": "/bodrum-forte-muzik-festivali",
       },
     },
     openGraph: {
@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "Multi Event",
       title: `${title} | Multi Event`,
       description,
-      url: "/bodrum-piyano-festivali",
+      url: "/bodrum-forte-muzik-festivali",
       locale: locale === "tr" ? "tr_TR" : "en_US",
       images: ["/logo.jpeg"],
     },
@@ -45,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function BodrumPianoFestivalRoute() {
+export default async function BodrumForteFestivalRoute() {
   const form = await getPublicApplicationForm();
-  return <PianoFestivalPage applicationOpen={form?.isOpen ?? null} />;
+  return <ForteFestivalPage applicationOpen={form?.isOpen ?? null} />;
 }

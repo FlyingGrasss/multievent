@@ -116,6 +116,18 @@ button:disabled {
   }
 }
 
+@keyframes festival-eq {
+  0%,
+  100% {
+    transform: scaleY(0.55);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scaleY(1);
+    opacity: 1;
+  }
+}
+
 .festival-rise {
   animation: festival-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -132,11 +144,17 @@ button:disabled {
   animation: festival-drift 14s ease-in-out infinite;
 }
 
+.festival-eq {
+  transform-origin: bottom;
+  animation: festival-eq 1.6s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .festival-rise,
   .festival-fade,
   .festival-float,
-  .festival-drift {
+  .festival-drift,
+  .festival-eq {
     animation: none !important;
   }
 }

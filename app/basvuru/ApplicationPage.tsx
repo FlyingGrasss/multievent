@@ -44,7 +44,7 @@ export default function ApplicationPage({ form }: { form: ApplicationFormDefinit
             <Localized tr={form.descriptionTr} en={form.descriptionEn} />
           </p>
         ) : null}
-        <Link href="/bodrum-piyano-festivali" className="mt-4 inline-block text-sm font-medium text-accent hover:underline">
+        <Link href="/bodrum-forte-muzik-festivali" className="mt-4 inline-block text-sm font-medium text-accent hover:underline">
           <Localized tr="Festival hakkında bilgi" en="About the festival" />
         </Link>
       </div>

@@ -125,12 +125,12 @@ const FIELD_MESSAGES: Record<ApplicationFieldErrorCode, LocalizedMessage> = {
 
 export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
   id: APPLICATION_FORM_ID,
-  titleTr: "Bodrum Piyano Festivali 2026 Başvurusu",
-  titleEn: "Bodrum Piano Festival 2026 Application",
+  titleTr: "Bodrum Forte Müzik Festivali Başvurusu",
+  titleEn: "Bodrum Forte Music Festival Application",
   descriptionTr:
-    "Bodrum Piyano Festivali 2026 için başvuru formu. Bu form yalnızca piyano öğrencileri içindir. Başvurular ücretsizdir.",
+    "Bodrum Forte Müzik Festivali başvuru formu. Tüm enstrümanlar ve vokal kategorileri başvurabilir. Başvurular ücretsizdir.",
   descriptionEn:
-    "Application form for the Bodrum Piano Festival 2026. This form is for piano students only. Applications are free.",
+    "Application form for the Bodrum Forte Music Festival. All instruments and vocal categories can apply. Applications are free.",
   isOpen: true,
   questions: [
     {
@@ -156,6 +156,17 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       sortOrder: 1,
     },
     {
+      id: "default-instrument",
+      type: "shortText",
+      labelTr: "Enstrüman / Vokal",
+      labelEn: "Instrument / Vocal",
+      helpTr: "Başvuruda kullanacağınız enstrümanı veya vokal türünü belirtin.",
+      helpEn: "Specify the instrument or vocal type you will use.",
+      required: true,
+      options: [],
+      sortOrder: 2,
+    },
+    {
       id: "default-email",
       type: "email",
       labelTr: "E-posta",
@@ -164,7 +175,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "",
       required: true,
       options: [],
-      sortOrder: 2,
+      sortOrder: 3,
     },
     {
       id: "default-phone",
@@ -175,7 +186,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "Enter a phone number where we can reach you.",
       required: true,
       options: [],
-      sortOrder: 3,
+      sortOrder: 4,
     },
     {
       id: "default-demo-url",
@@ -186,7 +197,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "You can add a YouTube, Instagram, or similar link.",
       required: false,
       options: [],
-      sortOrder: 4,
+      sortOrder: 5,
     },
     {
       id: "default-bio",
@@ -197,7 +208,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "Share a short biography and your music experience.",
       required: false,
       options: [],
-      sortOrder: 5,
+      sortOrder: 6,
     },
     {
       id: "default-notes",
@@ -208,7 +219,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "",
       required: false,
       options: [],
-      sortOrder: 6,
+      sortOrder: 7,
     },
     {
       id: "default-consent",
@@ -219,7 +230,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "Your application will only be used for event evaluation.",
       required: true,
       options: [],
-      sortOrder: 7,
+      sortOrder: 8,
     },
   ],
 };

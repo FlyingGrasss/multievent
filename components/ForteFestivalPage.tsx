@@ -6,13 +6,13 @@ import Marquee from "react-fast-marquee";
 import { useEffect, useState, type ReactNode } from "react";
 import { useLanguage } from "@/components/LanguageProvider";
 import {
-  pianoFestivalApplicationPath,
-  pianoFestivalContactPath,
-  pianoFestivalContent,
-  pianoFestivalList,
-  pianoFestivalText,
+  forteFestivalApplicationPath,
+  forteFestivalContactPath,
+  forteFestivalContent,
+  forteFestivalList,
+  forteFestivalText,
   type LocalizedText,
-} from "@/lib/piano-festival";
+} from "@/lib/forte-festival";
 
 type Props = {
   applicationOpen: boolean | null;
@@ -45,18 +45,19 @@ function SectionHeading({ eyebrow, title, note }: { eyebrow: string; title: stri
   );
 }
 
-function PianoKeys({ className = "" }: { className?: string }) {
-  const blackKeys = new Set([1, 2, 4, 5, 6, 8, 9, 11, 12, 13]);
+function SoundBars({ className = "" }: { className?: string }) {
+  const heights = [34, 62, 46, 80, 55, 94, 70, 42, 76, 38, 66, 88, 52, 72, 44, 84];
   return (
-    <div aria-hidden="true" className={`relative flex h-20 overflow-hidden rounded-xl border border-white/10 bg-white/10 p-1.5 ${className}`}>
-      {Array.from({ length: 14 }).map((_, index) => (
-        <span key={index} className="flex-1 border-r border-black/20 bg-white/15 first:rounded-l-[3px] last:rounded-r-[3px] last:border-r-0" />
-      ))}
-      {Array.from(blackKeys).map((index) => (
+    <div aria-hidden="true" className={`flex h-20 items-end gap-1.5 rounded-xl border border-white/10 bg-black/25 p-2.5 ${className}`}>
+      {heights.map((height, index) => (
         <span
-          key={`black-${index}`}
-          className="absolute top-1.5 h-12 w-[6.2%] -translate-x-1/2 rounded-b-[3px] bg-[#0C0C0C] shadow-md shadow-black/60"
-          style={{ left: `${((index + 1) / 14) * 100}%` }}
+          key={index}
+          className="festival-eq flex-1 rounded-full bg-accent/70"
+          style={{
+            height: `${height}%`,
+            animationDelay: `${index * 90}ms`,
+            animationDuration: `${1.4 + (index % 4) * 0.25}s`,
+          }}
         />
       ))}
     </div>
@@ -97,11 +98,11 @@ function usePrefersReducedMotion() {
   return reduced;
 }
 
-export default function PianoFestivalPage({ applicationOpen }: Props) {
+export default function ForteFestivalPage({ applicationOpen }: Props) {
   const { locale } = useLanguage();
-  const content = pianoFestivalContent;
-  const t = (value: LocalizedText) => pianoFestivalText(locale, value);
-  const list = (value: { readonly tr: readonly string[]; readonly en: readonly string[] }) => pianoFestivalList(locale, value);
+  const content = forteFestivalContent;
+  const t = (value: LocalizedText) => forteFestivalText(locale, value);
+  const list = (value: { readonly tr: readonly string[]; readonly en: readonly string[] }) => forteFestivalList(locale, value);
   const reducedMotion = usePrefersReducedMotion();
 
   const statusTone: StatusTone = applicationOpen === true ? "open" : applicationOpen === false ? "closed" : "unknown";
@@ -115,8 +116,8 @@ export default function PianoFestivalPage({ applicationOpen }: Props) {
     : applicationOpen === false
       ? t(content.hero.statusClosedNote)
       : t(content.hero.statusUnknownNote);
-  const applicationHref = pianoFestivalApplicationPath(locale);
-  const contactHref = pianoFestivalContactPath(locale);
+  const applicationHref = forteFestivalApplicationPath(locale);
+  const contactHref = forteFestivalContactPath(locale);
   const applicationLabel = applicationOpen === false ? t(content.application.closedLabel) : t(content.application.formLabel);
 
   return (
@@ -183,7 +184,7 @@ export default function PianoFestivalPage({ applicationOpen }: Props) {
               <p className="relative mt-10 text-[11px] uppercase tracking-[0.3em] text-white/35">{t(content.hero.eyebrow)}</p>
               <p className="relative mt-2 text-6xl font-black leading-none tracking-[-0.06em] text-white/90">{content.hero.year}</p>
               <div className="relative mt-6">
-                <PianoKeys />
+                <SoundBars />
               </div>
               <div className="relative mt-6 grid grid-cols-2 gap-3">
                 <div className="rounded-xl border border-white/10 bg-black/25 p-3">
@@ -284,25 +285,34 @@ export default function PianoFestivalPage({ applicationOpen }: Props) {
             <SectionHeading eyebrow={t(content.categories.eyebrow)} title={t(content.categories.title)} />
             <p className="max-w-sm text-sm leading-relaxed text-white/40">{t(content.categories.note)}</p>
           </div>
-          <div className="mt-12 grid gap-4 md:grid-cols-2">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
             {content.categories.items.map((item, index) => (
               <article
                 key={item.id}
                 data-aos="fade-up"
-                data-aos-delay={index * 90}
-                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#111] p-6 transition-colors hover:border-accent/40 sm:p-8"
+                data-aos-delay={index * 70}
+                className="group relative overflow-hidden rounded-3xl border border-white/10 bg-[#111] p-5 transition-colors hover:border-accent/40 sm:p-6"
               >
-                <div aria-hidden="true" className="absolute -right-4 -top-10 text-[9rem] font-black leading-none text-white/[0.03] transition-colors group-hover:text-accent/[0.05]">
-                  0{index + 1}
+                <div aria-hidden="true" className="absolute -right-2 -top-8 text-[7rem] font-black leading-none text-white/[0.03] transition-colors group-hover:text-accent/[0.05]">
+                  {item.letter}
                 </div>
-                <p className="relative text-xs font-semibold uppercase tracking-[0.25em] text-accent">{t(item.age)}</p>
-                <h3 className="relative mt-3 text-3xl font-bold text-white">{t(item.title)}</h3>
-                <p className="relative mt-3 max-w-md text-sm leading-relaxed text-white/55">{t(item.description)}</p>
-                <ul className="relative mt-5 flex flex-wrap gap-2">
-                  {list(item.requirements).map((requirement) => (
-                    <li key={requirement} className="rounded-full border border-white/10 px-3 py-1 text-xs text-white/55">{requirement}</li>
-                  ))}
-                </ul>
+                <div className="relative flex items-start justify-between gap-3">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/45">{t(item.age)}</p>
+                    <p className="mt-1 text-5xl font-black leading-none text-accent">{item.letter}</p>
+                  </div>
+                  <p className="max-w-[7rem] text-right text-[11px] leading-snug text-white/40">{t(item.description)}</p>
+                </div>
+                <div className="relative mt-5 space-y-2">
+                  <div className="rounded-xl border border-white/10 bg-black/25 p-3">
+                    <p className="text-[10px] uppercase tracking-[0.15em] text-white/35">{t(content.categories.worksLabel)}</p>
+                    <p className="mt-1 text-sm font-medium text-white">{t(item.works)}</p>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-black/25 p-3">
+                    <p className="text-[10px] uppercase tracking-[0.15em] text-white/35">{t(content.categories.durationLabel)}</p>
+                    <p className="mt-1 text-sm font-medium text-accent">{t(item.duration)}</p>
+                  </div>
+                </div>
               </article>
             ))}
           </div>

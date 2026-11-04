@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ForteFestivalPage from "@/components/ForteFestivalPage";
 import { getPublicApplicationForm } from "@/lib/application-form-data";
-import { forteFestivalContent, forteFestivalText } from "@/lib/forte-festival";
+import { forteFestivalText } from "@/lib/forte-festival";
+import { getForteFestivalContent } from "@/lib/forte-festival-store";
 import { isLocale } from "@/lib/seo-content";
 
 export const dynamic = "force-dynamic";
@@ -12,8 +13,9 @@ type Props = { params: Promise<{ locale: string }> };
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   if (!isLocale(locale)) return {};
-  const title = forteFestivalText(locale, forteFestivalContent.meta.title);
-  const description = forteFestivalText(locale, forteFestivalContent.meta.description);
+  const content = await getForteFestivalContent();
+  const title = forteFestivalText(locale, content.meta.title);
+  const description = forteFestivalText(locale, content.meta.description);
   return {
     title,
     description,
@@ -46,6 +48,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function LocaleBodrumForteFestivalRoute({ params }: Props) {
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
-  const form = await getPublicApplicationForm();
-  return <ForteFestivalPage applicationOpen={form?.isOpen ?? null} />;
+  const [form, content] = await Promise.all([getPublicApplicationForm(), getForteFestivalContent()]);
+  return <ForteFestivalPage applicationOpen={form?.isOpen ?? null} content={content} />;
 }

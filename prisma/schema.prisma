@@ -167,3 +167,10 @@ model ApplicationAnswer {
   @@index([submissionId, sortOrder])
   @@index([questionId])
 }
+
+/// Single editable festival page content. The id is always "forte".
+model FestivalPage {
+  id        String   @id @default("forte")
+  content   Json
+  updatedAt DateTime @updatedAt
+}

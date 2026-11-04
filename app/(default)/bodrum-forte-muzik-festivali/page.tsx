@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 import ForteFestivalPage from "@/components/ForteFestivalPage";
 import { getPublicApplicationForm } from "@/lib/application-form-data";
-import { forteFestivalContent, forteFestivalText } from "@/lib/forte-festival";
+import { forteFestivalText } from "@/lib/forte-festival";
+import { getForteFestivalContent } from "@/lib/forte-festival-store";
 import type { Locale } from "@/types";
 
 export const dynamic = "force-dynamic";
@@ -14,8 +15,9 @@ async function currentLocale(): Promise<Locale> {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await currentLocale();
-  const title = forteFestivalText(locale, forteFestivalContent.meta.title);
-  const description = forteFestivalText(locale, forteFestivalContent.meta.description);
+  const content = await getForteFestivalContent();
+  const title = forteFestivalText(locale, content.meta.title);
+  const description = forteFestivalText(locale, content.meta.description);
   return {
     title,
     description,
@@ -46,6 +48,6 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function BodrumForteFestivalRoute() {
-  const form = await getPublicApplicationForm();
-  return <ForteFestivalPage applicationOpen={form?.isOpen ?? null} />;
+  const [form, content] = await Promise.all([getPublicApplicationForm(), getForteFestivalContent()]);
+  return <ForteFestivalPage applicationOpen={form?.isOpen ?? null} content={content} />;
 }

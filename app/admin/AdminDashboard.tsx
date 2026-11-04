@@ -24,7 +24,9 @@ import type { EventType } from "@/types";
 import type { TodoType } from "@/types";
 import ApplicationManager from "@/app/admin/ApplicationManager";
 import EventManager from "@/app/admin/EventManager";
+import FestivalContentEditor from "@/app/admin/FestivalContentEditor";
 import TodoManager from "@/app/admin/TodoManager";
+import type { ForteFestivalContent } from "@/lib/forte-festival-store";
 import {
   deleteArtist,
   deleteService,
@@ -34,9 +36,9 @@ import {
   saveService,
 } from "@/app/admin/actions";
 
-export type AdminTab = "artists" | "services" | "events" | "todos" | "applications";
+export type AdminTab = "artists" | "services" | "events" | "todos" | "applications" | "festival";
 
-const tabQuery: Record<AdminTab, string> = { artists: "sanatcilar", services: "hizmetler", events: "etkinlikler", todos: "yapilacaklar", applications: "basvurular" };
+const tabQuery: Record<AdminTab, string> = { artists: "sanatcilar", services: "hizmetler", events: "etkinlikler", todos: "yapilacaklar", applications: "basvurular", festival: "festival" };
 
 type Props = {
   userName: string;
@@ -46,6 +48,7 @@ type Props = {
   initialTodos: TodoType[];
   initialApplicationForm: ApplicationFormDefinition;
   initialApplicationSubmissions: ApplicationSubmissionPage;
+  initialFestivalContent: ForteFestivalContent;
   initialTab: AdminTab;
 };
 type Modal = { kind: "artist" | "service"; item?: ArtistType | ServiceType } | null;
@@ -132,10 +135,11 @@ function RowActions({ onEdit, onDelete }: { onEdit: () => void; onDelete: () => 
   return <div className="flex shrink-0 gap-2"><button type="button" onClick={onEdit} className="rounded-lg border border-white/20 px-3 py-2 text-sm hover:border-accent hover:text-accent">Düzenle</button><button type="button" onClick={onDelete} className="rounded-lg border border-red-400/40 px-3 py-2 text-sm text-red-300 hover:bg-red-950">Sil</button></div>;
 }
 
-export default function AdminDashboard({ userName, initialArtists, initialServices, initialEvents, initialTodos, initialApplicationForm, initialApplicationSubmissions, initialTab }: Props) {
+export default function AdminDashboard({ userName, initialArtists, initialServices, initialEvents, initialTodos, initialApplicationForm, initialApplicationSubmissions, initialFestivalContent, initialTab }: Props) {
   const [artists, setArtists] = useState(initialArtists);
   const [services, setServices] = useState(initialServices);
   const [tab, setTab] = useState<AdminTab>(initialTab);
+  const [visitedTabs, setVisitedTabs] = useState<Set<AdminTab>>(() => new Set([initialTab]));
   const [modal, setModal] = useState<Modal>(null);
   const [deleteTarget, setDeleteTarget] = useState<{ kind: "artist" | "service"; id: string; name: string } | null>(null);
   const [isDeleting, setIsDeleting] = useState(false);
@@ -144,6 +148,12 @@ export default function AdminDashboard({ userName, initialArtists, initialServic
 
   function changeTab(nextTab: AdminTab) {
     setTab(nextTab);
+    setVisitedTabs((current) => {
+      if (current.has(nextTab)) return current;
+      const next = new Set(current);
+      next.add(nextTab);
+      return next;
+    });
     router.replace(`/admin?tab=${tabQuery[nextTab]}`, { scroll: false });
   }
 
@@ -187,12 +197,19 @@ export default function AdminDashboard({ userName, initialArtists, initialServic
     <main className="min-h-screen bg-[#0C0C0C] px-4 py-8 text-white sm:px-8">
       <div className="mx-auto max-w-5xl">
         <header className="mb-8 flex items-start justify-between gap-4"><div><p className="text-sm uppercase tracking-[0.25em] text-accent">Multi Event</p><h1 className="mt-2 text-3xl font-bold">Yönetim paneli</h1><p className="mt-1 text-sm text-white/60">Hoş geldin, {userName}.</p></div><button type="button" onClick={signOut} className="cursor-pointer rounded-lg border border-white/20 px-4 py-2 text-sm hover:border-accent hover:text-accent">Çıkış yap</button></header>
-        <div className="mb-6 grid grid-cols-2 border-b border-white/10 sm:grid-cols-5"><button type="button" onClick={() => changeTab("artists")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "artists" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Sanatçılar</button><button type="button" onClick={() => changeTab("services")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "services" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Hizmetler</button><button type="button" onClick={() => changeTab("events")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "events" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Etkinlikler</button><button type="button" onClick={() => changeTab("todos")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "todos" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Yapılacaklar</button><button type="button" onClick={() => changeTab("applications")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "applications" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Başvurular</button></div>
-        <div hidden={tab !== "applications"}>
-          <ApplicationManager initialForm={initialApplicationForm} initialSubmissions={initialApplicationSubmissions} />
-        </div>
-        {tab !== "applications" && (tab === "events" ? <EventManager initialEvents={initialEvents} /> : tab === "todos" ? <TodoManager initialTodos={initialTodos} /> : <section><div className="mb-4 flex items-center justify-between"><div><h2 className="text-xl font-semibold">{tab === "artists" ? "Sanatçı sıralaması" : "Hizmet listesi"}</h2><p className="text-sm text-white/50">{tab === "artists" ? "Sürükleyip bırakarak yayın sırasını değiştirin." : "Hizmetleri ve açıklamalarını buradan düzenleyin."}</p></div><button type="button" onClick={() => setModal({ kind: tab === "artists" ? "artist" : "service" })} className="cursor-pointer rounded-lg bg-accent px-4 py-2 font-semibold text-black">Yeni ekle</button></div>
-          <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}><SortableContext items={list.map((item) => item.id)} strategy={verticalListSortingStrategy}><ul className="space-y-3">{tab === "artists" ? artists.map((artist) => <SortableRow id={artist.id} key={artist.id}><div className="flex min-w-0 flex-1 items-center gap-3"><Image src={artist.imageUrl} alt="" width={48} height={48} className="h-12 w-12 rounded-lg object-cover" /><div className="min-w-0"><p className="truncate font-medium">{artist.nameTr} / {artist.nameEn}</p><p className="text-xs text-white/50">{artist.active ? "Yayında" : "Taslak"}</p></div></div><RowActions onEdit={() => setModal({ kind: "artist", item: artist })} onDelete={() => setDeleteTarget({ kind: "artist", id: artist.id, name: artist.nameTr })} /></SortableRow>) : services.map((service) => <SortableRow id={service.id} key={service.id}><div className="flex min-w-0 flex-1 items-center gap-3"><span className="text-2xl">{service.icon || "✦"}</span><div className="min-w-0"><p className="truncate font-medium">{service.titleTr} / {service.titleEn}</p><p className="text-xs text-white/50">{service.active ? "Yayında" : "Taslak"}</p></div></div><RowActions onEdit={() => setModal({ kind: "service", item: service })} onDelete={() => setDeleteTarget({ kind: "service", id: service.id, name: service.titleTr })} /></SortableRow>)}</ul></SortableContext></DndContext>
+        <div className="mb-6 grid grid-cols-2 border-b border-white/10 sm:grid-cols-6"><button type="button" onClick={() => changeTab("artists")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "artists" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Sanatçılar</button><button type="button" onClick={() => changeTab("services")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "services" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Hizmetler</button><button type="button" onClick={() => changeTab("events")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "events" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Etkinlikler</button><button type="button" onClick={() => changeTab("todos")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "todos" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Yapılacaklar</button><button type="button" onClick={() => changeTab("applications")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "applications" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Başvurular</button><button type="button" onClick={() => changeTab("festival")} className={`w-full cursor-pointer border-b-2 px-2 py-3 text-center text-sm sm:px-4 sm:text-base ${tab === "festival" ? "border-accent text-accent" : "border-transparent text-white/60"}`}>Festival</button></div>
+        {visitedTabs.has("applications") && (
+          <div hidden={tab !== "applications"}>
+            <ApplicationManager initialForm={initialApplicationForm} initialSubmissions={initialApplicationSubmissions} />
+          </div>
+        )}
+        {visitedTabs.has("festival") && (
+          <div hidden={tab !== "festival"}>
+            <FestivalContentEditor initialContent={initialFestivalContent} />
+          </div>
+        )}
+        {tab !== "applications" && tab !== "festival" && (tab === "events" ? <EventManager initialEvents={initialEvents} /> : tab === "todos" ? <TodoManager initialTodos={initialTodos} /> : <section><div className="mb-4 flex items-center justify-between"><div><h2 className="text-xl font-semibold">{tab === "artists" ? "Sanatçı sıralaması" : "Hizmet listesi"}</h2><p className="text-sm text-white/50">{tab === "artists" ? "Sürükleyip bırakarak yayın sırasını değiştirin." : "Hizmetleri ve açıklamalarını buradan düzenleyin."}</p></div><button type="button" onClick={() => setModal({ kind: tab === "artists" ? "artist" : "service" })} className="cursor-pointer rounded-lg bg-accent px-4 py-2 font-semibold text-black">Yeni ekle</button></div>
+          <DndContext id="admin-artists-services" sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}><SortableContext items={list.map((item) => item.id)} strategy={verticalListSortingStrategy}><ul className="space-y-3">{tab === "artists" ? artists.map((artist) => <SortableRow id={artist.id} key={artist.id}><div className="flex min-w-0 flex-1 items-center gap-3"><Image src={artist.imageUrl} alt="" width={48} height={48} className="h-12 w-12 rounded-lg object-cover" /><div className="min-w-0"><p className="truncate font-medium">{artist.nameTr} / {artist.nameEn}</p><p className="text-xs text-white/50">{artist.active ? "Yayında" : "Taslak"}</p></div></div><RowActions onEdit={() => setModal({ kind: "artist", item: artist })} onDelete={() => setDeleteTarget({ kind: "artist", id: artist.id, name: artist.nameTr })} /></SortableRow>) : services.map((service) => <SortableRow id={service.id} key={service.id}><div className="flex min-w-0 flex-1 items-center gap-3"><span className="text-2xl">{service.icon || "✦"}</span><div className="min-w-0"><p className="truncate font-medium">{service.titleTr} / {service.titleEn}</p><p className="text-xs text-white/50">{service.active ? "Yayında" : "Taslak"}</p></div></div><RowActions onEdit={() => setModal({ kind: "service", item: service })} onDelete={() => setDeleteTarget({ kind: "service", id: service.id, name: service.titleTr })} /></SortableRow>)}</ul></SortableContext></DndContext>
         </section>)}
       </div>
       {modal && <EditModal modal={modal} onClose={() => setModal(null)} onSaved={() => window.location.reload()} />}

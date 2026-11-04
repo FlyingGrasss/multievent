@@ -206,7 +206,7 @@ export default function ApplicationQuestionsPanel({ questions, onChange }: Props
           Henüz soru eklenmedi.
         </p>
       ) : (
-        <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+        <DndContext id="application-questions" sensors={sensors} collisionDetection={closestCenter} onDragEnd={onDragEnd}>
           <SortableContext
             items={questions.map((question) => question.id)}
             strategy={verticalListSortingStrategy}

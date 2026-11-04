@@ -46,6 +46,10 @@ export const forteFestivalContent = {
       en: "Draft program • Final program and venue to be announced",
     },
     scrollLabel: { tr: "Keşfet", en: "Discover" },
+    backgroundImage: "/forte/hero.jpg",
+    backgroundAlt: { tr: "Multi Event sanatçıları sahnede", en: "Multi Event artists on stage" },
+    posterImage: "/forte/gallery-3.jpg",
+    posterAlt: { tr: "Sahne performansı", en: "Stage performance" },
   },
   marquee: {
     tr: ["TÜM ENSTRÜMANLAR", "VOKAL", "BODRUM 2027", "FORTE", "FESTİVAL", "SAHNE"],
@@ -75,6 +79,8 @@ export const forteFestivalContent = {
         en: "Final jury, program, and venue details will be shared soon based on information from the teachers.",
       },
     ],
+    image: "/forte/gallery-1.jpg",
+    imageAlt: { tr: "Multi Event müzik grubu", en: "Multi Event band" },
     stats: [
       { id: "date", value: "10 Ocak", label: { tr: "2027, Bodrum", en: "2027, Bodrum" } },
       { id: "categories", value: "5", label: { tr: "Yaş kategorisi", en: "Age categories" } },
@@ -295,6 +301,8 @@ export const forteFestivalContent = {
       tr: "Başvurular online form ile alınır. Formda kullanacağınız enstrümanı veya vokal türünü belirtin; festival ekibi başvurunuzu değerlendirsin.",
       en: "Applications are collected through the online form. Specify the instrument or vocal type you will use, and let the festival team review your application.",
     },
+    image: "/forte/application.jpg",
+    imageAlt: { tr: "Sahne performansı", en: "Stage performance" },
     steps: [
       {
         id: "form",
@@ -404,6 +412,30 @@ export const forteFestivalContent = {
       en: "Follow Multi Event on Instagram for moments from past events and festival announcements.",
     },
     instagramLabel: { tr: "Instagram'da gör", en: "View on Instagram" },
+    brand: { tr: "Multi Event", en: "Multi Event" },
+    handle: { tr: "@multieventorg", en: "@multieventorg" },
+    items: [
+      {
+        id: "strings",
+        imageUrl: "/forte/hero.jpg",
+        alt: { tr: "Yaylı çalgılar performansı", en: "String instruments performance" },
+      },
+      {
+        id: "vocal",
+        imageUrl: "/forte/gallery-2.jpg",
+        alt: { tr: "Vokal performansı", en: "Vocal performance" },
+      },
+      {
+        id: "cello",
+        imageUrl: "/forte/poster.jpg",
+        alt: { tr: "Çello performansı", en: "Cello performance" },
+      },
+      {
+        id: "band",
+        imageUrl: "/forte/gallery-1.jpg",
+        alt: { tr: "Multi Event müzik grubu", en: "Multi Event band" },
+      },
+    ],
   },
   contact: {
     title: { tr: "Sorularınız için bize ulaşın", en: "Contact us with your questions" },
@@ -414,8 +446,11 @@ export const forteFestivalContent = {
     phone: "+90 530 957 69 77",
     email: "sonertirgil@multievent.org",
     instagram: "https://www.instagram.com/multieventorg/",
+    instagramLabel: { tr: "Instagram", en: "Instagram" },
   },
 } as const;
+
+export type ForteFestivalContent = typeof forteFestivalContent;
 
 export function forteFestivalText(locale: Locale, value: LocalizedText) {
   return value[locale] || value[locale === "tr" ? "en" : "tr"];

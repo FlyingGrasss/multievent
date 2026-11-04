@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Montserrat } from "next/font/google";
+import { Cormorant_Garamond, Montserrat } from "next/font/google";
 import { siteMetadata, siteViewport } from "@/lib/site-metadata";
 import "@/app/globals.css";
 
@@ -8,6 +8,14 @@ const montserrat = Montserrat({
   subsets: ["latin"],
   display: "swap",
   preload: true,
+});
+
+const cormorant = Cormorant_Garamond({
+  variable: "--font-cormorant",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = siteMetadata;
@@ -35,7 +43,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       className="overflow-x-hidden"
       suppressHydrationWarning
     >
-      <body className={`${montserrat.variable} overflow-x-hidden antialiased`}>
+      <body className={`${montserrat.variable} ${cormorant.variable} overflow-x-hidden antialiased`}>
         <script dangerouslySetInnerHTML={{ __html: localeScript }} />
         {children}
       </body>

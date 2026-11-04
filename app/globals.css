@@ -22,6 +22,7 @@
 
   /* Font definitions */
   --font-sans: "Montserrat", sans-serif;
+  --font-display: var(--font-cormorant), Georgia, "Times New Roman", serif;
 
   /* Gradient definition */
   --gradient-primary: linear-gradient(
@@ -36,6 +37,10 @@ body {
   color: var(--color-text);
   font-family: var(--font-sans);
   min-height: 100vh;
+}
+
+.font-display {
+  font-family: var(--font-cormorant), Georgia, "Times New Roman", serif;
 }
 
 html[data-locale-pending] body {
@@ -74,6 +79,15 @@ html[data-locale="en"] .hero-locale.lang-en {
 
 button:disabled {
   cursor: default;
+}
+
+.forte-theme {
+  --color-accent: #e8b45c;
+}
+
+body:has(.forte-theme) header,
+body:has(.forte-theme) footer {
+  --color-accent: #e8b45c;
 }
 
 @keyframes festival-rise {
@@ -149,13 +163,162 @@ button:disabled {
   animation: festival-eq 1.6s ease-in-out infinite;
 }
 
+@keyframes forte-title {
+  from {
+    transform: translateY(112%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes forte-particle {
+  0% {
+    transform: translate3d(0, 0, 0);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.55;
+  }
+  60% {
+    opacity: 0.28;
+  }
+  100% {
+    transform: translate3d(-8px, -90px, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes forte-border {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+@keyframes forte-kenburns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.1) translate3d(-1%, -1%, 0);
+  }
+}
+
+.forte-title-line {
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.forte-title-line > span {
+  display: block;
+  animation: forte-title 1.1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.forte-spotlight {
+  background: radial-gradient(
+    420px circle at var(--pointer-x, 72%) var(--pointer-y, 32%),
+    rgba(232, 180, 92, 0.2),
+    transparent 65%
+  );
+  transition: background 120ms linear;
+}
+
+.forte-particle {
+  animation: forte-particle 10s ease-in-out infinite;
+}
+
+.forte-reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.forte-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.forte-reveal-clip {
+  opacity: 0;
+  transform: scale(1.03);
+  clip-path: inset(12% 0 0 0);
+  transition:
+    opacity 0.8s ease-out,
+    transform 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+    clip-path 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.forte-reveal-clip.is-visible {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0);
+}
+
+.forte-tilt {
+  transform-style: preserve-3d;
+  transition: transform 0.25s ease-out;
+  will-change: transform;
+}
+
+.forte-grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+}
+
+.forte-card-border::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow: inset 0 0 80px rgba(232, 180, 92, 0.08);
+  pointer-events: none;
+}
+
+.forte-animated-border {
+  background: linear-gradient(
+    110deg,
+    rgba(232, 180, 92, 0.05),
+    rgba(232, 180, 92, 0.55),
+    rgba(232, 180, 92, 0.05),
+    rgba(232, 180, 92, 0.55),
+    rgba(232, 180, 92, 0.05)
+  );
+  background-size: 200% 100%;
+  animation: forte-border 8s linear infinite;
+}
+
+.forte-kenburns {
+  animation: forte-kenburns 18s ease-out both;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .festival-rise,
   .festival-fade,
   .festival-float,
   .festival-drift,
-  .festival-eq {
+  .festival-eq,
+  .forte-title-line > span,
+  .forte-particle,
+  .forte-animated-border,
+  .forte-kenburns {
     animation: none !important;
+  }
+
+  .forte-reveal,
+  .forte-reveal-clip {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+
+  .forte-tilt {
+    transform: none !important;
+    transition: none !important;
   }
 }
 

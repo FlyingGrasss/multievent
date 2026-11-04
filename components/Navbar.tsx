@@ -29,14 +29,14 @@ export default function Navbar() {
   return (
     <header className="relative z-30 grid h-20 w-full grid-cols-3 items-center bg-linear-to-b from-[#2e2d2c] to-[#121315] px-4 text-white">
       <Link href={localeRoot} className="w-fit justify-self-start" aria-label="Multi Event">
-        <Image src="/logo.jpeg" width={60} height={59} alt="Multi Event logo" className="rounded" priority />
+        <Image src="/logo.jpeg" width={60} height={60} alt="Multi Event logo" className="rounded" priority />
       </Link>
 
       <Link href={localeRoot} className="whitespace-nowrap justify-self-center text-center" aria-label="Multi Event Organization">
-        <h1 className="mt-2 text-3xl font-medium leading-[25px] max-sm:text-[24px] max-sm:leading-5">
+        <p className="mt-2 text-3xl font-medium leading-[25px] max-sm:text-[24px] max-sm:leading-5">
           MULTI <span className="pl-2">EVENT</span><br />
           <span className="text-xl font-extralight italic tracking-widest max-sm:text-[14px] max-sm:leading-5">ORGANİZASYON</span>
-        </h1>
+        </p>
       </Link>
 
       <div className="flex items-center gap-3 justify-self-end">

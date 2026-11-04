@@ -100,3 +100,70 @@ model SiteSettings {
   seoDescriptionEn    String
   updatedAt           DateTime @updatedAt
 }
+
+/// Single editable application form. The id is always "default".
+model ApplicationForm {
+  id            String   @id @default("default")
+  titleTr       String
+  titleEn       String
+  descriptionTr String?
+  descriptionEn String?
+  isOpen        Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  questions   ApplicationQuestion[]
+  submissions ApplicationSubmission[]
+}
+
+model ApplicationQuestion {
+  id        String   @id @default(cuid())
+  formId    String   @default("default")
+  type      String
+  labelTr   String
+  labelEn   String
+  helpTr    String?
+  helpEn    String?
+  required  Boolean  @default(false)
+  options   Json?
+  sortOrder Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  form ApplicationForm @relation(fields: [formId], references: [id], onDelete: Cascade)
+
+  @@index([formId, sortOrder])
+}
+
+model ApplicationSubmission {
+  id            String   @id @default(cuid())
+  formId        String   @default("default")
+  submittedAt   DateTime @default(now())
+  locale        String   @default("tr")
+  submissionKey String?  @unique
+
+  form    ApplicationForm     @relation(fields: [formId], references: [id], onDelete: Cascade)
+  answers ApplicationAnswer[]
+
+  @@index([formId, submittedAt])
+}
+
+/// Snapshot table. No foreign key to ApplicationQuestion on purpose:
+/// editing or deleting a question must never rewrite submitted answers.
+model ApplicationAnswer {
+  id              String   @id @default(cuid())
+  submissionId    String
+  questionId      String?
+  questionLabelTr String
+  questionLabelEn String
+  questionType    String
+  value           Json
+  displayTr       String
+  displayEn       String
+  sortOrder       Int      @default(0)
+
+  submission ApplicationSubmission @relation(fields: [submissionId], references: [id], onDelete: Cascade)
+
+  @@index([submissionId, sortOrder])
+  @@index([questionId])
+}

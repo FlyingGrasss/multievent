@@ -12,9 +12,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     { url: `${siteUrl}/services`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/team`, changeFrequency: "monthly", priority: 0.7 },
     { url: `${siteUrl}/events`, changeFrequency: "weekly", priority: 0.8 },
+    { url: `${siteUrl}/basvuru`, changeFrequency: "monthly", priority: 0.8 },
     { url: `${siteUrl}/contact`, changeFrequency: "yearly", priority: 0.6 },
   ];
-  const sectionPaths = ["", "/services", "/team", "/events", "/contact"];
+  const sectionPaths = ["", "/services", "/team", "/events", "/basvuru", "/contact"];
   const localized: MetadataRoute.Sitemap = supportedLocales.flatMap((locale) => sectionPaths.map((path) => ({
     url: `${siteUrl}/${locale}${path}`,
     changeFrequency: path === "" ? "weekly" as const : "monthly" as const,

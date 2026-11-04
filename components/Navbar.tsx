@@ -21,6 +21,7 @@ export default function Navbar() {
     { href: `${localeRoot}/team`, tr: "Sanatçılarımız", en: "Our artists" },
     { href: `${localeRoot}/services`, tr: "Hizmetlerimiz", en: "Services" },
     { href: `${localeRoot}/events`, tr: "Etkinliklerimiz", en: "Our events" },
+    { href: `${localeRoot}/basvuru`, tr: "Başvuru", en: "Apply" },
     { href: `${localeRoot}/contact`, tr: "İletişim", en: "Contact" },
   ];
 

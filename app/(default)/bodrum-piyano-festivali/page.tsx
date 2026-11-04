@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import { cookies } from "next/headers";
-import YouthMusicEventPage from "@/components/YouthMusicEventPage";
+import PianoFestivalPage from "@/components/PianoFestivalPage";
 import { getPublicApplicationForm } from "@/lib/application-form-data";
-import { youthEventContent, youthEventText } from "@/lib/youth-event";
+import { pianoFestivalContent, pianoFestivalText } from "@/lib/piano-festival";
 import type { Locale } from "@/types";
 
 export const dynamic = "force-dynamic";
@@ -14,17 +14,17 @@ async function currentLocale(): Promise<Locale> {
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await currentLocale();
-  const title = youthEventText(locale, youthEventContent.title);
-  const description = youthEventText(locale, youthEventContent.metaDescription);
+  const title = pianoFestivalText(locale, pianoFestivalContent.meta.title);
+  const description = pianoFestivalText(locale, pianoFestivalContent.meta.description);
   return {
     title,
     description,
     alternates: {
-      canonical: "/genc-muzik-etkinligi",
+      canonical: "/bodrum-piyano-festivali",
       languages: {
-        tr: "/tr/genc-muzik-etkinligi",
-        en: "/en/genc-muzik-etkinligi",
-        "x-default": "/genc-muzik-etkinligi",
+        tr: "/tr/bodrum-piyano-festivali",
+        en: "/en/bodrum-piyano-festivali",
+        "x-default": "/bodrum-piyano-festivali",
       },
     },
     openGraph: {
@@ -32,7 +32,7 @@ export async function generateMetadata(): Promise<Metadata> {
       siteName: "Multi Event",
       title: `${title} | Multi Event`,
       description,
-      url: "/genc-muzik-etkinligi",
+      url: "/bodrum-piyano-festivali",
       locale: locale === "tr" ? "tr_TR" : "en_US",
       images: ["/logo.jpeg"],
     },
@@ -45,7 +45,7 @@ export async function generateMetadata(): Promise<Metadata> {
   };
 }
 
-export default async function YouthMusicEventRoute() {
+export default async function BodrumPianoFestivalRoute() {
   const form = await getPublicApplicationForm();
-  return <YouthMusicEventPage applicationOpen={form?.isOpen ?? null} />;
+  return <PianoFestivalPage applicationOpen={form?.isOpen ?? null} />;
 }

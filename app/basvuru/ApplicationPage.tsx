@@ -44,8 +44,8 @@ export default function ApplicationPage({ form }: { form: ApplicationFormDefinit
             <Localized tr={form.descriptionTr} en={form.descriptionEn} />
           </p>
         ) : null}
-        <Link href="/genc-muzik-etkinligi" className="mt-4 inline-block text-sm font-medium text-accent hover:underline">
-          <Localized tr="Etkinlik hakkında bilgi" en="About the event" />
+        <Link href="/bodrum-piyano-festivali" className="mt-4 inline-block text-sm font-medium text-accent hover:underline">
+          <Localized tr="Festival hakkında bilgi" en="About the festival" />
         </Link>
       </div>
 

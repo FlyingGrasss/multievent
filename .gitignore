@@ -44,3 +44,7 @@ next-env.d.ts
 
 # vs code
 /.vscode
+
+# local reference pages
+/HOME _ Mozart Akademi.html
+/HOME _ Mozart Akademi_files/

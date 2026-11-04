@@ -123,18 +123,14 @@ const FIELD_MESSAGES: Record<ApplicationFieldErrorCode, LocalizedMessage> = {
   INVALID_VALUE: { tr: "Bu alan için geçerli bir değer girin.", en: "Enter a valid value for this field." },
 };
 
-function option(id: string, labelTr: string, labelEn: string): ApplicationQuestionOption {
-  return { id, labelTr, labelEn };
-}
-
 export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
   id: APPLICATION_FORM_ID,
-  titleTr: "Genç Müzik Etkinliği Başvurusu",
-  titleEn: "Youth Music Event Application",
+  titleTr: "Bodrum Piyano Festivali 2026 Başvurusu",
+  titleEn: "Bodrum Piano Festival 2026 Application",
   descriptionTr:
-    "Yıllık gençlik müzik etkinliğinde sahne almak için formu doldurun. Başvurunuzu değerlendirdikten sonra sizinle iletişime geçeceğiz.",
+    "Bodrum Piyano Festivali 2026 için başvuru formu. Bu form yalnızca piyano öğrencileri içindir. Başvurular ücretsizdir.",
   descriptionEn:
-    "Fill in the form to perform at our annual youth music event. We will contact you after reviewing your application.",
+    "Application form for the Bodrum Piano Festival 2026. This form is for piano students only. Applications are free.",
   isOpen: true,
   questions: [
     {
@@ -160,25 +156,6 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       sortOrder: 1,
     },
     {
-      id: "default-instrument",
-      type: "select",
-      labelTr: "Enstrüman",
-      labelEn: "Instrument",
-      helpTr: "Başka bir enstrüman çalıyorsanız “Diğer” seçeneğini seçebilirsiniz.",
-      helpEn: "If you play another instrument, choose “Other”.",
-      required: true,
-      options: [
-        option("default-instrument-piano", "Piyano", "Piano"),
-        option("default-instrument-cello", "Çello", "Cello"),
-        option("default-instrument-violin", "Keman", "Violin"),
-        option("default-instrument-viola", "Viyola", "Viola"),
-        option("default-instrument-flute", "Flüt", "Flute"),
-        option("default-instrument-guitar", "Gitar", "Guitar"),
-        option("default-instrument-other", "Diğer", "Other"),
-      ],
-      sortOrder: 2,
-    },
-    {
       id: "default-email",
       type: "email",
       labelTr: "E-posta",
@@ -187,7 +164,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "",
       required: true,
       options: [],
-      sortOrder: 3,
+      sortOrder: 2,
     },
     {
       id: "default-phone",
@@ -198,7 +175,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "Enter a phone number where we can reach you.",
       required: true,
       options: [],
-      sortOrder: 4,
+      sortOrder: 3,
     },
     {
       id: "default-demo-url",
@@ -209,7 +186,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "You can add a YouTube, Instagram, or similar link.",
       required: false,
       options: [],
-      sortOrder: 5,
+      sortOrder: 4,
     },
     {
       id: "default-bio",
@@ -220,7 +197,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "Share a short biography and your music experience.",
       required: false,
       options: [],
-      sortOrder: 6,
+      sortOrder: 5,
     },
     {
       id: "default-notes",
@@ -231,7 +208,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "",
       required: false,
       options: [],
-      sortOrder: 7,
+      sortOrder: 6,
     },
     {
       id: "default-consent",
@@ -242,7 +219,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "Your application will only be used for event evaluation.",
       required: true,
       options: [],
-      sortOrder: 8,
+      sortOrder: 7,
     },
   ],
 };

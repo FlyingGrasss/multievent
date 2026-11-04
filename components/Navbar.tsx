@@ -21,7 +21,7 @@ export default function Navbar() {
     { href: `${localeRoot}/team`, tr: "Sanatçılarımız", en: "Our artists" },
     { href: `${localeRoot}/services`, tr: "Hizmetlerimiz", en: "Services" },
     { href: `${localeRoot}/events`, tr: "Etkinliklerimiz", en: "Our events" },
-    { href: `${localeRoot}/genc-muzik-etkinligi`, tr: "Genç Müzik Etkinliği", en: "Youth Music Event" },
+    { href: `${localeRoot}/bodrum-piyano-festivali`, tr: "Piyano Festivali", en: "Piano Festival" },
     { href: `${localeRoot}/basvuru`, tr: "Başvuru", en: "Apply" },
     { href: `${localeRoot}/contact`, tr: "İletişim", en: "Contact" },
   ];

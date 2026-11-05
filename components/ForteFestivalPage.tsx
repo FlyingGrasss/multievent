@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import Marquee from "react-fast-marquee";
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { useLanguage } from "@/components/LanguageProvider";
 import {
   forteFestivalApplicationPath,
@@ -209,44 +209,29 @@ function TiltCard({ children, className = "" }: { children: ReactNode; className
   );
 }
 
-function Timeline({ items, t }: { items: ForteFestivalContent["program"]["items"]; t: (value: LocalizedText) => string }) {
-  const listRef = useRef<HTMLOListElement>(null);
-
-  useEffect(() => {
-    const element = listRef.current;
-    if (!element) return;
-    const update = () => {
-      const rect = element.getBoundingClientRect();
-      const total = rect.height;
-      const passed = Math.min(Math.max(window.innerHeight * 0.55 - rect.top, 0), total);
-      element.style.setProperty("--timeline-progress", `${total > 0 ? (passed / total) * 100 : 0}%`);
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
-
+function ProgramCards({ items, t }: { items: ForteFestivalContent["program"]["items"]; t: (value: LocalizedText) => string }) {
   return (
-    <ol ref={listRef} className="relative mt-12 space-y-8 border-l border-white/10 pl-7 sm:pl-12" style={{ "--timeline-progress": "0%" } as CSSProperties}>
-      <div aria-hidden="true" className="absolute left-0 top-0 h-[var(--timeline-progress)] w-px bg-accent transition-[height] duration-200" />
+    <div className="mt-12 grid gap-4 lg:grid-cols-3">
       {items.map((item, index) => (
-        <li key={item.id} className="relative" data-aos="fade-up" data-aos-delay={index * 80}>
-          <span aria-hidden="true" className="absolute -left-[1.94rem] top-2 h-2 w-2 rounded-full border border-accent bg-[#0B0806] sm:-left-[3.44rem]" />
-          <div className="grid gap-2 sm:grid-cols-[11rem_1fr_auto] sm:items-center sm:gap-8">
-            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-accent">{t(item.date)}</p>
-            <div>
-              <h3 className="font-display text-2xl font-semibold text-white sm:text-3xl">{t(item.title)}</h3>
-              <p className="mt-1 text-sm leading-relaxed text-white/50">{t(item.description)}</p>
-            </div>
-            <span className="w-fit rounded-full border border-white/15 px-3 py-1 text-xs text-white/45">{t(item.location)}</span>
-          </div>
-        </li>
+        <Reveal key={item.id} delay={index * 80} className="h-full">
+          <TiltCard className="h-full">
+            <article className="group relative flex h-full flex-col rounded-3xl border border-white/10 bg-[#120B08] p-6 transition-colors hover:border-accent/50">
+              <div aria-hidden="true" className="absolute left-0 top-0 h-px w-full bg-linear-to-r from-accent/70 via-accent/20 to-transparent" />
+              <div className="flex items-start justify-between gap-3">
+                <p className="text-xs font-semibold uppercase tracking-[0.22em] text-accent">{t(item.date)}</p>
+                <span className="font-display text-2xl font-semibold text-white/15">0{index + 1}</span>
+              </div>
+              <h3 className="mt-4 font-display text-3xl font-semibold leading-tight text-white">{t(item.title)}</h3>
+              <p className="mt-3 text-sm leading-relaxed text-white/55">{t(item.description)}</p>
+              <div className="mt-auto flex items-center justify-between gap-3 pt-6">
+                <span className="rounded-full border border-white/15 bg-white/[0.03] px-3 py-1 text-xs text-white/45">{t(item.location)}</span>
+                <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-accent" />
+              </div>
+            </article>
+          </TiltCard>
+        </Reveal>
       ))}
-    </ol>
+    </div>
   );
 }
 
@@ -284,7 +269,7 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
   }
 
   return (
-    <main className="forte-theme relative overflow-hidden bg-[#0B0806] text-white">
+    <main className="forte-theme relative bg-[#0B0806] text-white">
       <div aria-hidden="true" className="forte-grain pointer-events-none fixed inset-0 z-[1] opacity-[0.035] mix-blend-soft-light" />
       <ScrollProgress />
 
@@ -334,7 +319,7 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
               <span aria-hidden="true" className="h-px w-10 bg-accent" />
               <p className="text-[11px] font-semibold uppercase tracking-[0.38em] text-accent">{t(content.hero.eyebrow)}</p>
             </div>
-            <h1 className="mt-6 font-display text-[15vw] font-semibold uppercase leading-[0.94] tracking-[-0.04em] text-white sm:text-7xl lg:text-[5.8rem]">
+            <h1 className="mt-6 font-display text-[15vw] font-semibold uppercase leading-[1.02] tracking-[-0.04em] text-white sm:text-7xl lg:text-[5.8rem]">
               {list(content.hero.titleLines).map((line, index) => (
                 <span key={line} className="forte-title-line block">
                   <span style={{ animationDelay: `${120 + index * 120}ms` }}>{line}</span>
@@ -495,7 +480,7 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
             </Reveal>
             <p className="max-w-sm text-sm leading-relaxed text-white/45">{t(content.program.note)}</p>
           </div>
-          <Timeline items={content.program.items} t={t} />
+          <ProgramCards items={content.program.items} t={t} />
         </div>
       </section>
 
@@ -572,7 +557,7 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
           <Reveal>
             <SectionHeading eyebrow={t(content.awards.eyebrow)} title={t(content.awards.title)} note={t(content.awards.note)} />
           </Reveal>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {content.awards.items.map((item, index) => (
               <Reveal key={item.id} delay={index * 80} className="h-full">
                 <TiltCard className="h-full">

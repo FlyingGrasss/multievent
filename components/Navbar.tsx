@@ -13,6 +13,7 @@ export default function Navbar() {
   const pathname = usePathname();
   const { locale } = useLanguage();
   const localeRoot = `/${locale}`;
+  const isForte = pathname?.includes("/bodrum-forte-muzik-festivali");
 
   if (pathname?.startsWith("/admin") || pathname?.startsWith("/api")) return null;
 
@@ -28,8 +29,12 @@ export default function Navbar() {
 
   return (
     <header className="relative z-30 grid h-20 w-full grid-cols-3 items-center bg-linear-to-b from-[#2e2d2c] to-[#121315] px-4 text-white">
-      <Link href={localeRoot} className="w-fit justify-self-start" aria-label="Multi Event">
-        <Image src="/logo.jpeg" width={60} height={60} alt="Multi Event logo" className="rounded" priority />
+      <Link href={localeRoot} className="w-fit justify-self-start" aria-label={isForte ? "Forte Müzik Festivali" : "Multi Event"}>
+        {isForte ? (
+          <span className="font-display text-2xl font-semibold tracking-[0.18em] text-accent">FORTE</span>
+        ) : (
+          <Image src="/logo.jpeg" width={60} height={60} alt="Multi Event logo" className="rounded" priority />
+        )}
       </Link>
 
       <Link href={localeRoot} className="whitespace-nowrap justify-self-center text-center" aria-label="Multi Event Organization">

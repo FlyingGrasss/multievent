@@ -364,7 +364,7 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
                 <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-[#0B0806] via-[#0B0806]/45 to-[#0B0806]/65" />
                 <div className="relative flex h-full flex-col justify-between p-6 sm:p-8">
                   <div className="flex items-center justify-between gap-4">
-                    <Image src="/logo.jpeg" width={54} height={54} alt="Multi Event" className="rounded" />
+                    <span className="font-display text-xl font-semibold tracking-[0.22em] text-white/80">FORTE</span>
                     <span className="rounded-full border border-white/20 bg-black/20 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.25em] text-white/70 backdrop-blur">
                       {content.hero.year}
                     </span>
@@ -393,8 +393,7 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
                 </div>
               </div>
             </TiltCard>
-            <div aria-hidden="true" className="festival-float absolute -left-5 top-12 hidden h-14 w-14 rounded-full border border-accent/40 bg-[#0B0806]/80 backdrop-blur sm:block" />
-            <div aria-hidden="true" className="absolute -bottom-6 -right-6 h-28 w-28 rounded-full border border-accent/20" />
+
           </div>
         </div>
 
@@ -466,7 +465,7 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
                   <span aria-hidden="true" className="font-display text-4xl font-semibold text-white/20">{content.hero.year}</span>
                 </div>
               </div>
-              <div aria-hidden="true" className="absolute -bottom-4 -left-4 h-24 w-24 rounded-full border border-accent/20" />
+
             </Reveal>
           </div>
         </div>
@@ -582,10 +581,8 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
             {content.jury.members.map((member, index) => (
               <Reveal key={member.id} delay={index * 70}>
                 <div className="rounded-2xl border border-white/10 bg-[#0B0806] p-6 text-center transition-colors hover:border-accent/40">
-                  <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full border border-accent/30 font-display text-3xl font-semibold text-accent">
-                    {String(index + 1).padStart(2, "0")}
-                  </div>
-                  <h3 className="mt-4 font-semibold text-white">{t(member.role)}</h3>
+                  <p className="font-display text-3xl font-semibold text-accent/60">{String(index + 1).padStart(2, "0")}</p>
+                  <h3 className="mt-3 font-semibold text-white">{t(member.role)}</h3>
                   <p className="mt-1 text-sm text-white/40">{t(member.name)}</p>
                 </div>
               </Reveal>

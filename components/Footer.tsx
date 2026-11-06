@@ -26,8 +26,8 @@ export default function Footer() {
           <div className="flex flex-col sm:items-center">
             <h2 className="mb-6 text-2xl font-bold text-accent max-sm:mb-4 max-sm:text-lg"><Localized tr="İletişim" en="Contact" /></h2>
             <div className="space-y-4 text-center max-sm:text-left">
-              <a href="tel:+905309576977" className="flex items-center justify-center gap-3 text-lg text-accent hover:underline max-sm:justify-start"><Image src="/phone.svg" width={24} height={24} alt="" />+90 530 957 69 77</a>
-              <a href="mailto:sonertirgil@multievent.org" className="flex items-center justify-center gap-3 break-all text-lg text-accent hover:underline max-sm:justify-start"><Image src="/mail.svg" width={24} height={24} alt="" />sonertirgil@multievent.org</a>
+              <a href="tel:+905327891080" className="flex items-center justify-center gap-3 text-lg text-accent hover:underline max-sm:justify-start"><Image src="/phone.svg" width={24} height={24} alt="" />+90 532 789 10 80</a>
+              <a href="mailto:mehmet.emire@multievent.org" className="flex items-center justify-center gap-3 break-all text-lg text-accent hover:underline max-sm:justify-start"><Image src="/mail.svg" width={24} height={24} alt="" />mehmet.emire@multievent.org</a>
             </div>
           </div>
           <div className="flex flex-col sm:items-center">

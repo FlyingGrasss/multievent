@@ -14,8 +14,8 @@ function JsonLd() {
     description: "Bodrum etkinlik organizasyon, düğün, canlı müzik ve etkinlik prodüksiyon hizmetleri.",
     url: siteUrl,
     image: `${siteUrl}/logo.jpeg`,
-    telephone: "+905309576977",
-    email: "sonertirgil@multievent.org",
+    telephone: "+905327891080",
+    email: "mehmet.emire@multievent.org",
     priceRange: "$$",
     address: {
       "@type": "PostalAddress",

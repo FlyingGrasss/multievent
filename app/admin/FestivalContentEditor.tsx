@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useMemo, useState } from "react";
 import AdminModal from "@/app/admin/AdminModal";
 import { resetFestivalContent, saveFestivalContent } from "@/app/admin/festival-actions";
@@ -176,6 +177,106 @@ function LocalizedListControl({
   );
 }
 
+const IMAGE_URL_KEYS = new Set(["image", "imageUrl", "backgroundImage", "posterImage"]);
+
+function ImageUrlControl({
+  path,
+  value,
+  disabled,
+  update,
+}: {
+  path: string[];
+  value: string;
+  disabled: boolean;
+  update: UpdateFn;
+}) {
+  const [isUploading, setIsUploading] = useState(false);
+  const [error, setError] = useState("");
+  const id = fieldId(path, "value");
+  const label = labelForPath(path);
+  const imagePreviewable =
+    value.startsWith("/") || /^https:\/\/[^/]+\.public\.blob\.vercel-storage\.com\//.test(value);
+
+  async function uploadImage(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    setIsUploading(true);
+    setError("");
+    try {
+      const body = new FormData();
+      body.set("file", file);
+      const response = await fetch("/api/admin/upload", { method: "POST", body });
+      const result = (await response.json()) as { url?: string; error?: string };
+      if (!response.ok || !result.url) throw new Error(result.error || "Görsel yüklenemedi.");
+      update(path, result.url);
+    } catch (cause) {
+      setError(cause instanceof Error ? cause.message : "Görsel yüklenemedi.");
+    } finally {
+      setIsUploading(false);
+      event.target.value = "";
+    }
+  }
+
+  return (
+    <div className="rounded-xl border border-white/10 bg-black/25 p-3">
+      <label htmlFor={id} className="block text-sm">
+        <span className="mb-1 block text-white/80">{label}</span>
+        <input
+          id={id}
+          value={value}
+          onChange={(event) => update(path, event.target.value)}
+          maxLength={1000}
+          disabled={disabled}
+          placeholder="/forte/gorsel.jpg veya https://…"
+          className={INPUT_CLASS}
+        />
+      </label>
+      <div className="mt-3 flex flex-wrap items-center gap-3">
+        <label
+          className={`rounded-lg border border-dashed border-accent/40 px-4 py-2 text-sm font-medium text-accent hover:bg-accent/10 ${
+            disabled || isUploading ? "cursor-default opacity-60" : "cursor-pointer"
+          }`}
+        >
+          {isUploading ? "Görsel yükleniyor…" : "Görsel yükle"}
+          <input
+            type="file"
+            accept="image/jpeg,image/png,image/webp,image/avif"
+            onChange={uploadImage}
+            disabled={disabled || isUploading}
+            className="sr-only"
+          />
+        </label>
+        {imagePreviewable ? (
+          <div className="flex items-center gap-3">
+            <Image
+              src={value}
+              alt={`${label} önizlemesi`}
+              width={128}
+              height={80}
+              className="h-16 w-24 rounded-lg border border-white/10 object-cover"
+            />
+            <button
+              type="button"
+              onClick={() => update(path, "")}
+              disabled={disabled}
+              className="cursor-pointer rounded-lg border border-red-400/40 px-3 py-1.5 text-xs text-red-300 hover:bg-red-950 disabled:cursor-default disabled:opacity-60"
+            >
+              Kaldır
+            </button>
+          </div>
+        ) : (
+          <span className="text-xs text-white/40">{value ? "Önizleme için görsel yükleyin veya yerel bir yol kullanın." : "Görsel seçilmedi."}</span>
+        )}
+      </div>
+      {error && (
+        <p role="alert" className="mt-2 text-xs text-red-300">
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function PrimitiveControl({
   path,
   value,
@@ -190,6 +291,10 @@ function PrimitiveControl({
   const key = path[path.length - 1] ?? "";
   const label = labelForPath(path);
   const id = fieldId(path, "value");
+
+  if (IMAGE_URL_KEYS.has(key) && typeof value === "string") {
+    return <ImageUrlControl path={path} value={value} disabled={disabled} update={update} />;
+  }
 
   if (typeof value === "boolean") {
     return (

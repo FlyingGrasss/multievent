@@ -89,6 +89,8 @@ const LABELS: Record<string, string> = {
   subtitle: "Alt başlık",
   dateLabel: "Tarih etiketi",
   dateValue: "Tarih",
+  timeLabel: "Başlangıç saati etiketi",
+  timeValue: "Başlangıç saati",
   venueLabel: "Yer etiketi",
   venueValue: "Yer",
   primaryCta: "Birincil buton",
@@ -111,6 +113,7 @@ const LABELS: Record<string, string> = {
   brand: "Marka",
   handle: "Instagram kullanıcı adı",
   marquee: "Kayan yazı",
+  deadline: "Son başvuru",
   about: "Hakkında",
   lead: "Giriş metni",
   paragraphs: "Paragraflar",
@@ -122,6 +125,13 @@ const LABELS: Record<string, string> = {
   items: "Öğeler",
   date: "Tarih",
   location: "Konum",
+  participants: "Katılımcılar",
+  emptyText: "Boş durum metni",
+  nameLabel: "Öğrenci etiketi",
+  categoryLabel: "Kategori etiketi",
+  songsLabel: "Eserler etiketi",
+  category: "Kategori",
+  songs: "Eserler",
   categories: "Kategoriler",
   worksLabel: "Eser sayısı etiketi",
   durationLabel: "Süre etiketi",
@@ -137,6 +147,19 @@ const LABELS: Record<string, string> = {
   members: "Üyeler",
   role: "Görev",
   name: "İsim",
+  teachers: "Öğretmenler",
+  payment: "Katılım ücreti ve ödeme",
+  feeLabel: "Ücret etiketi",
+  feeValue: "Katılım ücreti",
+  bankLabel: "Banka etiketi",
+  bankValue: "Banka",
+  accountNameLabel: "Hesap adı etiketi",
+  accountNameValue: "Hesap adı",
+  ibanLabel: "IBAN etiketi",
+  ibanValue: "IBAN",
+  receiptLabel: "Dekont etiketi",
+  receiptValue: "Dekont gönderimi",
+  reminder: "Ödeme hatırlatması",
   application: "Başvuru",
   body: "Metin",
   steps: "Adımlar",
@@ -198,7 +221,7 @@ export function itemHeading(item: unknown): string {
     return "Öğe";
   }
 
-  for (const key of ["title", "question", "role"] as const) {
+  for (const key of ["title", "question", "name", "role"] as const) {
     const value = item[key];
     if (isLocalizedText(value)) {
       const text = value.tr.trim() || value.en.trim();

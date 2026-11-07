@@ -22,6 +22,8 @@ export const forteFestivalContent = {
     },
     dateLabel: { tr: "Tarih", en: "Date" },
     dateValue: { tr: "10 Ocak 2027", en: "10 January 2027" },
+    timeLabel: { tr: "Başlangıç saati", en: "Start time" },
+    timeValue: { tr: "13:00", en: "13:00" },
     venueLabel: { tr: "Yer", en: "Location" },
     venueValue: { tr: "Bodrum, Muğla", en: "Bodrum, Türkiye" },
     primaryCta: { tr: "Başvuru Yap", en: "Apply Now" },
@@ -50,6 +52,11 @@ export const forteFestivalContent = {
     backgroundAlt: { tr: "Piyano ve piyanist", en: "Piano and pianist" },
     posterImage: "/forte/poster-keys.jpg",
     posterAlt: { tr: "Piyano tuşları", en: "Piano keys" },
+  },
+  deadline: {
+    label: { tr: "Son başvuru", en: "Application deadline" },
+    value: { tr: "Duyurulacak", en: "To be announced" },
+    note: { tr: "Kesin tarih yakında açıklanacak.", en: "The exact date will be announced soon." },
   },
   marquee: {
     tr: ["PİYANO", "GENÇ PİYANİSTLER", "BODRUM 2027", "FORTE", "FESTİVAL", "SAHNE"],
@@ -92,8 +99,8 @@ export const forteFestivalContent = {
     eyebrow: { tr: "Program", en: "Program" },
     title: { tr: "Festival günü", en: "Festival day" },
     note: {
-      tr: "10 Ocak 2027 • Saatler ve sıralama yakında açıklanacak.",
-      en: "10 January 2027 • Times and running order will be announced.",
+      tr: "10 Ocak 2027 • Festival 13:00'te başlıyor. Sıralama yakında açıklanacak.",
+      en: "10 January 2027 • The festival starts at 13:00. Running order will be announced.",
     },
     items: [
       {
@@ -101,8 +108,8 @@ export const forteFestivalContent = {
         date: { tr: "10 Ocak 2027", en: "10 January 2027" },
         title: { tr: "Kayıt ve Açılış", en: "Registration and Opening" },
         description: {
-          tr: "Katılımcı kayıtları ve festivalin açılışı.",
-          en: "Participant registration and the festival opening.",
+          tr: "Katılımcı kayıtları ve festivalin 13:00'te açılışı.",
+          en: "Participant registration and the festival opening at 13:00.",
         },
         location: { tr: "Bodrum", en: "Bodrum" },
       },
@@ -125,6 +132,33 @@ export const forteFestivalContent = {
           en: "Presentation of the category awards.",
         },
         location: { tr: "Bodrum", en: "Bodrum" },
+      },
+    ],
+  },
+  participants: {
+    eyebrow: { tr: "Katılımcılar", en: "Participants" },
+    title: { tr: "Katılımcılar ve eserler", en: "Participants and works" },
+    body: {
+      tr: "Festivalde sahne alacak öğrenciler ve seslendirecekleri eserler.",
+      en: "Students performing at the festival and the works they will play.",
+    },
+    note: {
+      tr: "Katılımcı ve eser listesi başvurular kesinleştikçe güncellenecektir.",
+      en: "The participant and work list will be updated as applications are confirmed.",
+    },
+    emptyText: {
+      tr: "Katılımcı ve eser listesi henüz yayınlanmadı.",
+      en: "The participant and work list has not been published yet.",
+    },
+    nameLabel: { tr: "Öğrenci", en: "Student" },
+    categoryLabel: { tr: "Kategori", en: "Category" },
+    songsLabel: { tr: "Seslendireceği eserler", en: "Works" },
+    items: [
+      {
+        id: "participant-1",
+        name: { tr: "", en: "" },
+        category: { tr: "", en: "" },
+        songs: { tr: "", en: "" },
       },
     ],
   },
@@ -196,7 +230,7 @@ export const forteFestivalContent = {
             "Yarışma kategorileri: F (6–8), G (9–12), H (13–16), I (17–21) ve J (22–26) yaş gruplarıdır.",
             "Her katılımcı yalnızca kendi yaş kategorisinde yarışabilir.",
             "Yarışmaya katılan tüm katılımcılara sertifika verilir. Dereceye giren katılımcılar ödül töreninde sahne alır.",
-            "Başvurular online form ile alınır ve ücretsizdir. Başvuru formunun eksiksiz doldurulması gerekir.",
+            "Başvurular online form ile alınır. Katılım ücreti ve ödeme bilgileri festival sayfasındaki ilgili bölümde yer alır. Başvuru formunun eksiksiz doldurulması gerekir.",
             "Yarışmacılar, kendilerine bildirilen saatten en az 30 dakika önce yarışma salonunda hazır bulunmalıdır.",
             "Yarışmada eserler ezber çalınır. Yarışmacılar eser notalarını kayıt masasına elden teslim etmelidir.",
             "Yarışmanın tüm aşamaları halka açıktır ve izleyicilere ücretsizdir.",
@@ -210,7 +244,7 @@ export const forteFestivalContent = {
             "Competition categories are F (ages 6–8), G (9–12), H (13–16), I (17–21), and J (22–26).",
             "Each participant competes only in their own age category.",
             "All participants receive a certificate. Winners perform at the award ceremony.",
-            "Applications are collected through the online form and are free. The form must be completed in full.",
+            "Applications are collected through the online form. The participation fee and payment details are in the relevant section of the festival page. The form must be completed in full.",
             "Competitors must be ready in the competition hall at least 30 minutes before their scheduled time.",
             "Works are performed from memory. Competitors must hand their sheet music to the registration desk.",
             "All stages of the competition are open to the public and free to attend.",
@@ -231,7 +265,7 @@ export const forteFestivalContent = {
             "Her katılımcı en fazla 2 eser seslendirebilir.",
             "Performans süresi F ve G kategorilerinde en fazla 3 dakika; H, I ve J kategorilerinde en fazla 5 dakikadır. Süreler toplam performans süresidir.",
             "Festivalde ezber çalma zorunludur; eserlerde belirtilen röprizler çalınmayacaktır.",
-            "Başvurular online form ile alınır ve ücretsizdir. Katılımcı veya velisi verdiği bilgilerin doğruluğunu kabul eder.",
+            "Başvurular online form ile alınır. Katılım ücreti ve ödeme bilgileri festival sayfasındaki ilgili bölümde yer alır. Katılımcı veya velisi verdiği bilgilerin doğruluğunu kabul eder.",
             "Festivalin tüm aşamaları halka açıktır ve ücretsiz olarak izlenebilir.",
             "Katılımcıların ulaşım, konaklama ve yemek masrafları kendilerine aittir.",
             "Katılımcılar, kendilerine bildirilen program saatinden en az 30 dakika önce konser salonunda hazır bulunmalıdır.",
@@ -246,7 +280,7 @@ export const forteFestivalContent = {
             "Each participant may perform up to 2 works.",
             "Performance time is max 3 minutes in categories F and G, and max 5 minutes in H, I, and J. Durations are total performance time.",
             "Performances must be from memory; repeats indicated in the works will not be played.",
-            "Applications are collected through the online form and are free. The participant or guardian confirms the accuracy of the information.",
+            "Applications are collected through the online form. The participation fee and payment details are in the relevant section of the festival page. The participant or guardian confirms the accuracy of the information.",
             "All stages of the festival are open to the public and free to attend.",
             "Transport, accommodation, and meal expenses belong to the participants.",
             "Participants must be ready in the concert hall at least 30 minutes before their scheduled program time.",
@@ -329,6 +363,58 @@ export const forteFestivalContent = {
       { id: "education", role: { tr: "Müzik Eğitimi", en: "Music Education" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
     ],
   },
+  teachers: {
+    eyebrow: { tr: "Öğretmenler", en: "Teachers" },
+    title: { tr: "Emeği geçen öğretmenler", en: "Teachers who made it possible" },
+    body: {
+      tr: "Festivalde öğrencilerini hazırlayan öğretmenlerimize teşekkür ederiz. Kendilerine teşekkür belgeleri takdim edilecektir.",
+      en: "We thank the teachers who prepared their students for the festival. They will receive certificates of appreciation.",
+    },
+    note: {
+      tr: "Öğretmen listesi ve teşekkür belgesi programı yakında paylaşılacak.",
+      en: "The teacher list and certificate program will be shared soon.",
+    },
+    emptyText: {
+      tr: "Öğretmen listesi henüz yayınlanmadı.",
+      en: "The teacher list has not been published yet.",
+    },
+    items: [
+      {
+        id: "teacher-1",
+        name: { tr: "", en: "" },
+        role: { tr: "", en: "" },
+      },
+    ],
+  },
+  payment: {
+    eyebrow: { tr: "Katılım Ücreti", en: "Participation Fee" },
+    title: { tr: "Katılım ücreti ve ödeme", en: "Participation fee and payment" },
+    body: {
+      tr: "Katılım ücreti ve banka bilgileri aşağıda yer alır. Ödeme yaparken açıklama kısmına çocuğun adı ve soyadını yazmayı unutmayın.",
+      en: "The participation fee and bank details are below. When paying, remember to write the child's full name in the description.",
+    },
+    feeLabel: { tr: "Katılım ücreti", en: "Participation fee" },
+    feeValue: { tr: "Duyurulacak", en: "To be announced" },
+    bankLabel: { tr: "Banka", en: "Bank" },
+    bankValue: { tr: "Duyurulacak", en: "To be announced" },
+    accountNameLabel: { tr: "Hesap adı", en: "Account name" },
+    accountNameValue: { tr: "Duyurulacak", en: "To be announced" },
+    ibanLabel: { tr: "IBAN", en: "IBAN" },
+    ibanValue: { tr: "TR__ ____ ____ ____ ____ ____ __", en: "TR__ ____ ____ ____ ____ ____ __" },
+    receiptLabel: { tr: "Dekont gönderimi", en: "Receipt submission" },
+    receiptValue: {
+      tr: "Dekontunuzu başvuru sonrası festival ekibine iletin.",
+      en: "Send your receipt to the festival team after applying.",
+    },
+    reminder: {
+      tr: "Ödeme yaparken açıklama kısmına çocuğun adı ve soyadını yazmayı unutmayın.",
+      en: "Remember to write the child's full name in the payment description.",
+    },
+    note: {
+      tr: "Kesin ücret ve banka bilgileri yakında açıklanacak.",
+      en: "Final fee and bank details will be announced soon.",
+    },
+  },
   application: {
     eyebrow: { tr: "Başvuru", en: "Application" },
     title: { tr: "Genç piyanistler için başvuru", en: "Application for young pianists" },
@@ -387,7 +473,10 @@ export const forteFestivalContent = {
       {
         id: "fee",
         question: { tr: "Başvuru ücretli mi?", en: "Is there an application fee?" },
-        answer: { tr: "Hayır, başvuru ücretsizdir.", en: "No, the application is free." },
+        answer: {
+          tr: "Katılım ücreti ve banka bilgileri “Katılım Ücreti ve Ödeme” bölümünde yer alır. Kesin bilgiler yakında açıklanacak.",
+          en: "The participation fee and bank details are in the “Participation Fee and Payment” section. Final details will be announced soon.",
+        },
       },
       {
         id: "who",

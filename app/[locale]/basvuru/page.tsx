@@ -18,8 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     || (isTr ? "Bodrum Forte Müzik Festivali Piyano Başvurusu" : "Bodrum Forte Music Festival Piano Application");
   const description = localizedText(locale, form?.descriptionTr, form?.descriptionEn)
     || (isTr
-      ? "Bodrum Forte Müzik Festivali piyano başvuru formu. Bu form yalnızca piyano öğrencileri içindir."
-      : "Piano application form for the Bodrum Forte Music Festival. This form is for piano students only.");
+      ? "Bodrum Forte Müzik Festivali piyano başvuru formu. Bu form yalnızca piyano öğrencileri içindir. Katılım ücreti ve ödeme bilgileri festival sayfasında yer alır."
+      : "Piano application form for the Bodrum Forte Music Festival. This form is for piano students only. Participation fee and payment details are on the festival page.");
   return {
     title,
     description,

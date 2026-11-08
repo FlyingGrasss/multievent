@@ -8,8 +8,8 @@ export const forteFestivalContent = {
   meta: {
     title: { tr: "Bodrum Forte Müzik Festivali", en: "Bodrum Forte Music Festival" },
     description: {
-      tr: "Bodrum Forte Müzik Festivali: genç piyanistler için yarışma, festival ve sahne. 10 Ocak 2027'de Bodrum'da. Başvurular online form ile alınır.",
-      en: "Bodrum Forte Music Festival: competition, festival, and stage for young pianists. In Bodrum on 10 January 2027. Applications are collected online.",
+      tr: "Bodrum Forte Müzik Festivali: her enstrümandan genç müzisyenler için festival ve sahne. 10 Ocak 2027'de Bodrum'da. Başvurular online form ile alınır.",
+      en: "Bodrum Forte Music Festival: a festival and stage for young musicians of all instruments. In Bodrum on 10 January 2027. Applications are collected online.",
     },
   },
   hero: {
@@ -17,8 +17,8 @@ export const forteFestivalContent = {
     titleLines: { tr: ["BODRUM", "FORTE", "MÜZİK", "FESTİVALİ"], en: ["BODRUM", "FORTE", "MUSIC", "FESTIVAL"] },
     year: "2027",
     subtitle: {
-      tr: "Bodrum'da genç piyanistlerin sahne alacağı, yarışma ve festival heyecanını bir araya getiren yıllık piyano buluşması.",
-      en: "The annual piano gathering in Bodrum where young pianists take the stage, bringing competition and festival excitement together.",
+      tr: "Bodrum'da her enstrümandan genç müzisyenin sahne alacağı, festival heyecanını bir araya getiren yıllık müzik buluşması.",
+      en: "The annual music gathering in Bodrum where young musicians of all instruments take the stage.",
     },
     dateLabel: { tr: "Tarih", en: "Date" },
     dateValue: { tr: "10 Ocak 2027", en: "10 January 2027" },
@@ -59,23 +59,23 @@ export const forteFestivalContent = {
     note: { tr: "Kesin tarih yakında açıklanacak.", en: "The exact date will be announced soon." },
   },
   marquee: {
-    tr: ["PİYANO", "GENÇ PİYANİSTLER", "BODRUM 2027", "FORTE", "FESTİVAL", "SAHNE"],
-    en: ["PIANO", "YOUNG PIANISTS", "BODRUM 2027", "FORTE", "FESTIVAL", "STAGE"],
+    tr: ["MÜZİK", "GENÇ MÜZİSYENLER", "BODRUM 2027", "FORTE", "FESTİVAL", "SAHNE"],
+    en: ["MUSIC", "YOUNG MUSICIANS", "BODRUM 2027", "FORTE", "FESTIVAL", "STAGE"],
   },
   about: {
     eyebrow: { tr: "Festival hakkında", en: "About the festival" },
     title: {
-      tr: "Genç piyanistler için yıllık bir sahne",
-      en: "An annual stage for young pianists",
+      tr: "Genç müzisyenler için yıllık bir sahne",
+      en: "An annual stage for young musicians",
     },
     lead: {
-      tr: "Bodrum Forte Müzik Festivali, genç piyanistleri piyano performanslarıyla aynı sahnede buluşturuyor.",
-      en: "Bodrum Forte Music Festival brings young pianists together on one stage through piano performances.",
+      tr: "Bodrum Forte Müzik Festivali, her enstrümandan genç müzisyeni performanslarıyla aynı sahnede buluşturuyor.",
+      en: "Bodrum Forte Music Festival brings young musicians of all instruments together on one stage through their performances.",
     },
     paragraphs: [
       {
-        tr: "Festival; farklı yaş kategorilerinde piyano performanslarını, jüri değerlendirmesini ve ödül törenini tek bir günde bir araya getiriyor.",
-        en: "The festival brings piano performances across age categories, jury evaluation, and an award ceremony together in one day.",
+        tr: "Festival; farklı yaş kategorilerinde performansları, jüri değerlendirmesini ve ödül törenini tek bir günde bir araya getiriyor.",
+        en: "The festival brings performances across age categories, jury evaluation, and an award ceremony together in one day.",
       },
       {
         tr: "Başvurular online form ile alınır. Katılımcılar yaşlarına uygun kategoride, belirlenen eser sayısı ve performans süresiyle başvurur.",
@@ -118,8 +118,8 @@ export const forteFestivalContent = {
         date: { tr: "10 Ocak 2027", en: "10 January 2027" },
         title: { tr: "Kategori Performansları", en: "Category Performances" },
         description: {
-          tr: "F, G, H, I ve J kategorilerinde piyano performansları.",
-          en: "Piano performances in categories F, G, H, I, and J.",
+          tr: "F, G ve H kategorilerinde performanslar.",
+          en: "Performances in categories F, G, and H.",
         },
         location: { tr: "Bodrum", en: "Bodrum" },
       },
@@ -175,7 +175,7 @@ export const forteFestivalContent = {
       {
         id: "f",
         letter: "F",
-        age: { tr: "6–8 yaş", en: "Ages 6–8" },
+        age: { tr: "5–9 yaş", en: "Ages 5–9" },
         works: { tr: "1 veya 2 eser", en: "1 or 2 works" },
         duration: { tr: "Azami 3 dakika", en: "Max 3 minutes" },
         description: { tr: "İlk sahne deneyimi.", en: "First stage experience." },
@@ -183,34 +183,18 @@ export const forteFestivalContent = {
       {
         id: "g",
         letter: "G",
-        age: { tr: "9–12 yaş", en: "Ages 9–12" },
+        age: { tr: "10–13 yaş", en: "Ages 10–13" },
         works: { tr: "1 veya 2 eser", en: "1 or 2 works" },
-        duration: { tr: "Azami 3 dakika", en: "Max 3 minutes" },
-        description: { tr: "Genç piyanistler.", en: "Young pianists." },
+        duration: { tr: "Azami 4 dakika", en: "Max 4 minutes" },
+        description: { tr: "Genç müzisyenler.", en: "Young musicians." },
       },
       {
         id: "h",
         letter: "H",
-        age: { tr: "13–16 yaş", en: "Ages 13–16" },
+        age: { tr: "14 yaş ve üzeri", en: "Ages 14 and over" },
         works: { tr: "1 veya 2 eser", en: "1 or 2 works" },
         duration: { tr: "Azami 5 dakika", en: "Max 5 minutes" },
         description: { tr: "Gelişim kategorisi.", en: "Development category." },
-      },
-      {
-        id: "i",
-        letter: "I",
-        age: { tr: "17–21 yaş", en: "Ages 17–21" },
-        works: { tr: "1 veya 2 eser", en: "1 or 2 works" },
-        duration: { tr: "Azami 5 dakika", en: "Max 5 minutes" },
-        description: { tr: "Genç sanatçılar.", en: "Young artists." },
-      },
-      {
-        id: "j",
-        letter: "J",
-        age: { tr: "22–26 yaş", en: "Ages 22–26" },
-        works: { tr: "1 veya 2 eser", en: "1 or 2 works" },
-        duration: { tr: "Azami 5 dakika", en: "Max 5 minutes" },
-        description: { tr: "İleri seviye.", en: "Advanced level." },
       },
     ],
   },
@@ -238,7 +222,7 @@ export const forteFestivalContent = {
             "Katılımcıların ulaşım, konaklama ve yeme-içme giderleri kendilerine aittir.",
             "Organizasyon, katılımcıların performanslarının sesli ve görüntülü kaydını almak, yayınlamak ve arşivlemek hakkına sahiptir.",
             "Organizasyon, öngörülemeyen durumlar sebebiyle şartnamede değişiklik yapma veya yarışmayı iptal etme hakkını saklı tutar.",
-            "Yaş hesaplamaları etkinlik tarihi baz alınarak yapılır. Yarışma amatör ve profesyonel tüm piyano öğrencilerine açıktır.",
+            "Yaş hesaplamaları etkinlik tarihi baz alınarak yapılır. Yarışma amatör ve profesyonel tüm müzik öğrencilerine açıktır.",
           ],
           en: [
             "Competition categories are F (ages 6–8), G (9–12), H (13–16), I (17–21), and J (22–26).",
@@ -252,7 +236,7 @@ export const forteFestivalContent = {
             "Transport, accommodation, and meal expenses belong to the participants.",
             "The organization has the right to record, publish, and archive audio and video of participants' performances.",
             "The organization reserves the right to change the regulations or cancel the competition due to unforeseen circumstances.",
-            "Ages are calculated as of the event date. The competition is open to amateur and professional piano students.",
+            "Ages are calculated as of the event date. The competition is open to amateur and professional music students.",
           ],
         },
       },
@@ -358,8 +342,8 @@ export const forteFestivalContent = {
     },
     members: [
       { id: "chair", role: { tr: "Jüri Başkanı", en: "Jury Chair" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
-      { id: "piano", role: { tr: "Piyano", en: "Piano" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
-      { id: "pedagogy", role: { tr: "Piyano Pedagojisi", en: "Piano Pedagogy" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
+      { id: "piano", role: { tr: "Enstrüman", en: "Instrument" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
+      { id: "pedagogy", role: { tr: "Müzik Pedagojisi", en: "Music Pedagogy" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
       { id: "education", role: { tr: "Müzik Eğitimi", en: "Music Education" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
     ],
   },
@@ -394,7 +378,7 @@ export const forteFestivalContent = {
       en: "The participation fee and bank details are below. When paying, remember to write the child's full name in the description.",
     },
     feeLabel: { tr: "Katılım ücreti", en: "Participation fee" },
-    feeValue: { tr: "Duyurulacak", en: "To be announced" },
+    feeValue: { tr: "3.000 TL", en: "TRY 3,000" },
     bankLabel: { tr: "Banka", en: "Bank" },
     bankValue: { tr: "Duyurulacak", en: "To be announced" },
     accountNameLabel: { tr: "Hesap adı", en: "Account name" },
@@ -411,16 +395,16 @@ export const forteFestivalContent = {
       en: "Remember to write the child's full name in the payment description.",
     },
     note: {
-      tr: "Kesin ücret ve banka bilgileri yakında açıklanacak.",
-      en: "Final fee and bank details will be announced soon.",
+      tr: "Banka ve ödeme bilgileri yakında açıklanacak.",
+      en: "Bank and payment details will be announced soon.",
     },
   },
   application: {
     eyebrow: { tr: "Başvuru", en: "Application" },
-    title: { tr: "Genç piyanistler için başvuru", en: "Application for young pianists" },
+    title: { tr: "Genç müzisyenler için başvuru", en: "Application for young musicians" },
     body: {
-      tr: "Başvurular online form ile alınır. Formda yaş, iletişim ve piyano performansı bilgilerinizi paylaşın; festival ekibi başvurunuzu değerlendirsin.",
-      en: "Applications are collected through the online form. Share your age, contact, and piano performance details, and let the festival team review your application.",
+      tr: "Başvurular online form ile alınır. Formda yaş, iletişim ve performans bilgilerinizi paylaşın; festival ekibi başvurunuzu değerlendirsin.",
+      en: "Applications are collected through the online form. Share your age, contact, and performance details, and let the festival team review your application.",
     },
     image: "/forte/application-sheet.jpg",
     imageAlt: { tr: "Nota kitabı", en: "Sheet music" },
@@ -429,8 +413,8 @@ export const forteFestivalContent = {
         id: "form",
         title: { tr: "Formu doldur", en: "Fill in the form" },
         description: {
-          tr: "Yaş, iletişim ve piyano performansı bilgilerini paylaş.",
-          en: "Share your age, contact, and piano performance details.",
+          tr: "Yaş, iletişim ve performans bilgilerini paylaş.",
+          en: "Share your age, contact, and performance details.",
         },
       },
       {
@@ -453,8 +437,8 @@ export const forteFestivalContent = {
         id: "stage",
         title: { tr: "Sahneye hazırlan", en: "Get ready for the stage" },
         description: {
-          tr: "Uygun bulunan piyanistler programa davet edilir.",
-          en: "Selected pianists are invited to the program.",
+          tr: "Uygun bulunan genç yetenekler programa davet edilir.",
+          en: "Selected young talents are invited to the program.",
         },
       },
     ],
@@ -474,40 +458,40 @@ export const forteFestivalContent = {
         id: "fee",
         question: { tr: "Başvuru ücretli mi?", en: "Is there an application fee?" },
         answer: {
-          tr: "Katılım ücreti ve banka bilgileri “Katılım Ücreti ve Ödeme” bölümünde yer alır. Kesin bilgiler yakında açıklanacak.",
-          en: "The participation fee and bank details are in the “Participation Fee and Payment” section. Final details will be announced soon.",
+          tr: "Evet, katılım ücreti 3.000 TL'dir. Banka ve ödeme bilgileri yakında açıklanacak.",
+          en: "Yes, the participation fee is TRY 3,000. Bank and payment details will be announced soon.",
         },
       },
       {
         id: "who",
         question: { tr: "Kimler başvurabilir?", en: "Who can apply?" },
         answer: {
-          tr: "Piyano çalan gençler ve müzik öğrencileri başvurabilir.",
-          en: "Young pianists and music students can apply.",
+          tr: "Her enstrümandan genç müzisyenler ve müzik öğrencileri başvurabilir.",
+          en: "Young musicians of all instruments and music students can apply.",
         },
       },
       {
         id: "instruments",
-        question: { tr: "Piyano dışında enstrüman kabul ediliyor mu?", en: "Are instruments other than piano accepted?" },
+        question: { tr: "Hangi enstrümanlar kabul ediliyor?", en: "Which instruments are accepted?" },
         answer: {
-          tr: "Hayır, festival yalnızca piyano içindir. Başvurular piyano performansları için alınır.",
-          en: "No, the festival is piano-only. Applications are accepted for piano performances.",
+          tr: "Her enstrüman kabul edilmektedir. Piyano dışındaki enstrümanlar için müzisyenin kendi enstrümanını yanında getirmesi gerekir.",
+          en: "All instruments are accepted. For instruments other than piano, musicians must bring their own instrument.",
         },
       },
       {
         id: "categories",
         question: { tr: "Kategoriler nasıl belirlenir?", en: "How are categories determined?" },
         answer: {
-          tr: "Yaş gruplarına göre: F 6–8, G 9–12, H 13–16, I 17–21, J 22–26 yaş.",
-          en: "By age group: F 6–8, G 9–12, H 13–16, I 17–21, J 22–26.",
+          tr: "Yaş gruplarına göre: F 5–9, G 10–13, H 14 yaş ve üzeri.",
+          en: "By age group: F 5–9, G 10–13, H 14 and over.",
         },
       },
       {
         id: "duration",
         question: { tr: "Performans süresi ne kadar?", en: "How long is the performance?" },
         answer: {
-          tr: "F ve G kategorileri en fazla 3 dakika; H, I ve J kategorileri en fazla 5 dakika. Süreler toplam performans süresidir.",
-          en: "Categories F and G are max 3 minutes; H, I, and J are max 5 minutes. Durations are total performance time.",
+          tr: "F kategorisi en fazla 3 dakika; G kategorisi en fazla 4 dakika; H kategorisi en fazla 5 dakika. Süreler toplam performans süresidir.",
+          en: "Category F is max 3 minutes; G is max 4 minutes; H is max 5 minutes. Durations are total performance time.",
         },
       },
       {

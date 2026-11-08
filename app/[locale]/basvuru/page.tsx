@@ -15,11 +15,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const isTr = locale === "tr";
   const form = await getPublicApplicationForm();
   const title = localizedText(locale, form?.titleTr, form?.titleEn)
-    || (isTr ? "Bodrum Forte Müzik Festivali Piyano Başvurusu" : "Bodrum Forte Music Festival Piano Application");
+    || (isTr ? "Bodrum Forte Müzik Festivali Başvurusu" : "Bodrum Forte Music Festival Application");
   const description = localizedText(locale, form?.descriptionTr, form?.descriptionEn)
     || (isTr
-      ? "Bodrum Forte Müzik Festivali piyano başvuru formu. Bu form yalnızca piyano öğrencileri içindir. Katılım ücreti ve ödeme bilgileri festival sayfasında yer alır."
-      : "Piano application form for the Bodrum Forte Music Festival. This form is for piano students only. Participation fee and payment details are on the festival page.");
+      ? "Bodrum Forte Müzik Festivali başvuru formu. Festival her enstrümana açıktır. Katılım ücreti ve ödeme bilgileri festival sayfasında yer alır."
+      : "Application form for the Bodrum Forte Music Festival. The festival is open to all instruments. Participation fee and payment details are on the festival page.");
   return {
     title,
     description,

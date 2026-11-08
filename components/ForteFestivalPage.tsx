@@ -527,7 +527,7 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
             </Reveal>
             <p className="max-w-sm text-sm leading-relaxed text-white/45">{t(content.categories.note)}</p>
           </div>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
             {content.categories.items.map((item, index) => (
               <Reveal key={item.id} delay={index * 60} className="h-full">
                 <TiltCard className="h-full">

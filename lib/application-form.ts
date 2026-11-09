@@ -266,17 +266,6 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       sortOrder: 11,
     },
     {
-      id: "default-notes",
-      type: "longText",
-      labelTr: "Eklemek istedikleriniz",
-      labelEn: "Anything else",
-      helpTr: "",
-      helpEn: "",
-      required: false,
-      options: [],
-      sortOrder: 12,
-    },
-    {
       id: "default-consent",
       type: "consent",
       labelTr: "Başvuru bilgilerimin etkinlik değerlendirmesi için işlenmesini onaylıyorum.",
@@ -285,7 +274,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "Your application will only be used for event evaluation.",
       required: true,
       options: [],
-      sortOrder: 13,
+      sortOrder: 12,
     },
   ],
 };

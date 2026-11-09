@@ -49,6 +49,7 @@ const LONG_TEXT_KEYS = new Set([
   "text",
   "content",
   "href",
+  "bio",
 ]);
 
 function isLongTextKey(key: string) {

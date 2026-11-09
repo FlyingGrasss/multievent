@@ -147,6 +147,7 @@ const LABELS: Record<string, string> = {
   members: "Üyeler",
   role: "Görev",
   name: "İsim",
+  bio: "Biyografi",
   teachers: "Öğretmenler",
   payment: "Katılım ücreti ve ödeme",
   feeLabel: "Ücret etiketi",

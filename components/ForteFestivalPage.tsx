@@ -25,6 +25,10 @@ function hasLocalizedText(value: LocalizedText) {
   return Boolean(value.tr.trim() || value.en.trim());
 }
 
+function splitParagraphs(value: string) {
+  return value.split(/\n{2,}/).map((paragraph) => paragraph.trim()).filter(Boolean);
+}
+
 const HERO_PARTICLES = [
   { left: "9%", top: "24%", size: 3, delay: 0, duration: 9 },
   { left: "18%", top: "68%", size: 2, delay: 1.4, duration: 11 },
@@ -268,6 +272,9 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
   const teachers = content.teachers.items.filter(
     (item) => hasLocalizedText(item.name) || hasLocalizedText(item.role),
   );
+  const aboutParagraphs = content.about.paragraphs.filter(hasLocalizedText);
+  const aboutStats = content.about.stats.filter((stat) => stat.value.trim());
+  const juryMembers = content.jury.members.filter((member) => hasLocalizedText(member.name));
 
   function handleHeroPointer(event: React.PointerEvent<HTMLElement>) {
     if (event.pointerType !== "mouse") return;
@@ -464,22 +471,26 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
               </Reveal>
               <Reveal delay={100}>
                 <p className="mt-8 font-display text-3xl leading-tight text-white sm:text-4xl">{t(content.about.lead)}</p>
-                <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/55 sm:text-base">
-                  {content.about.paragraphs.map((paragraph) => (
-                    <p key={paragraph.tr}>{t(paragraph)}</p>
+                {aboutParagraphs.length > 0 ? (
+                  <div className="mt-6 space-y-4 text-sm leading-relaxed text-white/55 sm:text-base">
+                    {aboutParagraphs.map((paragraph) => (
+                      <p key={paragraph.tr}>{t(paragraph)}</p>
+                    ))}
+                  </div>
+                ) : null}
+              </Reveal>
+              {aboutStats.length > 0 ? (
+                <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                  {aboutStats.map((stat, index) => (
+                    <Reveal key={stat.id} delay={index * 80}>
+                      <div className="border-t border-accent/25 pt-3">
+                        <p className="font-display text-3xl font-semibold leading-none text-accent sm:text-4xl">{stat.value}</p>
+                        <p className="mt-2 text-xs leading-relaxed text-white/45">{t(stat.label)}</p>
+                      </div>
+                    </Reveal>
                   ))}
                 </div>
-              </Reveal>
-              <div className="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                {content.about.stats.map((stat, index) => (
-                  <Reveal key={stat.id} delay={index * 80}>
-                    <div className="border-t border-accent/25 pt-3">
-                      <p className="font-display text-3xl font-semibold leading-none text-accent sm:text-4xl">{stat.value}</p>
-                      <p className="mt-2 text-xs leading-relaxed text-white/45">{t(stat.label)}</p>
-                    </div>
-                  </Reveal>
-                ))}
-              </div>
+              ) : null}
             </div>
             <Reveal variant="clip" delay={150} className="relative">
               <div className="relative mx-auto aspect-[4/5] w-full max-w-sm overflow-hidden rounded-[2rem] border border-white/10 bg-[#120B08] lg:max-w-none">
@@ -660,17 +671,54 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
           <Reveal>
             <SectionHeading eyebrow={t(content.jury.eyebrow)} title={t(content.jury.title)} note={t(content.jury.note)} />
           </Reveal>
-          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {content.jury.members.map((member, index) => (
-              <Reveal key={member.id} delay={index * 70}>
-                <div className="rounded-2xl border border-white/10 bg-[#0B0806] p-6 text-center transition-colors hover:border-accent/40">
-                  <p className="font-display text-3xl font-semibold text-accent/60">{String(index + 1).padStart(2, "0")}</p>
-                  <h3 className="mt-3 font-semibold text-white">{t(member.role)}</h3>
-                  <p className="mt-1 text-sm text-white/40">{t(member.name)}</p>
-                </div>
-              </Reveal>
-            ))}
-          </div>
+          {juryMembers.length > 0 ? (
+            <div className="mt-12 space-y-6">
+              {juryMembers.map((member, index) => {
+                const imageSrc = typeof member.image === "string" ? member.image : "";
+                return (
+                <Reveal key={member.id} delay={index * 80}>
+                  <article className="grid overflow-hidden rounded-3xl border border-white/10 bg-[#0B0806] sm:grid-cols-[0.72fr_1.28fr]">
+                    <div className="relative aspect-[4/3] w-full overflow-hidden sm:aspect-auto sm:min-h-[22rem]">
+                      {imageSrc ? (
+                        <Image
+                          src={imageSrc}
+                          alt={t(member.name)}
+                          fill
+                          sizes="(max-width: 640px) 100vw, 32vw"
+                          className="object-cover object-[center_28%]"
+                          style={{ filter: "brightness(0.86) saturate(0.9)" }}
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center bg-[#120B08] font-display text-7xl font-semibold text-accent/30">
+                          {t(member.name).slice(0, 1)}
+                        </div>
+                      )}
+                      <div aria-hidden="true" className="absolute inset-0 bg-linear-to-t from-[#0B0806]/80 via-transparent to-transparent sm:bg-linear-to-r" />
+                    </div>
+                    <div className="flex flex-col p-6 sm:p-8">
+                      <p className="text-[10px] font-semibold uppercase tracking-[0.28em] text-accent/70">{String(index + 1).padStart(2, "0")}</p>
+                      <h3 className="mt-2 font-display text-3xl font-semibold text-white sm:text-4xl">{t(member.name)}</h3>
+                      <p className="mt-2 text-[11px] font-semibold uppercase leading-relaxed tracking-[0.16em] text-accent/80">{t(member.role)}</p>
+                      {hasLocalizedText(member.bio) ? (
+                        <div className="mt-5 space-y-3 text-sm leading-relaxed text-white/55">
+                          {splitParagraphs(t(member.bio)).map((paragraph, paragraphIndex) => (
+                            <p key={paragraphIndex}>{paragraph}</p>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
+                  </article>
+                </Reveal>
+                );
+              })}
+            </div>
+          ) : (
+            <Reveal delay={80}>
+              <div className="mt-12 rounded-2xl border border-dashed border-white/15 bg-[#0B0806] p-8">
+                <p className="font-display text-2xl text-white/70">{t(content.jury.note)}</p>
+              </div>
+            </Reveal>
+          )}
         </div>
       </section>
 

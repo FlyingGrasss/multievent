@@ -74,25 +74,14 @@ export const forteFestivalContent = {
     },
     paragraphs: [
       {
-        tr: "Festival; farklı yaş kategorilerinde performansları, jüri değerlendirmesini ve sertifika takdimini tek bir günde bir araya getiriyor.",
-        en: "The festival brings performances across age categories, jury evaluation, and a certificate presentation together in one day.",
-      },
-      {
-        tr: "Başvurular online form ile alınır. Katılımcılar yaşlarına uygun kategoride, belirlenen eser sayısı ve performans süresiyle başvurur.",
-        en: "Applications are collected through the online form. Participants apply in their age category with the specified number of works and performance duration.",
-      },
-      {
-        tr: "Kesin jüri, program ve mekân bilgileri öğretmenlerden gelen bilgiler doğrultusunda yakında paylaşılacaktır.",
-        en: "Final jury, program, and venue details will be shared soon based on information from the teachers.",
+        tr: "",
+        en: "",
       },
     ],
     image: "/forte/about-hands.jpg",
     imageAlt: { tr: "Piyano çalan eller", en: "Hands playing piano" },
     stats: [
-      { id: "date", value: "10 Ocak", label: { tr: "2027, Bodrum", en: "2027, Bodrum" } },
-      { id: "categories", value: "5", label: { tr: "Yaş kategorisi", en: "Age categories" } },
-      { id: "works", value: "1–2", label: { tr: "Eser", en: "Works" } },
-      { id: "duration", value: "3–5 dk", label: { tr: "Performans süresi", en: "Performance time" } },
+      { id: "stat-1", value: "", label: { tr: "", en: "" } },
     ],
   },
   program: {
@@ -150,9 +139,9 @@ export const forteFestivalContent = {
       tr: "Katılımcı ve eser listesi henüz yayınlanmadı.",
       en: "The participant and work list has not been published yet.",
     },
-    nameLabel: { tr: "Öğrenci", en: "Student" },
+    nameLabel: { tr: "Öğrenci / Stüdyo / Okul", en: "Student / Studio / School" },
     categoryLabel: { tr: "Kategori", en: "Category" },
-    songsLabel: { tr: "Seslendireceği eserler", en: "Works" },
+    songsLabel: { tr: "Eserler ve süre", en: "Works and duration" },
     items: [
       {
         id: "participant-1",
@@ -285,16 +274,38 @@ export const forteFestivalContent = {
   },
   jury: {
     eyebrow: { tr: "Jüri", en: "Jury" },
-    title: { tr: "Değerlendirme kurulu", en: "Evaluation board" },
+    title: { tr: "Jüri üyeleri", en: "Jury members" },
     note: {
-      tr: "Jüri üyeleri öğretmenlerden gelen bilgiler doğrultusunda yakında açıklanacak. Bu alandaki isimler placeholder'dır.",
-      en: "Jury members will be announced soon based on information from the teachers. Names in this section are placeholders.",
+      tr: "1. Bodrum Forte Müzik Festivali jüri üyeleri. Diğer jüri üyeleri kesinleştikçe eklenecektir.",
+      en: "Jury members of the 1st Bodrum Forte Music Festival. Additional members will be added as confirmed.",
     },
     members: [
-      { id: "chair", role: { tr: "Jüri Başkanı", en: "Jury Chair" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
-      { id: "piano", role: { tr: "Enstrüman", en: "Instrument" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
-      { id: "pedagogy", role: { tr: "Müzik Pedagojisi", en: "Music Pedagogy" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
-      { id: "education", role: { tr: "Müzik Eğitimi", en: "Music Education" }, name: { tr: "İsim açıklanacak", en: "Name to be announced" } },
+      {
+        id: "kateryna-saat",
+        name: { tr: "Kateryna Saat", en: "Kateryna Saat" },
+        role: {
+          tr: "Jüri Üyesi | Piyanist | Orgcu | Eşlikçi | Müzik Eğitimcisi",
+          en: "Jury Member | Pianist | Organist | Accompanist | Music Educator",
+        },
+        image: "/forte/jury-kateryna-saat.jpg",
+        bio: {
+          tr: "Kateryna Saat, Ukrayna'nın önde gelen müzik eğitim kurumlarından biri olan S. S. Prokofiev Devlet Müzik Akademisi (Konservatuvarı) mezunudur.\n\nPiyanist, org sanatçısı, eşlikçi ve deneyimli bir müzik eğitimcisi olan Kateryna Saat, sanat hayatını konser faaliyetleri, pedagojik çalışmalar ve kültürel projelerle aktif bir şekilde sürdürmektedir.\n\n12 yıllık mesleki ve pedagojik deneyime sahip olan sanatçı, genç müzisyenlerin yetişmesine ve sanatsal gelişimlerine önemli katkılarda bulunmaktadır. Öğrencileri ulusal ve uluslararası yarışmalarda ödüller kazanmakta; konservatuvarlara, müzik üniversitelerine ve uzmanlaşmış müzik liselerine kabul edilmektedir.\n\nSanatsal faaliyetlerinin yanı sıra müzik kültürünün gelişmesine, genç yeteneklerin desteklenmesine ve müzik eğitiminin yaygınlaştırılmasına yönelik çalışmalarda aktif rol almaktadır.\n\nKateryna Saat, sahip olduğu akademik birikim, sahne deneyimi ve pedagojik yaklaşımıyla genç müzisyenlerin sanatsal gelişimine katkı sunmaya devam etmektedir.\n\n1. Bodrum Forte Müzik Festivali Jüri Üyesi",
+          en: "Kateryna Saat is a graduate of the S. S. Prokofiev State Music Academy (Conservatory), one of Ukraine's leading music education institutions.\n\nA pianist, organist, accompanist, and experienced music educator, Kateryna Saat actively continues her artistic career through concert activities, pedagogical work, and cultural projects.\n\nWith 12 years of professional and pedagogical experience, she has made significant contributions to the training and artistic development of young musicians. Her students win awards at national and international competitions and are accepted into conservatories, music universities, and specialized music high schools.\n\nAlongside her artistic activities, she takes an active role in efforts to develop music culture, support young talent, and broaden access to music education.\n\nWith her academic background, stage experience, and pedagogical approach, Kateryna Saat continues to contribute to the artistic development of young musicians.\n\nJury Member, 1st Bodrum Forte Music Festival",
+        },
+      },
+      {
+        id: "darina-tirgil",
+        name: { tr: "Darina Tirgil", en: "Darina Tirgil" },
+        role: {
+          tr: "Jüri Üyesi | Çellist | Piyanist | Sanatçı | Müzik Eğitimcisi",
+          en: "Jury Member | Cellist | Pianist | Artist | Music Educator",
+        },
+        image: "/forte/jury-darina-tirgil.png",
+        bio: {
+          tr: "Darina Tirgil, Rusya'da konservatuvar eğitimi almış, çello ve piyano alanlarında uzmanlaşmış bir sanatçı ve müzik eğitimcisidir.\n\nSanat yaşamını hem sahne performansları hem de pedagojik çalışmalarıyla aktif bir şekilde sürdürmektedir.\n\nEğitimcilik kariyeri boyunca yetiştirdiği öğrenciler ulusal ve uluslararası müzik yarışmalarında ödüller kazanmış, müzik kolejlerine başarılı bir şekilde kabul edilmiştir.\n\nDarina Tirgil, Türkiye'de aktif konser çalışmalarına devam etmekte; solo sanatçı olarak, oda müziği toplulukları ve orkestralar eşliğinde sahne almaktadır.\n\nSanatsal kariyeri boyunca Makao, Norveç, Güney Kore, Tayland, Rusya, Hindistan ve Türkiye'de düzenlenen festivallere katılmış, uluslararası sahnelerde performanslar sergilemiştir.\n\nUluslararası sahne deneyimi, sanatsal birikimi ve pedagojik tecrübesiyle genç müzisyenlerin gelişimine katkıda bulunan Darina Tirgil, müzik dünyasındaki çalışmalarını başarıyla sürdürmektedir.\n\n1. Bodrum Forte Müzik Festivali Jüri Üyesi",
+          en: "Darina Tirgil is an artist and music educator who studied at a conservatory in Russia and specializes in cello and piano.\n\nShe actively continues her artistic life through both stage performances and pedagogical work.\n\nThroughout her teaching career, her students have won awards at national and international music competitions and have been successfully accepted into music colleges.\n\nDarina Tirgil continues her active concert work in Türkiye, performing as a soloist and with chamber music ensembles and orchestras.\n\nThroughout her artistic career, she has participated in festivals in Macau, Norway, South Korea, Thailand, Russia, India, and Türkiye, performing on international stages.\n\nWith her international stage experience, artistic background, and pedagogical expertise, Darina Tirgil contributes to the development of young musicians and continues her work in the music world successfully.\n\nJury Member, 1st Bodrum Forte Music Festival",
+        },
+      },
     ],
   },
   teachers: {

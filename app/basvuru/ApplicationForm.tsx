@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import type { FormEvent, ReactNode, RefObject } from "react";
 import { useLanguage } from "@/components/LanguageProvider";
@@ -34,6 +35,7 @@ type ApiPayload = {
 };
 
 const FIELD_PREFIX = "application-";
+const ALLOWED_PHOTO_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/avif"]);
 const choiceClassName = "mt-0.5 h-4 w-4 shrink-0 accent-[#4EFEBE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#121212]";
 const labelClassName = "mb-2 block text-sm font-medium text-white";
 
@@ -134,6 +136,142 @@ function FieldMessages({
         </p>
       ) : null}
     </>
+  );
+}
+
+function FileField({
+  question,
+  locale,
+  value,
+  error,
+  onChange,
+}: {
+  question: ApplicationQuestion;
+  locale: Locale;
+  value: string;
+  error?: ApplicationFieldError;
+  onChange: (value: AnswerValue) => void;
+}) {
+  const baseId = fieldId(question.id);
+  const label = localizedText(locale, question.labelTr, question.labelEn) || questionTypeLabel(question.type, locale);
+  const help = localizedText(locale, question.helpTr, question.helpEn);
+  const hasError = Boolean(error);
+  const describedBy = [help ? `${baseId}-help` : null, error ? `${baseId}-error` : null].filter(Boolean).join(" ") || undefined;
+  const [isUploading, setIsUploading] = useState(false);
+  const [uploadError, setUploadError] = useState<LocalizedMessage | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  async function handleFile(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setUploadError(null);
+    if (!ALLOWED_PHOTO_TYPES.has(file.type)) {
+      setUploadError(APPLICATION_MESSAGES.photoInvalidType);
+      event.target.value = "";
+      return;
+    }
+    if (file.size > APPLICATION_LIMITS.photoBytes) {
+      setUploadError(APPLICATION_MESSAGES.photoTooLarge);
+      event.target.value = "";
+      return;
+    }
+
+    setIsUploading(true);
+    try {
+      const body = new FormData();
+      body.set("file", file);
+      const response = await fetch("/api/applications/photo", { method: "POST", body });
+      const result = (await response.json().catch(() => null)) as
+        | { url?: string; messageTr?: string; messageEn?: string }
+        | null;
+      if (!response.ok || !result?.url) {
+        setUploadError(
+          result?.messageTr && result?.messageEn
+            ? { tr: result.messageTr, en: result.messageEn }
+            : APPLICATION_MESSAGES.photoUploadError,
+        );
+        return;
+      }
+      onChange(result.url);
+    } catch {
+      setUploadError(APPLICATION_MESSAGES.photoUploadError);
+    } finally {
+      setIsUploading(false);
+      event.target.value = "";
+    }
+  }
+
+  function removePhoto() {
+    onChange("");
+    setUploadError(null);
+    if (inputRef.current) inputRef.current.value = "";
+  }
+
+  return (
+    <div>
+      <p id={`${baseId}-label`} className={labelClassName}>
+        {label}
+        {question.required ? <RequiredMark locale={locale} /> : null}
+      </p>
+
+      {value ? (
+        <div className="flex flex-wrap items-center gap-4 rounded-lg border border-[#2A2A2A] bg-[#0C0C0C] p-4">
+          <Image
+            src={value}
+            alt={label}
+            width={160}
+            height={120}
+            className="h-24 w-32 rounded-lg border border-white/10 object-cover"
+          />
+          <div className="space-y-1">
+            <p className="text-sm font-medium text-white">{pickMessage(APPLICATION_MESSAGES.photoUploaded, locale)}</p>
+            <button
+              type="button"
+              onClick={removePhoto}
+              className="text-sm text-[#AAAAAA] underline-offset-4 transition-colors hover:text-white hover:underline"
+            >
+              {pickMessage(APPLICATION_MESSAGES.photoRemove, locale)}
+            </button>
+          </div>
+        </div>
+      ) : (
+        <div className="rounded-lg border border-dashed border-[#2A2A2A] bg-[#0C0C0C] p-4">
+          <label
+            htmlFor={baseId}
+            className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent/20 focus-within:ring-2 focus-within:ring-accent disabled:cursor-default disabled:opacity-60"
+          >
+            {isUploading
+              ? pickMessage(APPLICATION_MESSAGES.photoUploading, locale)
+              : pickMessage(APPLICATION_MESSAGES.photoUpload, locale)}
+            <input
+              ref={inputRef}
+              id={baseId}
+              type="file"
+              name={question.id}
+              accept="image/jpeg,image/png,image/webp,image/avif"
+              onChange={handleFile}
+              disabled={isUploading}
+              required={question.required}
+              aria-labelledby={`${baseId}-label`}
+              aria-invalid={hasError || undefined}
+              aria-describedby={describedBy}
+              className="sr-only"
+            />
+          </label>
+          <p className="mt-2 text-xs leading-relaxed text-[#AAAAAA]">
+            {locale === "tr" ? "JPEG, PNG, WebP, AVIF • en fazla 8 MB" : "JPEG, PNG, WebP, AVIF • up to 8 MB"}
+          </p>
+        </div>
+      )}
+
+      {uploadError ? (
+        <p role="alert" className="mt-1.5 text-xs font-medium text-red-300 sm:text-sm">
+          {pickMessage(uploadError, locale)}
+        </p>
+      ) : null}
+      <FieldMessages baseId={baseId} help={help} error={error} locale={locale} />
+    </div>
   );
 }
 
@@ -346,6 +484,17 @@ function ApplicationField({
           </label>
           {messages}
         </div>
+      );
+
+    case "file":
+      return (
+        <FileField
+          question={question}
+          locale={locale}
+          value={typeof value === "string" ? value : ""}
+          error={error}
+          onChange={onChange}
+        />
       );
 
     default:

@@ -70,7 +70,8 @@ export type ApplicationQuestionType =
   | "select"
   | "radio"
   | "checkboxes"
-  | "consent";
+  | "consent"
+  | "file";
 
 export type ApplicationQuestionOption = {
   id: string;
@@ -150,6 +151,7 @@ export type ApplicationFieldErrorCode =
   | "INVALID_NUMBER"
   | "INVALID_DATE"
   | "INVALID_URL"
+  | "INVALID_FILE"
   | "INVALID_OPTION"
   | "INVALID_VALUE";
 

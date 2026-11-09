@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import AdminModal from "@/app/admin/AdminModal";
 import {
@@ -315,9 +316,30 @@ export default function ApplicationResponsesPanel({ initialPage, onTotalChange }
                       {answer.questionLabelEn && answer.questionLabelEn !== answer.questionLabelTr && (
                         <p className="mt-0.5 text-sm text-white/45">{answer.questionLabelEn}</p>
                       )}
-                      <dd className="mt-2 whitespace-pre-line text-sm text-white/80">
-                        {answer.displayTr || answer.displayEn || "Yanıt yok"}
-                      </dd>
+                      {answer.questionType === "file" && typeof answer.value === "string" ? (
+                        <dd className="mt-2">
+                          <a
+                            href={answer.value}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                          >
+                            <Image
+                              src={answer.value}
+                              alt={answer.questionLabelTr || "Performans fotoğrafı"}
+                              width={220}
+                              height={160}
+                              unoptimized
+                              className="h-32 w-auto rounded-lg border border-white/10 object-cover"
+                            />
+                            <span className="mt-2 block text-xs text-accent">Fotoğrafı aç ↗</span>
+                          </a>
+                        </dd>
+                      ) : (
+                        <dd className="mt-2 whitespace-pre-line text-sm text-white/80">
+                          {answer.displayTr || answer.displayEn || "Yanıt yok"}
+                        </dd>
+                      )}
                     </div>
                   ))}
                 </dl>

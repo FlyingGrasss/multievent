@@ -20,13 +20,21 @@ function prune(now: number) {
 }
 
 export function consumeApplicationRateLimit(key: string, now = Date.now()) {
+  return consume(key, APPLICATION_LIMITS.rateLimitMax, now);
+}
+
+export function consumeApplicationPhotoRateLimit(key: string, now = Date.now()) {
+  return consume(`photo:${key}`, 8, now);
+}
+
+function consume(key: string, max: number, now: number) {
   prune(now);
   const bucket = buckets.get(key);
   if (!bucket || bucket.resetAt <= now) {
     buckets.set(key, { count: 1, resetAt: now + APPLICATION_LIMITS.rateLimitWindowMs });
     return { allowed: true, retryAfterSeconds: 0 };
   }
-  if (bucket.count >= APPLICATION_LIMITS.rateLimitMax) {
+  if (bucket.count >= max) {
     return { allowed: false, retryAfterSeconds: Math.max(1, Math.ceil((bucket.resetAt - now) / 1000)) };
   }
   bucket.count += 1;

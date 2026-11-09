@@ -210,6 +210,38 @@ export function validateApplicationAnswers(
         displayEn = APPLICATION_MESSAGES.approved.en;
         break;
       }
+      case "file": {
+        if (typeof raw !== "string") {
+          fieldErrors[question.id] = fieldError("INVALID_FILE");
+          continue;
+        }
+        const text = raw.trim();
+        if (text.length === 0) {
+          if (question.required) fieldErrors[question.id] = fieldError("REQUIRED");
+          continue;
+        }
+        if (text.length > APPLICATION_LIMITS.url) {
+          fieldErrors[question.id] = fieldError("TOO_LONG");
+          continue;
+        }
+        try {
+          const parsed = new URL(text);
+          if (
+            parsed.protocol !== "https:" ||
+            !parsed.hostname.endsWith(".public.blob.vercel-storage.com") ||
+            !parsed.pathname.startsWith("/applications/")
+          ) {
+            throw new Error("Invalid photo URL");
+          }
+          value = parsed.toString();
+          displayTr = parsed.toString();
+          displayEn = parsed.toString();
+        } catch {
+          fieldErrors[question.id] = fieldError("INVALID_FILE");
+          continue;
+        }
+        break;
+      }
       default: {
         fieldErrors[question.id] = fieldError("INVALID_VALUE");
         continue;

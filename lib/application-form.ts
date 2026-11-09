@@ -29,6 +29,7 @@ export const APPLICATION_LIMITS = {
   maxPageSize: 100,
   rateLimitWindowMs: 10 * 60 * 1000,
   rateLimitMax: 30,
+  photoBytes: 8 * 1024 * 1024,
 } as const;
 
 export const APPLICATION_QUESTION_TYPES: ApplicationQuestionType[] = [
@@ -43,6 +44,7 @@ export const APPLICATION_QUESTION_TYPES: ApplicationQuestionType[] = [
   "radio",
   "checkboxes",
   "consent",
+  "file",
 ];
 
 type QuestionTypeMeta = {
@@ -64,6 +66,7 @@ export const APPLICATION_QUESTION_TYPE_META: Record<ApplicationQuestionType, Que
   radio: { labelTr: "Tek seçim", labelEn: "Single choice", hasOptions: true, minOptions: 2 },
   checkboxes: { labelTr: "Çoklu seçim", labelEn: "Multiple choice", hasOptions: true, minOptions: 1 },
   consent: { labelTr: "Onay kutusu", labelEn: "Consent checkbox", hasOptions: false, minOptions: 0 },
+  file: { labelTr: "Fotoğraf / dosya", labelEn: "Photo / file", hasOptions: false, minOptions: 0 },
 };
 
 export type LocalizedMessage = { tr: string; en: string };
@@ -102,6 +105,23 @@ export const APPLICATION_MESSAGES = {
   required: { tr: "Zorunlu", en: "Required" },
   newResponse: { tr: "Yeni başvuru", en: "New application" },
   approved: { tr: "Onaylandı", en: "Approved" },
+  photoUpload: { tr: "Fotoğraf yükle", en: "Upload photo" },
+  photoChange: { tr: "Fotoğrafı değiştir", en: "Change photo" },
+  photoUploading: { tr: "Fotoğraf yükleniyor…", en: "Uploading photo…" },
+  photoUploaded: { tr: "Fotoğraf yüklendi", en: "Photo uploaded" },
+  photoRemove: { tr: "Fotoğrafı kaldır", en: "Remove photo" },
+  photoUploadError: {
+    tr: "Fotoğraf yüklenemedi. Lütfen tekrar deneyin.",
+    en: "The photo could not be uploaded. Please try again.",
+  },
+  photoInvalidType: {
+    tr: "JPEG, PNG, WebP veya AVIF formatında bir fotoğraf seçin.",
+    en: "Choose a JPEG, PNG, WebP, or AVIF photo.",
+  },
+  photoTooLarge: {
+    tr: "Fotoğraf 8 MB veya daha küçük olmalı.",
+    en: "The photo must be 8 MB or smaller.",
+  },
   unavailableTitle: { tr: "Başvuru formuna ulaşılamıyor", en: "Application form unavailable" },
   formUnavailable: {
     tr: "Başvuru formuna şu anda ulaşılamıyor. Lütfen daha sonra tekrar deneyin.",
@@ -119,6 +139,7 @@ const FIELD_MESSAGES: Record<ApplicationFieldErrorCode, LocalizedMessage> = {
   INVALID_NUMBER: { tr: "Geçerli bir sayı girin.", en: "Enter a valid number." },
   INVALID_DATE: { tr: "Geçerli bir tarih seçin.", en: "Choose a valid date." },
   INVALID_URL: { tr: "Geçerli bir bağlantı girin.", en: "Enter a valid URL." },
+  INVALID_FILE: { tr: "Geçerli bir fotoğraf yükleyin.", en: "Upload a valid photo." },
   INVALID_OPTION: { tr: "Listeden geçerli bir seçenek seçin.", en: "Choose a valid option from the list." },
   INVALID_VALUE: { tr: "Bu alan için geçerli bir değer girin.", en: "Enter a valid value for this field." },
 };
@@ -222,6 +243,17 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       sortOrder: 7,
     },
     {
+      id: "default-performance-photo",
+      type: "file",
+      labelTr: "Performans fotoğrafı",
+      labelEn: "Performance photo",
+      helpTr: "Enstrümanınızla çekilmiş bir fotoğraf yükleyin.",
+      helpEn: "Upload a photo of yourself with your instrument.",
+      required: true,
+      options: [],
+      sortOrder: 8,
+    },
+    {
       id: "default-email",
       type: "email",
       labelTr: "E-posta",
@@ -230,7 +262,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "",
       required: true,
       options: [],
-      sortOrder: 8,
+      sortOrder: 9,
     },
     {
       id: "default-phone",
@@ -241,7 +273,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "Enter a phone number where we can reach you.",
       required: true,
       options: [],
-      sortOrder: 9,
+      sortOrder: 10,
     },
     {
       id: "default-demo-url",
@@ -252,7 +284,7 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "You can add a YouTube, Instagram, or similar link.",
       required: false,
       options: [],
-      sortOrder: 10,
+      sortOrder: 11,
     },
     {
       id: "default-bio",
@@ -263,18 +295,18 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       helpEn: "Share a short biography and your music experience.",
       required: false,
       options: [],
-      sortOrder: 11,
+      sortOrder: 12,
     },
     {
       id: "default-consent",
       type: "consent",
-      labelTr: "Başvuru bilgilerimin etkinlik değerlendirmesi için işlenmesini onaylıyorum.",
-      labelEn: "I consent to my application data being processed for event evaluation.",
+      labelTr: "Başvuru bilgilerimin ve yüklediğim performans fotoğrafının etkinlik değerlendirmesi için işlenmesini onaylıyorum.",
+      labelEn: "I consent to my application data and uploaded performance photo being processed for event evaluation.",
       helpTr: "Başvurunuz yalnızca etkinlik değerlendirmesi için kullanılır.",
       helpEn: "Your application will only be used for event evaluation.",
       required: true,
       options: [],
-      sortOrder: 12,
+      sortOrder: 13,
     },
   ],
 };

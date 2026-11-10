@@ -49,5 +49,7 @@ export default async function LocaleBodrumForteFestivalRoute({ params }: Props) 
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const [form, content] = await Promise.all([getPublicApplicationForm(), getForteFestivalContent()]);
-  return <ForteFestivalPage applicationOpen={form?.isOpen ?? null} content={content} />;
+  const { participants: _participants, ...publicContent } = content;
+  void _participants;
+  return <ForteFestivalPage applicationOpen={form?.isOpen ?? null} content={publicContent} />;
 }

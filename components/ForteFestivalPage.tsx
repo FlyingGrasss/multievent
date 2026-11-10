@@ -14,9 +14,11 @@ import {
   type LocalizedText,
 } from "@/lib/forte-festival";
 
+type PublicForteFestivalContent = Omit<ForteFestivalContent, "participants">;
+
 type Props = {
   applicationOpen: boolean | null;
-  content: ForteFestivalContent;
+  content: PublicForteFestivalContent;
 };
 
 type StatusTone = "open" | "closed" | "unknown";

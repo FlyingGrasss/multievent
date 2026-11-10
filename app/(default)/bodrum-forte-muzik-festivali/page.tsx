@@ -49,5 +49,7 @@ export async function generateMetadata(): Promise<Metadata> {
 
 export default async function BodrumForteFestivalRoute() {
   const [form, content] = await Promise.all([getPublicApplicationForm(), getForteFestivalContent()]);
-  return <ForteFestivalPage applicationOpen={form?.isOpen ?? null} content={content} />;
+  const { participants: _participants, ...publicContent } = content;
+  void _participants;
+  return <ForteFestivalPage applicationOpen={form?.isOpen ?? null} content={publicContent} />;
 }

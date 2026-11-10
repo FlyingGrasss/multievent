@@ -666,6 +666,29 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
         </div>
       </section>
 
+      <section className="border-b border-white/10 py-20 sm:py-28">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <Reveal>
+              <SectionHeading eyebrow={t(content.gala.eyebrow)} title={t(content.gala.title)} />
+              <p className="mt-5 max-w-xl text-sm leading-relaxed text-white/55 sm:text-base">{t(content.gala.body)}</p>
+              <p className="mt-3 text-xs leading-relaxed text-white/35">{t(content.gala.note)}</p>
+            </Reveal>
+            <div className="grid gap-3 sm:grid-cols-3">
+              {content.gala.items.map((item, index) => (
+                <Reveal key={item.id} delay={index * 70} className="h-full">
+                  <div className="h-full rounded-2xl border border-accent/20 bg-[#120B08] p-5">
+                    <p className="font-display text-4xl font-semibold leading-none text-accent">{item.value}</p>
+                    <h3 className="mt-3 text-sm font-semibold text-white">{t(item.title)}</h3>
+                    <p className="mt-2 text-xs leading-relaxed text-white/50">{t(item.description)}</p>
+                  </div>
+                </Reveal>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="border-b border-white/10 bg-[#120B08] py-20 sm:py-28">
         <div className="mx-auto max-w-6xl px-4">
           <Reveal>

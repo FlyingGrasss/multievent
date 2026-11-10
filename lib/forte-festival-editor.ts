@@ -143,6 +143,7 @@ const LABELS: Record<string, string> = {
   groups: "Gruplar",
   awards: "Sertifikalar",
   place: "Kategori",
+  gala: "Gala Konseri",
   jury: "Jüri",
   members: "Üyeler",
   role: "Görev",

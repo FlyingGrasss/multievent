@@ -149,9 +149,9 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
   titleTr: "Bodrum Forte Müzik Festivali Başvurusu",
   titleEn: "Bodrum Forte Music Festival Application",
   descriptionTr:
-    "Bodrum Forte Müzik Festivali başvuru formu. Festival her enstrümana açıktır. Katılım ücreti ve ödeme bilgileri festival sayfasında yer alır.",
+    "Bodrum Forte Müzik Festivali başvuru formu. Festival her enstrümana açıktır. Başvurular 20 Aralık 2026'da kapanıyor. Katılım ücreti ve ödeme bilgileri festival sayfasında yer alır.",
   descriptionEn:
-    "Application form for the Bodrum Forte Music Festival. The festival is open to all instruments. Participation fee and payment details are on the festival page.",
+    "Application form for the Bodrum Forte Music Festival. The festival is open to all instruments. Applications close on 20 December 2026. Participation fee and payment details are on the festival page.",
   isOpen: true,
   questions: [
     {

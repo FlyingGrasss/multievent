@@ -32,8 +32,8 @@ export const forteFestivalContent = {
     statusClosed: { tr: "Başvurular kapalı", en: "Applications closed" },
     statusUnknown: { tr: "Başvuru durumu yakında", en: "Application status coming soon" },
     statusOpenNote: {
-      tr: "Formu doldurarak başvurunuzu gönderebilirsiniz.",
-      en: "Fill in the form to submit your application.",
+      tr: "Formu 20 Aralık 2026'ya kadar doldurabilirsiniz.",
+      en: "You can complete the form until 20 December 2026.",
     },
     statusClosedNote: {
       tr: "Yeni başvuru dönemi açıldığında tekrar kontrol edin.",
@@ -55,8 +55,8 @@ export const forteFestivalContent = {
   },
   deadline: {
     label: { tr: "Son başvuru", en: "Application deadline" },
-    value: { tr: "Duyurulacak", en: "To be announced" },
-    note: { tr: "Kesin tarih yakında açıklanacak.", en: "The exact date will be announced soon." },
+    value: { tr: "20 Aralık 2026", en: "20 December 2026" },
+    note: { tr: "Başvurular 20 Aralık 2026'da kapanıyor.", en: "Applications close on 20 December 2026." },
   },
   marquee: {
     tr: ["MÜZİK", "GENÇ MÜZİSYENLER", "BODRUM 2027", "FORTE", "FESTİVAL", "SAHNE"],
@@ -268,6 +268,47 @@ export const forteFestivalContent = {
         description: {
           tr: "H kategorisindeki tüm katılımcılara katılım sertifikası verilir.",
           en: "Every participant in category H receives a participation certificate.",
+        },
+      },
+    ],
+  },
+  gala: {
+    eyebrow: { tr: "Gala Konseri", en: "Gala Concert" },
+    title: { tr: "Gala konseri ve ilk 15", en: "Gala concert and the top 15" },
+    body: {
+      tr: "Festivalde en iyi performansı sergileyen ilk 15 katılımcı, gala konserinde sahne alma hakkı kazanır. Bu katılımcılara sponsor tarafından hediye takdim edilecektir.",
+      en: "The top 15 participants with the best performances at the festival earn the right to perform at the gala concert. These participants will receive a gift from the sponsor.",
+    },
+    note: {
+      tr: "Gala konseri festival kapanışında gerçekleştirilecektir.",
+      en: "The gala concert will take place at the festival closing.",
+    },
+    items: [
+      {
+        id: "top-15",
+        value: "15",
+        title: { tr: "İlk 15 katılımcı", en: "Top 15 participants" },
+        description: {
+          tr: "En iyi performansı sergileyen ilk 15 katılımcı.",
+          en: "The top 15 participants with the best performances.",
+        },
+      },
+      {
+        id: "gala-stage",
+        value: "Gala",
+        title: { tr: "Gala sahnesi", en: "Gala stage" },
+        description: {
+          tr: "Gala konserinde sahne alma hakkı.",
+          en: "The right to perform at the gala concert.",
+        },
+      },
+      {
+        id: "sponsor-gift",
+        value: "🎁",
+        title: { tr: "Sponsor hediyesi", en: "Sponsor gift" },
+        description: {
+          tr: "Sponsor tarafından hediye takdimi.",
+          en: "A gift presented by the sponsor.",
         },
       },
     ],
@@ -493,6 +534,22 @@ export const forteFestivalContent = {
         answer: {
           tr: "Başvuru değerlendirmesi sonrasında e-posta veya telefon ile bilgilendirilirsiniz.",
           en: "You will be informed by email or phone after the application review.",
+        },
+      },
+      {
+        id: "deadline",
+        question: { tr: "Başvuru son tarihi ne zaman?", en: "When is the application deadline?" },
+        answer: {
+          tr: "Başvurular 20 Aralık 2026'da kapanıyor.",
+          en: "Applications close on 20 December 2026.",
+        },
+      },
+      {
+        id: "gala",
+        question: { tr: "Gala konseri nedir?", en: "What is the gala concert?" },
+        answer: {
+          tr: "En iyi performansı sergileyen ilk 15 katılımcı gala konserinde sahne alır ve sponsor tarafından hediye ile ödüllendirilir.",
+          en: "The top 15 participants with the best performances perform at the gala concert and receive a gift from the sponsor.",
         },
       },
     ],

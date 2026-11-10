@@ -266,9 +266,6 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
   const applicationHref = forteFestivalApplicationPath(locale);
   const contactHref = forteFestivalContactPath(locale);
   const applicationLabel = applicationOpen === false ? t(content.application.closedLabel) : t(content.application.formLabel);
-  const participants = content.participants.items.filter(
-    (item) => hasLocalizedText(item.name) || hasLocalizedText(item.category) || hasLocalizedText(item.songs),
-  );
   const teachers = content.teachers.items.filter(
     (item) => hasLocalizedText(item.name) || hasLocalizedText(item.role),
   );
@@ -569,53 +566,6 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
               </Reveal>
             ))}
           </div>
-        </div>
-      </section>
-
-      <section id="katilimcilar" className="border-b border-white/10 py-20 sm:py-28">
-        <div className="mx-auto max-w-6xl px-4">
-          <div className="flex flex-wrap items-end justify-between gap-6">
-            <Reveal>
-              <SectionHeading eyebrow={t(content.participants.eyebrow)} title={t(content.participants.title)} />
-            </Reveal>
-            <p className="max-w-sm text-sm leading-relaxed text-white/45">{t(content.participants.body)}</p>
-          </div>
-          {participants.length > 0 ? (
-            <Reveal className="mt-12">
-              <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#120B08]">
-                <table className="w-full min-w-[40rem] border-collapse text-left">
-                  <caption className="sr-only">{t(content.participants.title)}</caption>
-                  <thead>
-                    <tr className="border-b border-white/10 text-[10px] uppercase tracking-[0.22em] text-white/40">
-                      <th scope="col" className="px-5 py-4 font-semibold">{t(content.participants.nameLabel)}</th>
-                      <th scope="col" className="px-5 py-4 font-semibold">{t(content.participants.categoryLabel)}</th>
-                      <th scope="col" className="px-5 py-4 font-semibold">{t(content.participants.songsLabel)}</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {participants.map((participant, index) => (
-                      <tr key={participant.id} className="border-b border-white/5 transition-colors last:border-b-0 hover:bg-white/[0.02]">
-                        <td className="px-5 py-4 text-sm font-medium text-white">
-                          <span aria-hidden="true" className="mr-3 font-display text-lg text-accent/50">{String(index + 1).padStart(2, "0")}</span>
-                          {t(participant.name) || "—"}
-                        </td>
-                        <td className="px-5 py-4 text-sm text-white/60">{t(participant.category) || "—"}</td>
-                        <td className="px-5 py-4 text-sm leading-relaxed text-white/60">{t(participant.songs) || "—"}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-              <p className="mt-4 text-xs leading-relaxed text-white/35">{t(content.participants.note)}</p>
-            </Reveal>
-          ) : (
-            <Reveal delay={80}>
-              <div className="mt-12 rounded-2xl border border-dashed border-white/15 bg-[#120B08] p-8">
-                <p className="font-display text-2xl text-white/70">{t(content.participants.emptyText)}</p>
-                <p className="mt-3 max-w-xl text-sm leading-relaxed text-white/40">{t(content.participants.note)}</p>
-              </div>
-            </Reveal>
-          )}
         </div>
       </section>
 

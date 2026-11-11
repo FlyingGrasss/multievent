@@ -376,29 +376,38 @@ export const forteFestivalContent = {
     eyebrow: { tr: "Katılım Ücreti", en: "Participation Fee" },
     title: { tr: "Katılım ücreti ve ödeme", en: "Participation fee and payment" },
     body: {
-      tr: "Katılım ücreti ve banka bilgileri aşağıda yer alır. Ödeme yaparken açıklama kısmına çocuğun adı ve soyadını yazmayı unutmayın.",
-      en: "The participation fee and bank details are below. When paying, remember to write the child's full name in the description.",
+      tr: "Katılım ücreti 3.000 TL'dir. Ödeme, aşağıdaki şirket hesabına yapılır. Velilere e-arşiv fatura düzenleneceği için ödeme açıklamasına istenen bilgileri eksiksiz yazın.",
+      en: "The participation fee is TRY 3,000. Payment is made to the company account below. An e-invoice will be issued to parents, so enter the requested information in the payment description.",
     },
     feeLabel: { tr: "Katılım ücreti", en: "Participation fee" },
     feeValue: { tr: "3.000 TL", en: "TRY 3,000" },
     bankLabel: { tr: "Banka", en: "Bank" },
-    bankValue: { tr: "Duyurulacak", en: "To be announced" },
+    bankValue: { tr: "Garanti BBVA", en: "Garanti BBVA" },
+    branchLabel: { tr: "Şube", en: "Branch" },
+    branchValue: { tr: "Bodrum", en: "Bodrum" },
     accountNameLabel: { tr: "Hesap adı", en: "Account name" },
-    accountNameValue: { tr: "Duyurulacak", en: "To be announced" },
+    accountNameValue: {
+      tr: "MULTI EVENT ORGANİZASYON TURİZM SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
+      en: "MULTI EVENT ORGANİZASYON TURİZM SANAYİ VE TİCARET LİMİTED ŞİRKETİ",
+    },
     ibanLabel: { tr: "IBAN", en: "IBAN" },
-    ibanValue: { tr: "TR__ ____ ____ ____ ____ ____ __", en: "TR__ ____ ____ ____ ____ ____ __" },
-    receiptLabel: { tr: "Dekont gönderimi", en: "Receipt submission" },
+    ibanValue: {
+      tr: "TR45 0006 2000 3090 0006 2884 28",
+      en: "TR45 0006 2000 3090 0006 2884 28",
+    },
+    receiptLabel: { tr: "Dekont yükleme", en: "Receipt upload" },
+    descriptionLabel: { tr: "Ödeme açıklaması", en: "Payment description" },
     receiptValue: {
-      tr: "Dekontunuzu başvuru sonrası festival ekibine iletin.",
-      en: "Send your receipt to the festival team after applying.",
+      tr: "Dekontunuzu başvuru formundaki “Ödeme dekontu” alanına yükleyin.",
+      en: "Upload your receipt in the “Payment receipt” field of the application form.",
     },
     reminder: {
-      tr: "Ödeme yaparken açıklama kısmına çocuğun adı ve soyadını yazmayı unutmayın.",
-      en: "Remember to write the child's full name in the payment description.",
+      tr: "BODRUM FORTE MÜZİK FESTİVALİ – Müzisyen Ad Soyad – Veli Ad Soyad – Veli T.C. Kimlik No",
+      en: "BODRUM FORTE MÜZİK FESTİVALİ – Müzisyen Ad Soyad – Veli Ad Soyad – Veli T.C. Kimlik No",
     },
     note: {
-      tr: "Banka ve ödeme bilgileri yakında açıklanacak.",
-      en: "Bank and payment details will be announced soon.",
+      tr: "Ödeme dekontunuzu başvuru formuna yüklemeyi unutmayın.",
+      en: "Remember to upload your payment receipt in the application form.",
     },
   },
   application: {
@@ -460,8 +469,8 @@ export const forteFestivalContent = {
         id: "fee",
         question: { tr: "Başvuru ücretli mi?", en: "Is there an application fee?" },
         answer: {
-          tr: "Evet, katılım ücreti 3.000 TL'dir. Banka ve ödeme bilgileri yakında açıklanacak.",
-          en: "Yes, the participation fee is TRY 3,000. Bank and payment details will be announced soon.",
+          tr: "Evet, katılım ücreti 3.000 TL'dir. Banka bilgileri ve ödeme açıklaması “Katılım Ücreti ve Ödeme” bölümünde yer alır.",
+          en: "Yes, the participation fee is TRY 3,000. Bank details and the payment description are in the “Participation Fee and Payment” section.",
         },
       },
       {
@@ -550,6 +559,14 @@ export const forteFestivalContent = {
         answer: {
           tr: "En iyi performansı sergileyen ilk 15 katılımcı gala konserinde sahne alır ve sponsor tarafından hediye ile ödüllendirilir.",
           en: "The top 15 participants with the best performances perform at the gala concert and receive a gift from the sponsor.",
+        },
+      },
+      {
+        id: "receipt",
+        question: { tr: "Ödeme dekontunu nasıl ileteceğim?", en: "How do I submit the payment receipt?" },
+        answer: {
+          tr: "Başvuru formundaki “Ödeme dekontu” alanına dekontunuzun fotoğrafını veya ekran görüntüsünü yükleyin.",
+          en: "Upload a photo or screenshot of your receipt in the “Payment receipt” field of the application form.",
         },
       },
     ],

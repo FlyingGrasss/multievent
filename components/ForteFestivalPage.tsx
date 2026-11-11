@@ -749,8 +749,12 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
                     <dd className="mt-1 text-sm font-medium text-white">{t(content.payment.bankValue)}</dd>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-black/25 p-4">
+                    <dt className="text-[10px] uppercase tracking-[0.18em] text-white/35">{t(content.payment.branchLabel)}</dt>
+                    <dd className="mt-1 text-sm font-medium text-white">{t(content.payment.branchValue)}</dd>
+                  </div>
+                  <div className="rounded-xl border border-white/10 bg-black/25 p-4 sm:col-span-2">
                     <dt className="text-[10px] uppercase tracking-[0.18em] text-white/35">{t(content.payment.accountNameLabel)}</dt>
-                    <dd className="mt-1 text-sm font-medium text-white">{t(content.payment.accountNameValue)}</dd>
+                    <dd className="mt-1 text-sm font-medium leading-relaxed text-white">{t(content.payment.accountNameValue)}</dd>
                   </div>
                   <div className="rounded-xl border border-white/10 bg-black/25 p-4 sm:col-span-2">
                     <dt className="text-[10px] uppercase tracking-[0.18em] text-white/35">{t(content.payment.ibanLabel)}</dt>
@@ -765,10 +769,17 @@ export default function ForteFestivalPage({ applicationOpen, content }: Props) {
             </Reveal>
             <Reveal delay={100} className="h-full">
               <aside className="flex h-full flex-col rounded-2xl border border-accent/30 bg-[#0B0806] p-6 sm:p-8">
-                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-accent">{t(content.payment.receiptLabel)}</p>
-                <p className="mt-4 font-display text-2xl leading-snug text-white">{t(content.payment.reminder)}</p>
+                <p className="text-[10px] font-semibold uppercase tracking-[0.3em] text-accent">{t(content.payment.descriptionLabel)}</p>
+                <p className="mt-4 break-words font-display text-lg leading-relaxed text-white">{t(content.payment.reminder)}</p>
                 <p className="mt-4 text-sm leading-relaxed text-white/50">{t(content.payment.receiptValue)}</p>
                 <div className="mt-auto flex flex-wrap gap-2 pt-6">
+                  <Link
+                    href={applicationHref}
+                    className="inline-flex items-center gap-2 rounded-full bg-accent px-4 py-2 text-sm font-semibold text-[#0B0806] transition-colors hover:bg-accent/90"
+                  >
+                    {applicationLabel}
+                    <span aria-hidden="true">→</span>
+                  </Link>
                   <a
                     href={`tel:${content.contact.phone.replace(/\s/g, "")}`}
                     className="rounded-full border border-white/15 bg-white/[0.04] px-4 py-2 text-sm text-white transition-colors hover:border-accent hover:text-accent"

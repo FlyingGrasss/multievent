@@ -44,6 +44,15 @@ This project uses **pnpm** exclusively. Never use `npm` or `yarn`.
 - Avoid running multiple redundant verification commands when one targeted verification command is enough.
 - Do not use the in-app Browser or browser automation for routine local UI verification. The user will manually test visual/UI behavior unless they explicitly ask for browser-based verification.
 
+## Delivery Reports and Screenshots
+- When the user explicitly asks for screenshots or a visual handoff, browser automation is allowed for that request.
+- Default to 1–4 screenshots covering only the surfaces changed in the current commit; do not capture every section or a full-page shot unless asked.
+- Add desktop/mobile variants only when the change is responsive or the user asks for them.
+- Store screenshots under `screenshots/<package.json version>/` with descriptive page/section names.
+- Keep the screenshots out of Git; `screenshots/` is ignored.
+- When the user asks for a versioned screenshot set, bump `package.json` version and use that version in the directory name.
+- In the final reply, list the actual screenshot paths and what each shows.
+
 ## Git
 - Do not run git commands unless the user explicitly asks for them.
 - The user manages commits, pushes, and deploy-triggering changes through GitHub Desktop.

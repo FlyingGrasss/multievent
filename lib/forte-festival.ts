@@ -565,8 +565,8 @@ export const forteFestivalContent = {
         id: "receipt",
         question: { tr: "Ödeme dekontunu nasıl ileteceğim?", en: "How do I submit the payment receipt?" },
         answer: {
-          tr: "Başvuru formundaki “Ödeme dekontu” alanına dekontunuzun fotoğrafını veya ekran görüntüsünü yükleyin.",
-          en: "Upload a photo or screenshot of your receipt in the “Payment receipt” field of the application form.",
+          tr: "Başvuru formundaki “Ödeme dekontu” alanına dekontunuzu resim veya PDF olarak yükleyin.",
+          en: "Upload your receipt as an image or PDF in the “Payment receipt” field of the application form.",
         },
       },
     ],

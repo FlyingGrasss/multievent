@@ -115,12 +115,33 @@ export const APPLICATION_MESSAGES = {
     en: "The photo could not be uploaded. Please try again.",
   },
   photoInvalidType: {
-    tr: "JPEG, PNG, WebP veya AVIF formatında bir fotoğraf seçin.",
-    en: "Choose a JPEG, PNG, WebP, or AVIF photo.",
+    tr: "Bir fotoğraf seçin.",
+    en: "Choose a photo.",
   },
   photoTooLarge: {
     tr: "Fotoğraf 8 MB veya daha küçük olmalı.",
     en: "The photo must be 8 MB or smaller.",
+  },
+  receiptUpload: { tr: "Dekont yükle", en: "Upload receipt" },
+  receiptChange: { tr: "Dekontu değiştir", en: "Change receipt" },
+  receiptUploading: { tr: "Dekont yükleniyor…", en: "Uploading receipt…" },
+  receiptUploaded: { tr: "Dekont yüklendi", en: "Receipt uploaded" },
+  receiptRemove: { tr: "Dekontu kaldır", en: "Remove receipt" },
+  receiptUploadError: {
+    tr: "Dekont yüklenemedi. Lütfen tekrar deneyin.",
+    en: "The receipt could not be uploaded. Please try again.",
+  },
+  receiptInvalidType: {
+    tr: "Bir resim veya PDF seçin.",
+    en: "Choose an image or PDF.",
+  },
+  fileInvalidType: {
+    tr: "Bir resim veya PDF seçin.",
+    en: "Choose an image or PDF.",
+  },
+  fileTooLarge: {
+    tr: "Dosya 8 MB veya daha küçük olmalı.",
+    en: "The file must be 8 MB or smaller.",
   },
   unavailableTitle: { tr: "Başvuru formuna ulaşılamıyor", en: "Application form unavailable" },
   formUnavailable: {
@@ -302,8 +323,8 @@ export const DEFAULT_APPLICATION_FORM: ApplicationFormDefinition = {
       type: "file",
       labelTr: "Ödeme dekontu",
       labelEn: "Payment receipt",
-      helpTr: "Ödeme yaptıktan sonra dekontunuzun fotoğrafını veya ekran görüntüsünü yükleyin.",
-      helpEn: "Upload a photo or screenshot of your receipt after making the payment.",
+      helpTr: "Ödeme yaptıktan sonra dekontunuzu resim veya PDF olarak yükleyin.",
+      helpEn: "Upload your receipt as an image or PDF after making the payment.",
       required: true,
       options: [],
       sortOrder: 13,

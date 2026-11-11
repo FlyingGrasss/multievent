@@ -11,6 +11,7 @@ const ALLOWED_TYPES: Record<string, string> = {
   "image/png": "png",
   "image/webp": "webp",
   "image/avif": "avif",
+  "application/pdf": "pdf",
 };
 
 function clientKey(request: Request) {
@@ -41,7 +42,7 @@ export async function POST(request: Request) {
 
   const declaredLength = Number(request.headers.get("content-length") || "0");
   if (Number.isFinite(declaredLength) && declaredLength > APPLICATION_LIMITS.photoBytes + 1024 * 1024) {
-    return errorResponse(413, "PAYLOAD_TOO_LARGE", APPLICATION_MESSAGES.photoTooLarge);
+    return errorResponse(413, "PAYLOAD_TOO_LARGE", APPLICATION_MESSAGES.fileTooLarge);
   }
 
   const rate = consumeApplicationPhotoRateLimit(clientKey(request));
@@ -63,10 +64,10 @@ export async function POST(request: Request) {
 
   const extension = ALLOWED_TYPES[file.type];
   if (!extension) {
-    return errorResponse(415, "INVALID_FILE_TYPE", APPLICATION_MESSAGES.photoInvalidType);
+    return errorResponse(415, "INVALID_FILE_TYPE", APPLICATION_MESSAGES.fileInvalidType);
   }
   if (file.size <= 0 || file.size > APPLICATION_LIMITS.photoBytes) {
-    return errorResponse(413, "PAYLOAD_TOO_LARGE", APPLICATION_MESSAGES.photoTooLarge);
+    return errorResponse(413, "PAYLOAD_TOO_LARGE", APPLICATION_MESSAGES.fileTooLarge);
   }
 
   try {

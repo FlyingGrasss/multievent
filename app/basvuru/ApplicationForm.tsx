@@ -36,6 +36,7 @@ type ApiPayload = {
 
 const FIELD_PREFIX = "application-";
 const ALLOWED_PHOTO_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/avif"]);
+const ALLOWED_RECEIPT_TYPES = new Set([...ALLOWED_PHOTO_TYPES, "application/pdf"]);
 const choiceClassName = "mt-0.5 h-4 w-4 shrink-0 accent-[#4EFEBE] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-[#121212]";
 const labelClassName = "mb-2 block text-sm font-medium text-white";
 
@@ -157,6 +158,31 @@ function FileField({
   const help = localizedText(locale, question.helpTr, question.helpEn);
   const hasError = Boolean(error);
   const describedBy = [help ? `${baseId}-help` : null, error ? `${baseId}-error` : null].filter(Boolean).join(" ") || undefined;
+  const acceptsPdf = question.id === "default-payment-receipt";
+  const allowedTypes = acceptsPdf ? ALLOWED_RECEIPT_TYPES : ALLOWED_PHOTO_TYPES;
+  const accept = acceptsPdf
+    ? "image/jpeg,image/png,image/webp,image/avif,application/pdf"
+    : "image/jpeg,image/png,image/webp,image/avif";
+  const isPdf = acceptsPdf && /\.pdf(?:$|\?)/i.test(value);
+  const labels = acceptsPdf
+    ? {
+        upload: APPLICATION_MESSAGES.receiptUpload,
+        uploading: APPLICATION_MESSAGES.receiptUploading,
+        uploaded: APPLICATION_MESSAGES.receiptUploaded,
+        remove: APPLICATION_MESSAGES.receiptRemove,
+        uploadError: APPLICATION_MESSAGES.receiptUploadError,
+        invalidType: APPLICATION_MESSAGES.receiptInvalidType,
+        tooLarge: APPLICATION_MESSAGES.fileTooLarge,
+      }
+    : {
+        upload: APPLICATION_MESSAGES.photoUpload,
+        uploading: APPLICATION_MESSAGES.photoUploading,
+        uploaded: APPLICATION_MESSAGES.photoUploaded,
+        remove: APPLICATION_MESSAGES.photoRemove,
+        uploadError: APPLICATION_MESSAGES.photoUploadError,
+        invalidType: APPLICATION_MESSAGES.photoInvalidType,
+        tooLarge: APPLICATION_MESSAGES.photoTooLarge,
+      };
   const [isUploading, setIsUploading] = useState(false);
   const [uploadError, setUploadError] = useState<LocalizedMessage | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -166,13 +192,13 @@ function FileField({
     if (!file) return;
 
     setUploadError(null);
-    if (!ALLOWED_PHOTO_TYPES.has(file.type)) {
-      setUploadError(APPLICATION_MESSAGES.photoInvalidType);
+    if (!allowedTypes.has(file.type)) {
+      setUploadError(labels.invalidType);
       event.target.value = "";
       return;
     }
     if (file.size > APPLICATION_LIMITS.photoBytes) {
-      setUploadError(APPLICATION_MESSAGES.photoTooLarge);
+      setUploadError(labels.tooLarge);
       event.target.value = "";
       return;
     }
@@ -189,13 +215,13 @@ function FileField({
         setUploadError(
           result?.messageTr && result?.messageEn
             ? { tr: result.messageTr, en: result.messageEn }
-            : APPLICATION_MESSAGES.photoUploadError,
+            : labels.uploadError,
         );
         return;
       }
       onChange(result.url);
     } catch {
-      setUploadError(APPLICATION_MESSAGES.photoUploadError);
+      setUploadError(labels.uploadError);
     } finally {
       setIsUploading(false);
       event.target.value = "";
@@ -217,21 +243,27 @@ function FileField({
 
       {value ? (
         <div className="flex flex-wrap items-center gap-4 rounded-lg border border-[#2A2A2A] bg-[#0C0C0C] p-4">
-          <Image
-            src={value}
-            alt={label}
-            width={160}
-            height={120}
-            className="h-24 w-32 rounded-lg border border-white/10 object-cover"
-          />
+          {isPdf ? (
+            <div className="flex h-24 w-32 items-center justify-center rounded-lg border border-white/10 bg-[#120B08] font-display text-2xl font-semibold text-accent">
+              PDF
+            </div>
+          ) : (
+            <Image
+              src={value}
+              alt={label}
+              width={160}
+              height={120}
+              className="h-24 w-32 rounded-lg border border-white/10 object-cover"
+            />
+          )}
           <div className="space-y-1">
-            <p className="text-sm font-medium text-white">{pickMessage(APPLICATION_MESSAGES.photoUploaded, locale)}</p>
+            <p className="text-sm font-medium text-white">{pickMessage(labels.uploaded, locale)}</p>
             <button
               type="button"
               onClick={removePhoto}
               className="text-sm text-[#AAAAAA] underline-offset-4 transition-colors hover:text-white hover:underline"
             >
-              {pickMessage(APPLICATION_MESSAGES.photoRemove, locale)}
+              {pickMessage(labels.remove, locale)}
             </button>
           </div>
         </div>
@@ -242,14 +274,14 @@ function FileField({
             className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-accent/40 bg-accent/10 px-4 py-2 text-sm font-medium text-accent transition-colors hover:bg-accent/20 focus-within:ring-2 focus-within:ring-accent disabled:cursor-default disabled:opacity-60"
           >
             {isUploading
-              ? pickMessage(APPLICATION_MESSAGES.photoUploading, locale)
-              : pickMessage(APPLICATION_MESSAGES.photoUpload, locale)}
+              ? pickMessage(labels.uploading, locale)
+              : pickMessage(labels.upload, locale)}
             <input
               ref={inputRef}
               id={baseId}
               type="file"
               name={question.id}
-              accept="image/jpeg,image/png,image/webp,image/avif"
+              accept={accept}
               onChange={handleFile}
               disabled={isUploading}
               required={question.required}
@@ -260,7 +292,13 @@ function FileField({
             />
           </label>
           <p className="mt-2 text-xs leading-relaxed text-[#AAAAAA]">
-            {locale === "tr" ? "JPEG, PNG, WebP, AVIF • en fazla 8 MB" : "JPEG, PNG, WebP, AVIF • up to 8 MB"}
+            {acceptsPdf
+              ? locale === "tr"
+                ? "Resim veya PDF • en fazla 8 MB"
+                : "Image or PDF • up to 8 MB"
+              : locale === "tr"
+                ? "Resim • en fazla 8 MB"
+                : "Image • up to 8 MB"}
           </p>
         </div>
       )}

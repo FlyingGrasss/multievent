@@ -26,6 +26,10 @@ const dateFormatter = new Intl.DateTimeFormat("tr-TR", {
   timeZone: "Europe/Istanbul",
 });
 
+function isPdfUrl(url: string) {
+  return /\.pdf(?:$|\?)/i.test(url);
+}
+
 const DETAIL_TITLE_ID = "application-detail-title";
 const DELETE_TITLE_ID = "application-delete-title";
 
@@ -324,15 +328,23 @@ export default function ApplicationResponsesPanel({ initialPage, onTotalChange }
                             rel="noopener noreferrer"
                             className="inline-block rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent"
                           >
-                            <Image
-                              src={answer.value}
-                              alt={answer.questionLabelTr || "Performans fotoğrafı"}
-                              width={220}
-                              height={160}
-                              unoptimized
-                              className="h-32 w-auto rounded-lg border border-white/10 object-cover"
-                            />
-                            <span className="mt-2 block text-xs text-accent">Fotoğrafı aç ↗</span>
+                            {isPdfUrl(answer.value) ? (
+                              <span className="inline-flex items-center gap-2 rounded-lg border border-accent/30 bg-accent/5 px-4 py-3 text-sm font-medium text-accent">
+                                PDF dosyasını aç ↗
+                              </span>
+                            ) : (
+                              <>
+                                <Image
+                                  src={answer.value}
+                                  alt={answer.questionLabelTr || "Performans fotoğrafı"}
+                                  width={220}
+                                  height={160}
+                                  unoptimized
+                                  className="h-32 w-auto rounded-lg border border-white/10 object-cover"
+                                />
+                                <span className="mt-2 block text-xs text-accent">Fotoğrafı aç ↗</span>
+                              </>
+                            )}
                           </a>
                         </dd>
                       ) : (

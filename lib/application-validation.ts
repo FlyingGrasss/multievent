@@ -226,12 +226,18 @@ export function validateApplicationAnswers(
         }
         try {
           const parsed = new URL(text);
+          const pathname = parsed.pathname.toLowerCase();
+          const imageExtensions = [".jpg", ".jpeg", ".png", ".webp", ".avif"];
+          const allowedExtensions = question.id === "default-payment-receipt"
+            ? [...imageExtensions, ".pdf"]
+            : imageExtensions;
           if (
             parsed.protocol !== "https:" ||
             !parsed.hostname.endsWith(".public.blob.vercel-storage.com") ||
-            !parsed.pathname.startsWith("/applications/")
+            !parsed.pathname.startsWith("/applications/") ||
+            !allowedExtensions.some((extension) => pathname.endsWith(extension))
           ) {
-            throw new Error("Invalid photo URL");
+            throw new Error("Invalid uploaded file URL");
           }
           value = parsed.toString();
           displayTr = parsed.toString();
